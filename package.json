@@ -1,0 +1,25 @@
+{
+  "name": "mymoney",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sequelize": "node ./node_modules/.bin/sequelize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidcostadev/mymoney.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidcostadev/mymoney/issues"
+  },
+  "homepage": "https://github.com/davidcostadev/mymoney#readme",
+  "dependencies": {
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.5",
+    "sequelize-cli": "^4.0.0"
+  }
+}
