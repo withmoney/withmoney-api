@@ -1,7 +1,14 @@
 # mymoney
 
+It is a project of money control
 
-# usage
+# instalation
+
+1. npm install
+2. npm run sequelize db:migrate
+3. npm run sequelize db:seed #in development
+
+# usage dockers
 
 docker run \
     --name db-mymoney \
