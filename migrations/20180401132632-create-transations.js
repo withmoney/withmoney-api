@@ -1,30 +1,38 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => (
-    queryInterface.createTable('Accounts', {
+    queryInterface.createTable('Transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      accountId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: null,
       },
-      type: {
-        type: Sequelize.ENUM('wallet', 'investing', 'checking_account'),
-      },
-      initalValue: {
+      value: {
         type: Sequelize.DECIMAL(10, 2),
         defaultValue: 0,
       },
+      type: {
+        type: Sequelize.ENUM('in', 'out'),
+      },
+      isPaid: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      transationDate: {
+        type: Sequelize.DATEONLY,
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
@@ -32,11 +40,11 @@ module.exports = {
       }
     })
     .then(() => (
-      queryInterface.addConstraint('Accounts', ['userId'], {
+      queryInterface.addConstraint('Transactions', ['accountId'], {
         type: 'foreign key',
-        name: 'fk_users_account',
+        name: 'fk_accounts_transation',
         references: { //Required field
-          table: 'Users',
+          table: 'Accounts',
           field: 'id'
         },
         onDelete: 'cascade',
@@ -45,6 +53,6 @@ module.exports = {
     ))
   ),
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Accounts');
+    return queryInterface.dropTable('Transactions');
   }
 };

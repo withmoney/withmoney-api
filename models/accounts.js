@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     type: DataTypes.ENUM('wallet', 'investing', 'checking_account'),
     initalValue: {
-      type: Sequelize.DECIMAL(10, 2),
+      type: DataTypes.DECIMAL(10, 2),
       defaultValue: 0,
     },
   }, {});
