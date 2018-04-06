@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Accounts.associate = function(models) {
-    Accounts.belongsTo(models.User);
+    Accounts.belongsTo(models.Users);
   };
   return Accounts;
 };
