@@ -1,16 +1,23 @@
-const paginationParse = (total, page, limit) => {
-  const pages = Math.ceil(total / limit)
-  const next_page = page < pages ? page + 1 : null
-  const preview_page = page > 1 ? page - 1 : null
+const getTotalPages = (totalItems, perPage) => Math.ceil(totalItems / perPage);
+
+const getNextPageIfExist = (currentPage, totalPages) => (
+  currentPage < totalPages ? currentPage + 1 : null
+);
+const getPreviousPageIfExist = currentPage => (
+  currentPage > 1 ? currentPage - 1 : null
+);
+
+const paginationParse = (totalItems, currentPage, perPage) => {
+  const totalPages = getTotalPages(totalItems, perPage);
 
   return {
-    total_items: total,
-    current_page: page,
-    next_page,
-    preview_page,
-    pages,
-    per_page: limit,
-  }
-}
+    totalItems,
+    currentPage,
+    perPage,
+    totalPages,
+    nextPage: getNextPageIfExist(currentPage, totalPages),
+    previousPage: getPreviousPageIfExist(currentPage),
+  };
+};
 
-export default paginationParse
+export default paginationParse;
