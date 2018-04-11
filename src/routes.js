@@ -8,5 +8,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/v1/users', Users.list);
+router.get('/api/v1/users/:id', Users.get);
 
 export default router;

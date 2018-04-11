@@ -47,7 +47,16 @@ export const list = async ({ query }, res) => {
 };
 
 export const get = async (req, res) => {
-  res.send(true);
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findById(id);
+
+    res.json(user);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
 };
 
 export const update = async (req, res) => {
