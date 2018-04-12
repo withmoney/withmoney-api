@@ -31,8 +31,10 @@ export const list = async ({ query }, res) => {
   }
 
   try {
-    const data = await Users.findAll(select);
+    let data = await Users.findAll(select);
     const { count } = await Users.findAndCountAll({ where });
+
+    data = data.map(a => a.toJSON());
 
     const pagination = paginationParse(count, page, limit);
 
