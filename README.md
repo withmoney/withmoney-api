@@ -2,13 +2,17 @@
 
 It is a project of money control
 
-# instalation
+## instalation
 
 1. npm install
 2. npm run sequelize db:migrate
 3. npm run sequelize db:seed #in development
 
-# usage dockers
+## apis users
+
+..
+
+## usage dockers database
 
 docker run \
     --name db-mymoney \
@@ -18,7 +22,7 @@ docker run \
     -d mysql
 
 docker run \
-    --name admin-mynomey \
+    --name admin-mymoney \
     -d --link db-mymoney:db \
     -p 8000:80 \
     -e PMA_HOST="172.17.0.2" \
