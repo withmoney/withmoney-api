@@ -1,5 +1,5 @@
 import paginationParse from '../utils/pagination';
-import database, { Users } from '../models';
+import database, { Users, Accounts } from '../models';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -48,6 +48,21 @@ export const list = async ({ query }, res) => {
   }
 };
 
+export const create = async (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const data = await Users.create({
+      name,
+    });
+
+    res.json(data);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
+
 export const get = async (req, res) => {
   const { id } = req.params;
 
@@ -62,5 +77,53 @@ export const get = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  res.send(true);
+  const { id } = req.params;
+  const { name } = req.body;
+
+  try {
+    const user = await Users.findById(id);
+
+    const data = await user.update({
+      name,
+    });
+
+    res.json(data);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
+
+export const accounts = async (req, res) => {
+  const { id } = req.params;
+
+  const select = {
+    include: [
+      Accounts,
+    ],
+  };
+
+  try {
+    const user = await Users.findById(id, select);
+
+    res.json(user);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
+
+export const destroy = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await Users.destroy({
+      where: { id },
+    });
+
+    res.status(204).send();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
 };
