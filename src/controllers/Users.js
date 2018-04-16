@@ -1,5 +1,6 @@
 import paginationParse from '../utils/pagination';
 import database, { Users, Accounts } from '../models';
+import { EXCEPTION_NOT_FOUND } from '../errors';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -31,10 +32,8 @@ export const list = async ({ query }, res) => {
   }
 
   try {
-    let data = await Users.findAll(select);
+    const data = await Users.findAll(select);
     const { count } = await Users.findAndCountAll({ where });
-
-    data = data.map(a => a.toJSON());
 
     const pagination = paginationParse(count, page, limit);
 
@@ -69,10 +68,17 @@ export const get = async (req, res) => {
   try {
     const user = await Users.findById(id);
 
+    if (!user) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
     res.json(user);
   } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
+    if (e.message === EXCEPTION_NOT_FOUND) {
+      res.status(404).send(e.message);
+    } else {
+      res.status(500).send(e);
+    }
   }
 };
 
@@ -83,11 +89,13 @@ export const update = async (req, res) => {
   try {
     const user = await Users.findById(id);
 
-    const data = await user.update({
+    await user.update({
       name,
     });
 
-    res.json(data);
+    const userUpdated = await Users.findById(id);
+
+    res.json(userUpdated);
   } catch (e) {
     console.error(e);
     res.status(500).send(e);

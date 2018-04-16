@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
     "build": "babel src --out-dir dist",
+    "pretest": "NODE_ENV=test npm run sequelize db:migrate",
     "test": "jest",
     "jest:update": "jest --updateSnapshot",
     "jest:coverage": "jest --coverage",
