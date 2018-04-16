@@ -105,25 +105,6 @@ export const update = async (req, res) => {
   }
 };
 
-export const accounts = async (req, res) => {
-  const { id } = req.params;
-
-  const select = {
-    include: [
-      Accounts,
-    ],
-  };
-
-  try {
-    const user = await Users.findById(id, select);
-
-    res.json(user);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
-
 export const destroy = async (req, res) => {
   const { id } = req.params;
 
