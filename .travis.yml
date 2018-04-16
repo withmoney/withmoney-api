@@ -1,0 +1,17 @@
+language: node_js
+services:
+  - mysql
+install:
+  - npm install
+node_js:
+  - "8"
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS mymoney_test;'
+before_script:
+  - cp config/database.json.example config/database.json
+  - npm run pretest
+  - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
+  - "chmod +x ./cc-test-reporter"
+  - "./cc-test-reporter before-build"
+after_script:
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
