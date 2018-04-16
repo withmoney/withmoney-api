@@ -1,0 +1,12 @@
+language: node_js
+services:
+  - mysql
+install:
+  - npm install
+node_js:
+  - "8"
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS mymony_test;'
+script:
+  - cp config/database.json.example config/database.json
+  - npm run pretest
