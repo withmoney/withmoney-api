@@ -1,6 +1,13 @@
 language: node_js
 services:
   - mysql
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+dist: trusty
 install:
   - npm install
 node_js:
