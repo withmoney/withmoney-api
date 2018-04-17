@@ -18,16 +18,16 @@ let resMock = {
 
 describe('Users Controller should', () => {
   let user;
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncate();
     user = await userFacture();
 
     await accountsFacture({ userId: user.id });
 
     user = await Users.findById(user.id);
-  });
+  // });
 
-  beforeEach(() => {
+  // beforeEach(() => {
     const status = jest.fn();
 
     reqMock = {
@@ -42,6 +42,10 @@ describe('Users Controller should', () => {
     };
 
     status.mockReturnValue(resMock);
+  });
+
+  afterEach(async () => {
+    await truncate();
   });
 
   it('list users', async () => {

@@ -22,16 +22,16 @@ describe('Transactions Controller should', () => {
   let account;
   let transaction;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncate();
     user = await usersFacture();
     account = await accountsFacture({ userId: user.id });
     transaction = await transactionsFacture({ accountId: account.id });
 
     transaction = await Transactions.findById(transaction.id);
-  });
+  // });
 
-  beforeEach(() => {
+  // beforeEach(() => {
     const status = jest.fn();
 
     reqMock = {
@@ -46,6 +46,10 @@ describe('Transactions Controller should', () => {
     };
 
     status.mockReturnValue(resMock);
+  });
+
+  afterEach(async () => {
+    await truncate();
   });
 
   it('list transactions', async () => {
