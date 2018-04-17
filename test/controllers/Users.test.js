@@ -100,7 +100,7 @@ describe('Users Controller should', () => {
     const userCreated = resMock.json.mock.calls[0][0];
     user = await Users.findById(userCreated.id);
 
-    expect(user.name).toEqual(user.name);
+    expect(userCreated.name).toEqual(user.name);
   });
 
   it('get user', async () => {
