@@ -29,9 +29,6 @@ describe('Transactions Controller should', () => {
     transaction = await transactionsFacture({ accountId: account.id });
 
     transaction = await Transactions.findById(transaction.id);
-  // });
-
-  // beforeEach(() => {
     const status = jest.fn();
 
     reqMock = {
@@ -72,7 +69,7 @@ describe('Transactions Controller should', () => {
     });
   });
 
-  it('create transaction 1', async () => {
+  it('create transaction', async () => {
     const body = {
       accountId: account.id,
       name: 'headfone',
@@ -94,5 +91,15 @@ describe('Transactions Controller should', () => {
     expect(body.type).toEqual(transactionCreated.type);
     expect(body.isPaid).toEqual(transactionCreated.isPaid);
     expect(body.transationDate).toEqual(transactionCreated.transationDate);
+  });
+
+  it('get transaction', async () => {
+    reqMock.params.id = transaction.id;
+
+    await Controller.get(reqMock, resMock);
+    expect(resMock.json).toBeCalled();
+
+    const response = resMock.json.mock.calls[0][0];
+    expect(response).toEqual(transaction);
   });
 });

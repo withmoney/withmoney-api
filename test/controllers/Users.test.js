@@ -25,9 +25,6 @@ describe('Users Controller should', () => {
     await accountsFacture({ userId: user.id });
 
     user = await Users.findById(user.id);
-  // });
-
-  // beforeEach(() => {
     const status = jest.fn();
 
     reqMock = {
