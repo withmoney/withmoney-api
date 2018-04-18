@@ -9,9 +9,9 @@
     "dev": "nodemon src/server.js --exec babel-node",
     "build": "babel src --out-dir dist",
     "pretest": "NODE_ENV=test npm run sequelize db:migrate",
-    "test": "jest --maxWorkers=1 && codecov",
-    "jest:update": "jest --maxWorkers=1 --updateSnapshot",
-    "jest:coverage": "jest --maxWorkers=1 --coverage",
+    "test": "jest -i --forceExit && codecov",
+    "jest:update": "jest -i --forceExit --updateSnapshot",
+    "jest:coverage": "jest -i --forceExit --coverage",
     "coverage": "http-server ./coverage/lcov-report -o"
   },
   "repository": {

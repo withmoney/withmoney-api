@@ -18,13 +18,17 @@ let resMock = {
 
 describe('Users Controller should', () => {
   let user;
-  beforeEach(async () => {
+
+  beforeAll(async () => {
     await truncate();
     user = await userFacture();
 
     await accountsFacture({ userId: user.id });
 
     user = await Users.findById(user.id);
+  });
+
+  beforeEach(async () => {
     const status = jest.fn();
 
     reqMock = {
