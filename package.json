@@ -43,5 +43,9 @@
     "nodemon": "^1.17.3",
     "sequelize": "^4.37.5",
     "sequelize-cli": "^4.0.0"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
