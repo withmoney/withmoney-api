@@ -17,7 +17,7 @@ let resMock = {
   json: jest.fn(),
 };
 
-describe.skip('Transactions Controller should', async () => {
+describe.only('Transactions Controller should', async () => {
   let user;
   let account;
   let transaction;

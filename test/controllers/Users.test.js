@@ -16,7 +16,7 @@ let resMock = {
   json: jest.fn(),
 };
 
-describe('Users Controller should', async () => {
+describe.only('Users Controller should', async () => {
   let user;
   beforeEach(async () => {
     await truncate();
