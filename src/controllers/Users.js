@@ -1,6 +1,6 @@
 import paginationParse from '../utils/pagination';
 import database, { Users, Accounts } from '../models';
-import { EXCEPTION_NOT_FOUND } from '../errors';
+import * as Controller from './Controller';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -62,25 +62,7 @@ export const create = async (req, res) => {
   }
 };
 
-export const get = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const user = await Users.findById(id);
-
-    if (!user) {
-      throw new Error(EXCEPTION_NOT_FOUND);
-    }
-
-    res.json(user);
-  } catch (e) {
-    if (e.message === EXCEPTION_NOT_FOUND) {
-      res.status(404).send(e.message);
-    } else {
-      res.status(500).send(e);
-    }
-  }
-};
+export const get = async (req, res) => Controller.get(req, res, Users);
 
 export const update = async (req, res) => {
   const { id } = req.params;
@@ -121,17 +103,4 @@ export const accounts = async (req, res) => {
   }
 };
 
-export const destroy = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await Users.destroy({
-      where: { id },
-    });
-
-    res.status(204).send();
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const destroy = (req, res) => Controller.destroy(req, res, Users);

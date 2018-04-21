@@ -1,6 +1,5 @@
 import paginationParse from '../utils/pagination';
 import database, { Transactions } from '../models';
-import { EXCEPTION_NOT_FOUND } from '../errors';
 import * as Controller from './Controller';
 
 export const list = async ({ query }, res) => {
