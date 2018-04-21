@@ -1,6 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { Users, Accounts } from '../../src/models';
+import { Users } from '../../src/models';
 import * as Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
@@ -18,16 +18,17 @@ let resMock = {
 
 describe('Users Controller should', () => {
   let user;
-  beforeEach(async () => {
+
+  beforeAll(async () => {
     await truncate();
     user = await userFacture();
 
     await accountsFacture({ userId: user.id });
 
     user = await Users.findById(user.id);
-  // });
+  });
 
-  // beforeEach(() => {
+  beforeEach(async () => {
     const status = jest.fn();
 
     reqMock = {
@@ -42,10 +43,6 @@ describe('Users Controller should', () => {
     };
 
     status.mockReturnValue(resMock);
-  });
-
-  afterEach(async () => {
-    await truncate();
   });
 
   it('list users', async () => {
