@@ -1,7 +1,7 @@
 import paginationParse from '../utils/pagination';
 import database, { Transactions } from '../models';
 import { EXCEPTION_NOT_FOUND } from '../errors';
-import Controller from './Controller';
+import * as Controller from './Controller';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -74,25 +74,7 @@ export const create = async (req, res) => {
   }
 };
 
-export const get = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const entity = await Transactions.findById(id);
-
-    if (!entity) {
-      throw new Error(EXCEPTION_NOT_FOUND);
-    }
-
-    res.json(entity);
-  } catch (e) {
-    if (e.message === EXCEPTION_NOT_FOUND) {
-      res.status(404).send(e.message);
-    } else {
-      res.status(500).send(e);
-    }
-  }
-};
+export const get = async (req, res) => Controller.get(req, res, Transactions);
 
 export const update = async (req, res) => {
   const { id } = req.params;
