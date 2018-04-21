@@ -1,5 +1,6 @@
 import paginationParse from '../utils/pagination';
 import database, { Transactions } from '../models';
+import { EXCEPTION_NOT_FOUND } from '../errors';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -78,46 +79,60 @@ export const get = async (req, res) => {
   try {
     const entity = await Transactions.findById(id);
 
+    if (!entity) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
     res.json(entity);
+  } catch (e) {
+    if (e.message === EXCEPTION_NOT_FOUND) {
+      res.status(404).send(e.message);
+    } else {
+      res.status(500).send(e);
+    }
+  }
+};
+
+export const update = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const entity = await Transactions.findById(id);
+
+    if (req.body.accountId) {
+      req.body.accountId = parseInt(req.body.accountId, 10);
+    }
+    if (req.body.value) {
+      req.body.value = parseFloat(req.body.value);
+    }
+    if (req.body.isPaid) {
+      req.body.isPaid = Boolean(req.body.isPaid);
+    }
+
+    const data = await entity.update(req.body);
+
+    const transactionUpdated = await Transactions.findById(id);
+
+    res.json(transactionUpdated);
+
+    res.json(data);
   } catch (e) {
     console.error(e);
     res.status(500).send(e);
   }
 };
 
-// export const update = async (req, res) => {
-//   const { id } = req.params;
+export const destroy = async (req, res) => {
+  const { id } = req.params;
 
-//   try {
-//     const entity = await Transactions.findById(id);
+  try {
+    await Transactions.destroy({
+      where: { id },
+    });
 
-//     if (req.body.userId) {
-//       req.body.userId = parseInt(req.body.userId, 10);
-//     }
-//     if (req.body.initalValue) {
-//       req.body.initalValue = parseFloat(req.body.initalValue);
-//     }
-
-//     const data = await entity.update(req.body);
-
-//     res.json(data.toJSON());
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).send(e);
-//   }
-// };
-
-// export const destroy = async (req, res) => {
-//   const { id } = req.params;
-
-//   try {
-//     await Transactions.destroy({
-//       where: { id },
-//     });
-
-//     res.status(204).send();
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).send(e);
-//   }
-// };
+    res.status(204).send();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};

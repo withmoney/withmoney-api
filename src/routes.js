@@ -59,11 +59,9 @@ router.put('/api/v1/accounts/:id', Accounts.update);
 // transactions
 
 router.get('/api/v1/transactions', Transactions.list);
-// router.post('/api/v1/transactions', Transactions.create);
+router.post('/api/v1/transactions', Transactions.create);
 router.get('/api/v1/transactions/:id', Transactions.get);
-// router.delete('/api/v1/transactions/:id', Transactions.destroy);
-// router.put('/api/v1/transactions/:id', Transactions.update);
-
-// router.get('/api/v1/users/:id/accounts', Accounts.accounts);
+router.delete('/api/v1/transactions/:id', Transactions.destroy);
+router.put('/api/v1/transactions/:id', Transactions.update);
 
 export default router;
