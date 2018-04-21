@@ -1,5 +1,6 @@
 import paginationParse from '../utils/pagination';
-import database, { Accounts, Users } from '../models';
+import database, { Accounts } from '../models';
+import * as Controller from './Controller';
 
 export const list = async ({ query }, res) => {
   const limit = parseInt(query.limit, 10) || 100;
@@ -70,18 +71,7 @@ export const create = async (req, res) => {
   }
 };
 
-export const get = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const entity = await Accounts.findById(id);
-
-    res.json(entity);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const get = async (req, res) => Controller.get(req, res, Accounts);
 
 export const update = async (req, res) => {
   const { id } = req.params;
@@ -105,17 +95,4 @@ export const update = async (req, res) => {
   }
 };
 
-export const destroy = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await Accounts.destroy({
-      where: { id },
-    });
-
-    res.status(204).send();
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const destroy = (req, res) => Controller.destroy(req, res, Accounts);
