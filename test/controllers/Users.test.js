@@ -1,6 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { Users, Accounts } from '../../src/models';
+import { Users } from '../../src/models';
 import * as Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
@@ -43,10 +43,6 @@ describe('Users Controller should', () => {
     };
 
     status.mockReturnValue(resMock);
-  });
-
-  afterEach(async () => {
-    await truncate();
   });
 
   it('list users', async () => {
