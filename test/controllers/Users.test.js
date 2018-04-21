@@ -16,7 +16,7 @@ let resMock = {
   json: jest.fn(),
 };
 
-describe('Users Controller should', () => {
+describe.skip('Users Controller should', async () => {
   let user;
 
   beforeAll(async () => {
