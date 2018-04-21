@@ -34,4 +34,3 @@ export const destroy = async (req, res, Model) => {
     res.status(500).send(e);
   }
 };
-
