@@ -1,13 +1,11 @@
 import { Accounts } from '../models';
 import selector from '../utils/selector';
-import * as validate from '../utils/validate';
+import * as SelType from '../selectorTypes';
 import * as Controller from './Controller';
 
 export const list = ({ query }, res) => {
   const where = selector({
-    name: {
-      validation: validate.string,
-    },
+    name: SelType.nameSelType,
   }, query);
 
   return Controller.list({ query }, res, Accounts, {

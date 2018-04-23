@@ -1,7 +1,7 @@
 import paginationParse from '../utils/pagination';
 import database from '../models';
 import selector from '../utils/selector';
-import * as validate from '../utils/validate';
+import * as SelType from '../selectorTypes';
 import { EXCEPTION_NOT_FOUND } from '../errors';
 
 export const list = async ({ query }, res, Model, options) => {
@@ -14,17 +14,9 @@ export const list = async ({ query }, res, Model, options) => {
     page,
     batch,
   } = selector({
-    limit: {
-      validation: validate.number,
-      default: 100,
-    },
-    page: {
-      validation: validate.number,
-      default: 1,
-    },
-    batch: {
-      validation: validate.string,
-    },
+    limit: SelType.limitSelType,
+    page: SelType.pageSelType,
+    batch: SelType.batchSelType,
   }, query);
 
   const select = {
