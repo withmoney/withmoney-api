@@ -1,6 +1,5 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Transactions = sequelize.define('Transactions', {
+  const Transactions = sequelize.define('Transactions', {
     accountId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     value: {
@@ -11,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     isPaid: DataTypes.BOOLEAN,
     transationDate: DataTypes.DATEONLY,
   }, {});
-  Transactions.associate = function(models) {
+  Transactions.associate = (models) => {
     Transactions.belongsTo(models.Accounts);
   };
   return Transactions;
