@@ -1,39 +1,17 @@
-import database, { Transactions } from '../models';
+import { Transactions } from '../models';
+import selector from '../utils/selector';
+import * as validate from '../utils/validate';
 import * as Controller from './Controller';
 
-export const list = async ({ query }, res) => {
-  const limit = parseInt(query.limit, 10) || 100;
-  const page = parseInt(query.page, 10) || 1;
-  const name = query.name || '';
-  const batch = query.batch || null;
-
-  const select = {
-    limit,
-    offset: parseInt(limit, 10) * (page - 1),
-    order: [['id', 'DESC']],
-  };
-  const where = {};
-
-  if (name.length) {
-    where.name = name;
-  }
-
-  if (batch) {
-    let models = batch.split(',');
-
-    if (models.length) {
-      models = models.map(model => ({
-        model: database[model],
-      }));
-      select.include = models;
-    }
-  }
+export const list = ({ query }, res) => {
+  const where = selector({
+    name: {
+      validation: validate.string,
+    },
+  }, query);
 
   return Controller.list({ query }, res, Transactions, {
-    select,
     where,
-    page,
-    limit,
   });
 };
 

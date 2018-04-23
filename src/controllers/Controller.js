@@ -1,18 +1,56 @@
 import paginationParse from '../utils/pagination';
+import database from '../models';
+import selector from '../utils/selector';
+import * as validate from '../utils/validate';
 import { EXCEPTION_NOT_FOUND } from '../errors';
 
-export const list = async (req, res, Model, options) => {
+export const list = async ({ query }, res, Model, options) => {
   const {
-    select,
     where,
-    page,
-    limit,
   } = options;
+
+  const {
+    limit,
+    page,
+    batch,
+  } = selector({
+    limit: {
+      validation: validate.number,
+      default: 100,
+    },
+    page: {
+      validation: validate.number,
+      default: 1,
+    },
+    batch: {
+      validation: validate.string,
+    },
+  }, query);
+
+  const select = {
+    limit,
+    offset: parseInt(limit, 10) * (page - 1),
+    order: [['id', 'DESC']],
+  };
+
+  if (where !== null) {
+    select.where = where;
+  }
+
+  if (batch) {
+    let models = batch.split(',');
+
+    if (models.length) {
+      models = models.map(model => ({
+        model: database[model],
+      }));
+      select.include = models;
+    }
+  }
 
   try {
     const data = await Model.findAll(select);
     const { count } = await Model.findAndCountAll({ where });
-
     const pagination = paginationParse(count, page, limit);
 
     res.json({
