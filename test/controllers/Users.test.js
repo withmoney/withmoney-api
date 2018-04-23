@@ -123,15 +123,15 @@ describe('Users Controller should', () => {
       name: user.name,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
-      Accounts: accounts.map(account => ({
-        id: account.id,
-        userId: account.userId,
-        UserId: account.UserId,
-        createdAt: account.createdAt,
-        name: account.name,
-        type: account.type,
-        updatedAt: account.updatedAt,
-        initalValue: account.initalValue,
+      Accounts: accounts.map(accountItem => ({
+        id: accountItem.id,
+        userId: accountItem.userId,
+        UserId: accountItem.UserId,
+        createdAt: accountItem.createdAt,
+        name: accountItem.name,
+        type: accountItem.type,
+        updatedAt: accountItem.updatedAt,
+        initalValue: accountItem.initalValue,
       })),
     });
   });
