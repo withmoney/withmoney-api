@@ -8,7 +8,6 @@ const listDefaultOptions = {
   where: {},
 };
 export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
-  console.log(options)
   const {
     where,
   } = options;
