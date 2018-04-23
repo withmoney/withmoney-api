@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => (
     queryInterface.createTable('Transfers', {
@@ -6,7 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       value: {
         type: Sequelize.DECIMAL(10, 2),
@@ -23,39 +22,37 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     })
-    .then(() => (
-      queryInterface.addConstraint('Transfers', ['accountIdFrom'], {
-        type: 'foreign key',
-        name: 'fk_transfers_account_from',
-        references: { //Required field
-          table: 'Accounts',
-          field: 'id'
-        },
-        onDelete: 'cascade',
-        onUpdate: 'no action'
-      })
-    ))
-    .then(() => (
-      queryInterface.addConstraint('Transfers', ['accountIdTo'], {
-        type: 'foreign key',
-        name: 'fk_transfers_account_to',
-        references: { //Required field
-          table: 'Accounts',
-          field: 'id'
-        },
-        onDelete: 'cascade',
-        onUpdate: 'no action'
-      })
-    ))
+      .then(() => (
+        queryInterface.addConstraint('Transfers', ['accountIdFrom'], {
+          type: 'foreign key',
+          name: 'fk_transfers_account_from',
+          references: { // Required field
+            table: 'Accounts',
+            field: 'id',
+          },
+          onDelete: 'cascade',
+          onUpdate: 'no action',
+        })
+      ))
+      .then(() => (
+        queryInterface.addConstraint('Transfers', ['accountIdTo'], {
+          type: 'foreign key',
+          name: 'fk_transfers_account_to',
+          references: { // Required field
+            table: 'Accounts',
+            field: 'id',
+          },
+          onDelete: 'cascade',
+          onUpdate: 'no action',
+        })
+      ))
   ),
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Transfers');
-  }
+  down: queryInterface => queryInterface.dropTable('Transfers'),
 };
