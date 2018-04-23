@@ -1,6 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { Users, Accounts } from '../../src/models';
+import { sequelize, Users, Accounts } from '../../src/models';
 import * as Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
@@ -27,6 +27,10 @@ describe('Users Controller should', () => {
 
     user = await Users.findById(user.id);
     account = await Accounts.findById(account.id);
+  });
+
+  afterAll(() => {
+    sequelize.close();
   });
 
   beforeEach(async () => {

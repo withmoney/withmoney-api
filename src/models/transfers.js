@@ -8,8 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     accountIdTo: DataTypes.INTEGER,
     transferDate: DataTypes.DATEONLY,
   }, {});
-  Transfers.associate = (models) => {
-    Transfers.belongsTo(models.Accounts);
+  Transfers.associate = ({ Accounts }) => {
+    Transfers.belongsTo(Accounts, { foreignKey: 'id', sourceKey: 'accountIdFrom', as: 'accountsFrom' }); // not
+    Transfers.belongsTo(Accounts, { foreignKey: 'id', sourceKey: 'accountIdTo' }); // not
+    // Transfers.belongsTo(Accounts, { foreignKey: 'accountIdFrom', as: 'AccountsFrom' });
+    // Transfers.belongsTo(Accounts, { foreignKey: 'accountIdTo' });
   };
   return Transfers;
 };

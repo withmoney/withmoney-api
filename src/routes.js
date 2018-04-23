@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as Users from './controllers/Users';
 import * as Accounts from './controllers/Accounts';
 import * as Transactions from './controllers/Transactions';
+import * as Transfers from './controllers/Transfers';
 
 const router = Router();
 
@@ -30,6 +31,13 @@ router.get('/', (req, res) => {
           '[get] /api/v1/transactions/:id',
           '[delete] /api/v1/transactions/:id',
           '[put] /api/v1/transactions/:id',
+        ],
+        transfers: [
+          '[get] /api/v1/transfers',
+        //   '[post] /api/v1/transfers',
+        //   '[get] /api/v1/transfers/:id',
+        //   '[delete] /api/v1/transfers/:id',
+        //   '[put] /api/v1/transfers/:id',
         ],
       },
     },
@@ -63,5 +71,13 @@ router.post('/api/v1/transactions', Transactions.create);
 router.get('/api/v1/transactions/:id', Transactions.get);
 router.delete('/api/v1/transactions/:id', Transactions.destroy);
 router.put('/api/v1/transactions/:id', Transactions.update);
+
+// transfers
+
+router.get('/api/v1/transfers', Transfers.list);
+// router.post('/api/v1/transfers', Transfers.create);
+// router.get('/api/v1/transfers/:id', Transfers.get);
+// router.delete('/api/v1/transfers/:id', Transfers.destroy);
+// router.put('/api/v1/transfers/:id', Transfers.update);
 
 export default router;

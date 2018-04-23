@@ -1,6 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { Transactions } from '../../src/models';
+import { sequelize, Transactions } from '../../src/models';
 import * as Controller from '../../src/controllers/Transactions';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
@@ -48,6 +48,10 @@ describe('Transactions Controller should', () => {
     };
 
     status.mockReturnValue(resMock);
+  });
+
+  afterAll(() => {
+    sequelize.close();
   });
 
   it('list transactions', async () => {
