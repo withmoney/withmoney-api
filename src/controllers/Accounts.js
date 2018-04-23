@@ -1,52 +1,7 @@
-import paginationParse from '../utils/pagination';
-import database, { Accounts } from '../models';
+import { Accounts } from '../models';
 import * as Controller from './Controller';
 
-export const list = async ({ query }, res) => {
-  const limit = parseInt(query.limit, 10) || 100;
-  const page = parseInt(query.page, 10) || 1;
-  const name = query.name || '';
-  const batch = query.batch || null;
-
-  const select = {
-    limit,
-    offset: parseInt(limit, 10) * (page - 1),
-    order: [['id', 'DESC']],
-  };
-  const where = {};
-
-  if (name.length) {
-    where.name = name;
-  }
-
-  if (batch) {
-    let models = batch.split(',');
-
-    if (models.length) {
-      models = models.map(model => ({
-        model: database[model],
-      }));
-      select.include = models;
-    }
-  }
-
-  try {
-    let data = await Accounts.findAll(select);
-    const { count } = await Accounts.findAndCountAll({ where });
-
-    data = data.map(a => a.toJSON());
-
-    const pagination = paginationParse(count, page, limit);
-
-    res.json({
-      data,
-      pagination,
-    });
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const list = (req, res) => Controller.list(req, res, Accounts);
 
 export const create = async (req, res) => {
   const {

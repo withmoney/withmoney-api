@@ -1,6 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { Users } from '../../src/models';
+import { Users, Accounts } from '../../src/models';
 import * as Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
@@ -18,14 +18,15 @@ let resMock = {
 
 describe('Users Controller should', () => {
   let user;
+  let account;
 
   beforeAll(async () => {
     await truncate();
     user = await userFacture();
-
-    await accountsFacture({ userId: user.id });
+    account = await accountsFacture({ userId: user.id });
 
     user = await Users.findById(user.id);
+    account = await Accounts.findById(account.id);
   });
 
   beforeEach(async () => {
@@ -52,6 +53,50 @@ describe('Users Controller should', () => {
     const response = resMock.json.mock.calls[0][0];
     expect(response).toEqual({
       data: [user],
+      pagination: {
+        currentPage: 1,
+        nextPage: null,
+        perPage: 100,
+        previousPage: null,
+        totalItems: 1,
+        totalPages: 1,
+      },
+    });
+  });
+
+  it('list users with batch', async () => {
+    reqMock.query = {
+      batch: 'Accounts',
+    };
+
+    await Controller.list(reqMock, resMock);
+    expect(resMock.json).toBeCalled();
+
+    const response = resMock.json.mock.calls[0][0];
+
+    response.data[0] = response.data[0].toJSON();
+
+    expect(response).toEqual({
+      data: [
+        {
+          id: user.id,
+          name: user.name,
+          updatedAt: user.updatedAt,
+          createdAt: user.createdAt,
+          Accounts: [
+            {
+              id: account.id,
+              userId: account.userId,
+              UserId: account.UserId,
+              createdAt: account.createdAt,
+              name: account.name,
+              type: account.type,
+              updatedAt: account.updatedAt,
+              initalValue: account.initalValue,
+            },
+          ],
+        },
+      ],
       pagination: {
         currentPage: 1,
         nextPage: null,
