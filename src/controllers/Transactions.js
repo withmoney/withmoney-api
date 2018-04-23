@@ -1,4 +1,3 @@
-import paginationParse from '../utils/pagination';
 import database, { Transactions } from '../models';
 import * as Controller from './Controller';
 
@@ -30,20 +29,12 @@ export const list = async ({ query }, res) => {
     }
   }
 
-  try {
-    const data = await Transactions.findAll(select);
-    const { count } = await Transactions.findAndCountAll({ where });
-
-    const pagination = paginationParse(count, page, limit);
-
-    res.json({
-      data,
-      pagination,
-    });
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
+  return Controller.list({ query }, res, Transactions, {
+    select,
+    where,
+    page,
+    limit,
+  });
 };
 
 export const create = async (req, res) => {

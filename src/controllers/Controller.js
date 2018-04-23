@@ -1,4 +1,29 @@
+import paginationParse from '../utils/pagination';
 import { EXCEPTION_NOT_FOUND } from '../errors';
+
+export const list = async (req, res, Model, options) => {
+  const {
+    select,
+    where,
+    page,
+    limit,
+  } = options;
+
+  try {
+    const data = await Model.findAll(select);
+    const { count } = await Model.findAndCountAll({ where });
+
+    const pagination = paginationParse(count, page, limit);
+
+    res.json({
+      data,
+      pagination,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
 
 export const get = async (req, res, Model) => {
   const { id } = req.params;
