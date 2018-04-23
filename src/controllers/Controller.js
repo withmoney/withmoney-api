@@ -45,6 +45,7 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
   }
 
   try {
+    console.log(select)
     const data = await Model.findAll(select);
     const { count } = await Model.findAndCountAll({ where });
     const pagination = paginationParse(count, page, limit);
