@@ -14,6 +14,7 @@ export const list = async ({ query }, res, Model, options) => {
     page,
     batch,
   } = selector({
+    name: SelType.nameSelType,
     limit: SelType.limitSelType,
     page: SelType.pageSelType,
     batch: SelType.batchSelType,
