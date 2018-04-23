@@ -1,12 +1,8 @@
 import { Accounts } from '../models';
-import selector from '../utils/selector';
-import * as SelType from '../selectorTypes';
 import * as Controller from './Controller';
 
 export const list = ({ query }, res) => {
-  const where = selector({
-    name: SelType.nameSelType,
-  }, query);
+  const where = {};
 
   return Controller.list({ query }, res, Accounts, {
     where,
