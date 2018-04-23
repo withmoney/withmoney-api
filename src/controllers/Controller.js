@@ -4,7 +4,11 @@ import selector from '../utils/selector';
 import * as SelType from '../selectorTypes';
 import { EXCEPTION_NOT_FOUND } from '../errors';
 
-export const list = async ({ query }, res, Model, options) => {
+const listDefaultOptions = {
+  where: {},
+};
+export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
+  console.log(options)
   const {
     where,
   } = options;

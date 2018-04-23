@@ -1,13 +1,7 @@
 import { Accounts } from '../models';
 import * as Controller from './Controller';
 
-export const list = ({ query }, res) => {
-  const where = {};
-
-  return Controller.list({ query }, res, Accounts, {
-    where,
-  });
-};
+export const list = (req, res) => Controller.list(req, res, Accounts);
 
 export const create = async (req, res) => {
   const {
