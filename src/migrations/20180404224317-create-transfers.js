@@ -11,10 +11,10 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2),
         defaultValue: 0,
       },
-      accountIdFrom: {
+      accountFromId: {
         type: Sequelize.INTEGER,
       },
-      accountIdTo: {
+      accountToId: {
         type: Sequelize.INTEGER,
       },
       transferDate: {
@@ -30,7 +30,7 @@ module.exports = {
       },
     })
       .then(() => (
-        queryInterface.addConstraint('Transfers', ['accountIdFrom'], {
+        queryInterface.addConstraint('Transfers', ['accountFromId'], {
           type: 'foreign key',
           name: 'fk_transfers_account_from',
           references: { // Required field
@@ -42,7 +42,7 @@ module.exports = {
         })
       ))
       .then(() => (
-        queryInterface.addConstraint('Transfers', ['accountIdTo'], {
+        queryInterface.addConstraint('Transfers', ['accountToId'], {
           type: 'foreign key',
           name: 'fk_transfers_account_to',
           references: { // Required field
