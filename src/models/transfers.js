@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     transferDate: DataTypes.DATEONLY,
   }, {});
   Transfers.associate = ({ Accounts }) => {
-    Transfers.belongsTo(Accounts, { as: 'accountFrom' });
-    Transfers.belongsTo(Accounts, { as: 'accountTo' });
+    Transfers.belongsTo(Accounts, { as: 'AccountFrom' });
+    Transfers.belongsTo(Accounts, { as: 'AccountTo' });
   };
   return Transfers;
 };

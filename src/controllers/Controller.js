@@ -7,6 +7,29 @@ import { EXCEPTION_NOT_FOUND } from '../errors';
 const listDefaultOptions = {
   where: {},
 };
+
+const aliasDatabase = {
+  AccountFrom: 'Accounts',
+  AccountTo: 'Accounts',
+};
+
+const getModelAlias = db => (model) => {
+  const aliasList = Object.keys(aliasDatabase);
+
+  if (aliasList.includes(model)) {
+    const alias = aliasList[aliasList.indexOf(model)];
+
+    return {
+      model: db[aliasDatabase[alias]],
+      as: model,
+    };
+  }
+
+  return {
+    model: db[model],
+  };
+};
+
 export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
   const {
     where,
@@ -37,15 +60,12 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     let models = batch.split(',');
 
     if (models.length) {
-      models = models.map(model => ({
-        model: database[model],
-      }));
+      models = models.map(getModelAlias(database));
       select.include = models;
     }
   }
 
   try {
-    console.log(select)
     const data = await Model.findAll(select);
     const { count } = await Model.findAndCountAll({ where });
     const pagination = paginationParse(count, page, limit);
