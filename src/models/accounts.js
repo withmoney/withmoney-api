@@ -8,13 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   }, {});
-  Accounts.associate = ({ Transfers, Users }) => {
+  Accounts.associate = ({ Users }) => {
     Accounts.belongsTo(Users);
-    // Accounts.hasMany(models.Transfers, { foreignKey: 'accountFrom', sourceKey: 'id' });
-    // Accounts.hasMany(models.Transfers, { foreignKey: 'accountToId', sourceKey: 'id' });
-
-    Transfers.belongsTo(Accounts, { as: 'firstGuy', foreignKey: 'accountFrom' });
-    Transfers.belongsTo(Accounts, { as: 'secondGuy', foreignKey: 'accountToId' });
   };
   return Accounts;
 };
