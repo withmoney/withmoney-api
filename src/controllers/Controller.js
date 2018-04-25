@@ -100,6 +100,19 @@ export const get = async (req, res, Model) => {
   }
 };
 
+export const create = async ({ body }, res, Model, data) => {
+  const dataBody = selector(data, body);
+
+  try {
+    const entity = await Model.create(dataBody);
+
+    res.json(entity);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
+
 export const destroy = async (req, res, Model) => {
   const { id } = req.params;
 
