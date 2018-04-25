@@ -48,13 +48,11 @@ export const update = async (req, res) => {
       req.body.isPaid = Boolean(req.body.isPaid);
     }
 
-    const data = await entity.update(req.body);
+    await entity.update(req.body);
 
     const transactionUpdated = await Transactions.findById(id);
 
     res.json(transactionUpdated);
-
-    res.json(data);
   } catch (e) {
     console.error(e);
     res.status(500).send(e);
