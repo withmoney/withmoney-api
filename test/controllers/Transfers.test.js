@@ -6,7 +6,7 @@ import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import transfersFacture from '../factures/Transfers';
-// import { EXCEPTION_NOT_FOUND } from '../../src/errors';
+import { EXCEPTION_NOT_FOUND } from '../../src/errors';
 
 iconv.encodings = encodings;
 
@@ -158,66 +158,63 @@ describe('Transfers Controller should', () => {
     expect(body.transferDate).toEqual(transferCreated.transferDate);
   });
 
-  // it('get transfer', async () => {
-  //   reqMock.params.id = transfer.id;
+  it('get transfer', async () => {
+    reqMock.params.id = transfer.id;
 
-  //   await Controller.get(reqMock, resMock);
-  //   expect(resMock.json).toBeCalled();
+    await Controller.get(reqMock, resMock);
+    expect(resMock.json).toBeCalled();
 
-  //   const response = resMock.json.mock.calls[0][0];
-  //   expect(response).toEqual(transfer);
-  // });
+    const response = resMock.json.mock.calls[0][0];
+    expect(response).toEqual(transfer);
+  });
 
-  // it('get transfer not find transfer', async () => {
-  //   reqMock.params.id = 99999999;
+  it('get transfer not find transfer', async () => {
+    reqMock.params.id = 99999999;
 
-  //   await Controller.get(reqMock, resMock);
+    await Controller.get(reqMock, resMock);
 
-  //   expect(resMock.status).toBeCalled();
-  //   expect(resMock.send).toBeCalled();
-  //   expect(resMock.status.mock.calls[0][0]).toEqual(404);
-  //   expect(resMock.send.mock.calls[0][0]).toEqual(EXCEPTION_NOT_FOUND);
-  // });
+    expect(resMock.status).toBeCalled();
+    expect(resMock.send).toBeCalled();
+    expect(resMock.status.mock.calls[0][0]).toEqual(404);
+    expect(resMock.send.mock.calls[0][0]).toEqual(EXCEPTION_NOT_FOUND);
+  });
 
-  // it('update transfer', async () => {
-  //   reqMock.params.id = transfer.id;
-  //   reqMock.body = {
-  //     name: 'Bola',
-  //     accountId: accountTwo.id,
-  //     value: 40.7,
-  //     isPaid: true,
-  //     transationDate: '2018-04-21',
-  //   };
+  it('update transfer', async () => {
+    reqMock.params.id = transfer.id;
+    reqMock.body = {
+      accountFromId: accountOne.id,
+      accountToId: accountTwo.id,
+      value: 56.1,
+      transferDate: '2018-04-05',
+    };
 
-  //   await Controller.update(reqMock, resMock);
+    await Controller.update(reqMock, resMock);
 
-  //   transfer = await Transfers.findById(transfer.id);
+    transfer = await Transfers.findById(transfer.id);
 
-  //   expect(resMock.json).toBeCalled();
+    expect(resMock.json).toBeCalled();
 
-  //   const response = resMock.json.mock.calls[0][0];
+    const response = resMock.json.mock.calls[0][0];
 
-  //   expect(response).toBeTruthy();
-  //   expect(response.toJSON()).toHaveProperty('name');
-  //   expect(response.toJSON()).toHaveProperty('accountId');
-  //   expect(response.toJSON()).toHaveProperty('value');
-  //   expect(response.toJSON()).toHaveProperty('isPaid');
-  //   expect(response.toJSON()).toHaveProperty('transationDate');
-  //   expect(response.name).toEqual(transfer.name);
-  //   expect(response.accountId).toEqual(transfer.accountId);
-  //   expect(response.value).toEqual(transfer.value);
-  //   expect(response.isPaid).toEqual(transfer.isPaid);
-  //   expect(response.transationDate).toEqual(transfer.transationDate);
-  // });
+    expect(response).toBeTruthy();
+    expect(response.toJSON()).toHaveProperty('accountFromId');
+    expect(response.toJSON()).toHaveProperty('accountToId');
+    expect(response.toJSON()).toHaveProperty('value');
+    expect(response.toJSON()).toHaveProperty('transferDate');
+    expect(response.accountFromId).toEqual(transfer.accountFromId);
+    expect(response.accountToId).toEqual(transfer.accountToId);
+    expect(response.value).toEqual(transfer.value);
+    expect(response.transferDate).toEqual(transfer.transferDate);
+  });
 
-  // it('delete transfer', async () => {
-  //   reqMock.params.id = transfer.id;
+  it('delete transfer', async () => {
+    reqMock.params.id = transfer.id;
 
-  //   await Controller.destroy(reqMock, resMock);
+    await Controller.destroy(reqMock, resMock);
 
-  //   expect(resMock.status).toBeCalled();
-  //   expect(resMock.send).toBeCalled();
-  //   expect(resMock.send).toBeCalled();
-  //   expect(resMock.status.mock.calls[0][0]).toEqual(204);
-  // });
+    expect(resMock.status).toBeCalled();
+    expect(resMock.send).toBeCalled();
+    expect(resMock.send).toBeCalled();
+    expect(resMock.status.mock.calls[0][0]).toEqual(204);
+  });
 });

@@ -34,10 +34,10 @@ router.get('/', (req, res) => {
         ],
         transfers: [
           '[get] /api/v1/transfers',
-        //   '[post] /api/v1/transfers',
-        //   '[get] /api/v1/transfers/:id',
-        //   '[delete] /api/v1/transfers/:id',
-        //   '[put] /api/v1/transfers/:id',
+          '[post] /api/v1/transfers',
+          '[get] /api/v1/transfers/:id',
+          '[delete] /api/v1/transfers/:id',
+          '[put] /api/v1/transfers/:id',
         ],
       },
     },
@@ -75,9 +75,9 @@ router.put('/api/v1/transactions/:id', Transactions.update);
 // transfers
 
 router.get('/api/v1/transfers', Transfers.list);
-// router.post('/api/v1/transfers', Transfers.create);
-// router.get('/api/v1/transfers/:id', Transfers.get);
-// router.delete('/api/v1/transfers/:id', Transfers.destroy);
-// router.put('/api/v1/transfers/:id', Transfers.update);
+router.post('/api/v1/transfers', Transfers.create);
+router.get('/api/v1/transfers/:id', Transfers.get);
+router.delete('/api/v1/transfers/:id', Transfers.destroy);
+router.put('/api/v1/transfers/:id', Transfers.update);
 
 export default router;
