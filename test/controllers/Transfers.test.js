@@ -137,29 +137,26 @@ describe('Transfers Controller should', () => {
     });
   });
 
-  // it('create transfer', async () => {
-  //   const body = {
-  //     accountId: account.id,
-  //     name: 'headfone',
-  //     value: 100.99,
-  //     type: 'out',
-  //     isPaid: false,
-  //     transationDate: '2018-04-02',
-  //   };
+  it('create transfer', async () => {
+    const body = {
+      accountFromId: accountOne.id,
+      accountToId: accountTwo.id,
+      value: 100.99,
+      transferDate: '2018-04-02',
+    };
 
-  //   reqMock.body = body;
+    reqMock.body = body;
 
-  //   await Controller.create(reqMock, resMock);
+    await Controller.create(reqMock, resMock);
 
-  //   let transferCreated = resMock.json.mock.calls[0][0];
-  //   transferCreated = transferCreated.toJSON();
+    let transferCreated = resMock.json.mock.calls[0][0];
+    transferCreated = transferCreated.toJSON();
 
-  //   expect(body.name).toEqual(transferCreated.name);
-  //   expect(body.value).toEqual(transferCreated.value);
-  //   expect(body.type).toEqual(transferCreated.type);
-  //   expect(body.isPaid).toEqual(transferCreated.isPaid);
-  //   expect(body.transationDate).toEqual(transferCreated.transationDate);
-  // });
+    expect(body.accountFromId).toEqual(transferCreated.accountFromId);
+    expect(body.accountToId).toEqual(transferCreated.accountToId);
+    expect(body.value).toEqual(transferCreated.value);
+    expect(body.transferDate).toEqual(transferCreated.transferDate);
+  });
 
   // it('get transfer', async () => {
   //   reqMock.params.id = transfer.id;
