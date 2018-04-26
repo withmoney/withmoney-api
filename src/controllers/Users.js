@@ -1,18 +1,14 @@
 import { Users, Accounts } from '../models';
 import * as Controller from './Controller';
-import { nameSelType } from '../selectorTypes';
+import { userForm } from '../definitions';
 
 export const list = (req, res) => Controller.list(req, res, Users);
 
-export const create = (req, res) => Controller.create(req, res, Users, {
-  name: nameSelType,
-});
+export const create = (req, res) => Controller.create(req, res, Users, userForm);
 
 export const get = async (req, res) => Controller.get(req, res, Users);
 
-export const update = (req, res) => Controller.update(req, res, Users, {
-  name: nameSelType,
-});
+export const update = (req, res) => Controller.update(req, res, Users, userForm);
 
 export const accounts = async (req, res) => {
   const { id } = req.params;
