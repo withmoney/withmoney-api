@@ -112,12 +112,13 @@ describe('Accounts Controller should', () => {
 
   it('update account', async () => {
     reqMock.params.id = account.id;
-    reqMock.body = {
+    const body = {
       name: 'BankTwo',
       userId: user.id,
       initalValue: 40.7,
       type: 'investing',
     };
+    reqMock.body = body;
 
     await Controller.update(reqMock, resMock);
 
@@ -132,10 +133,10 @@ describe('Accounts Controller should', () => {
     expect(response.toJSON()).toHaveProperty('userId');
     expect(response.toJSON()).toHaveProperty('initalValue');
     expect(response.toJSON()).toHaveProperty('type');
-    expect(response.name).toEqual(account.name);
-    expect(response.userId).toEqual(account.userId);
-    expect(response.toJSON().initalValue).toEqual(account.initalValue);
-    expect(response.type).toEqual(account.type);
+    expect(response.name).toEqual(body.name);
+    expect(response.userId).toEqual(body.userId);
+    expect(response.toJSON().initalValue).toEqual(body.initalValue);
+    expect(response.type).toEqual(body.type);
   });
 
   it('delete account', async () => {

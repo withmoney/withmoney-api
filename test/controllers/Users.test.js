@@ -142,15 +142,16 @@ describe('Users Controller should', () => {
 
   it('create user', async () => {
     reqMock.params.id = user.id;
-    reqMock.body = {
+    const body = {
       name: 'David Costa',
     };
+    reqMock.body = body;
 
     await Controller.create(reqMock, resMock);
     const userCreated = resMock.json.mock.calls[0][0];
     user = await Users.findById(userCreated.id);
 
-    expect(userCreated.name).toEqual(user.name);
+    expect(userCreated.name).toEqual(body.name);
   });
 
   it('get user', async () => {
@@ -176,9 +177,10 @@ describe('Users Controller should', () => {
 
   it('update user', async () => {
     reqMock.params.id = user.id;
-    reqMock.body = {
+    const body = {
       name: 'André',
     };
+    reqMock.body = body;
 
     await Controller.update(reqMock, resMock);
 
@@ -187,7 +189,8 @@ describe('Users Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(user);
+
+    expect(response.name).toEqual(body.name);
   });
 
   it('delete user', async () => {

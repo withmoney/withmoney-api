@@ -3,31 +3,11 @@ import database from '../models';
 import selector from '../utils/selector';
 import * as SelType from '../selectorTypes';
 import { EXCEPTION_NOT_FOUND } from '../errors';
-
-const listDefaultOptions = {
-  where: {},
-};
+import { getModelAlias, listDefaultOptions } from '../utils/model';
 
 const aliasDatabase = {
   AccountFrom: 'Accounts',
   AccountTo: 'Accounts',
-};
-
-const getModelAlias = db => (model) => {
-  const aliasList = Object.keys(aliasDatabase);
-
-  if (aliasList.includes(model)) {
-    const alias = aliasList[aliasList.indexOf(model)];
-
-    return {
-      model: db[aliasDatabase[alias]],
-      as: model,
-    };
-  }
-
-  return {
-    model: db[model],
-  };
 };
 
 export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
@@ -60,7 +40,7 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     let models = batch.split(',');
 
     if (models.length) {
-      models = models.map(getModelAlias(database));
+      models = models.map(getModelAlias(aliasDatabase, database));
       select.include = models;
     }
   }
@@ -121,11 +101,11 @@ export const update = async ({ params, body }, res, Model, data) => {
   try {
     const entity = await Model.findById(id);
 
-    await entity.update(dataBody);
+    const updated = await entity.update(dataBody);
 
-    const entityUpdated = await Model.findById(id);
+    // const entityUpdated = await Model.findById(id);
 
-    res.json(entityUpdated);
+    res.json(updated);
   } catch (e) {
     console.error(e);
     res.status(500).send(e);

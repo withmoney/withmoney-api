@@ -181,12 +181,13 @@ describe('Transfers Controller should', () => {
 
   it('update transfer', async () => {
     reqMock.params.id = transfer.id;
-    reqMock.body = {
+    const body = {
       accountFromId: accountOne.id,
       accountToId: accountTwo.id,
       value: 56.1,
       transferDate: '2018-04-05',
     };
+    reqMock.body = body;
 
     await Controller.update(reqMock, resMock);
 
@@ -201,10 +202,10 @@ describe('Transfers Controller should', () => {
     expect(response.toJSON()).toHaveProperty('accountToId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('transferDate');
-    expect(response.accountFromId).toEqual(transfer.accountFromId);
-    expect(response.accountToId).toEqual(transfer.accountToId);
-    expect(response.value).toEqual(transfer.value);
-    expect(response.transferDate).toEqual(transfer.transferDate);
+    expect(response.accountFromId).toEqual(body.accountFromId);
+    expect(response.accountToId).toEqual(body.accountToId);
+    expect(response.value).toEqual(body.value);
+    expect(response.transferDate).toEqual(body.transferDate);
   });
 
   it('delete transfer', async () => {

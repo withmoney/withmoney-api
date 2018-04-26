@@ -121,13 +121,14 @@ describe('Transactions Controller should', () => {
 
   it('update transaction', async () => {
     reqMock.params.id = transaction.id;
-    reqMock.body = {
+    const body = {
       name: 'Bola',
       accountId: accountTwo.id,
       value: 40.7,
       isPaid: true,
       transationDate: '2018-04-21',
     };
+    reqMock.body = body;
 
     await Controller.update(reqMock, resMock);
 
@@ -143,11 +144,11 @@ describe('Transactions Controller should', () => {
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('isPaid');
     expect(response.toJSON()).toHaveProperty('transationDate');
-    expect(response.name).toEqual(transaction.name);
-    expect(response.accountId).toEqual(transaction.accountId);
-    expect(response.value).toEqual(transaction.value);
-    expect(response.isPaid).toEqual(transaction.isPaid);
-    expect(response.transationDate).toEqual(transaction.transationDate);
+    expect(response.name).toEqual(body.name);
+    expect(response.accountId).toEqual(body.accountId);
+    expect(response.value).toEqual(body.value);
+    expect(response.isPaid).toEqual(body.isPaid);
+    expect(response.transationDate).toEqual(body.transationDate);
   });
 
   it('delete transaction', async () => {
