@@ -1,22 +1,17 @@
 import { Accounts } from '../models';
 import * as Controller from './Controller';
 import * as validate from '../utils/validate';
+import { nameSelType, userIdSelType, valueSelType } from '../selectorTypes';
 
 export const list = (req, res) => Controller.list(req, res, Accounts);
 
 export const create = (req, res) => Controller.create(req, res, Accounts, {
-  userId: {
-    validation: validate.number,
-  },
-  name: {
-    validation: validate.string,
-  },
+  userId: userIdSelType,
+  name: nameSelType,
   type: {
     validation: validate.string,
   },
-  initalValue: {
-    validation: validate.float,
-  },
+  initalValue: valueSelType,
 });
 
 export const get = async (req, res) => Controller.get(req, res, Accounts);

@@ -1,19 +1,31 @@
 import * as validate from './utils/validate';
 
-export const nameSelType = {
+const stringType = {
   validation: validate.string,
 };
 
-export const batchSelType = {
-  validation: validate.string,
+const numberType = {
+  validation: validate.number,
 };
+
+const floatType = {
+  validation: validate.float,
+};
+
+export const nameSelType = stringType;
+
+export const valueSelType = floatType;
+
+export const userIdSelType = numberType;
+
+export const batchSelType = stringType;
 
 export const limitSelType = {
-  validation: validate.number,
+  ...numberType,
   default: 100,
 };
 
 export const pageSelType = {
-  validation: validate.number,
+  ...numberType,
   default: 1,
 };

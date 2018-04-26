@@ -1,13 +1,12 @@
 import { Transfers } from '../models';
 import * as Controller from './Controller';
 import * as validate from '../utils/validate';
+import { valueSelType } from '../selectorTypes';
 
 export const list = (req, res) => Controller.list(req, res, Transfers);
 
 export const create = (req, res) => Controller.create(req, res, Transfers, {
-  value: {
-    validation: validate.float,
-  },
+  value: valueSelType,
   accountFromId: {
     validation: validate.number,
   },
