@@ -1,30 +1,23 @@
 import { Accounts } from '../models';
 import * as Controller from './Controller';
+import * as validate from '../utils/validate';
 
 export const list = (req, res) => Controller.list(req, res, Accounts);
 
-export const create = async (req, res) => {
-  const {
-    name,
-    userId,
-    type,
-    initalValue,
-  } = req.body;
-
-  try {
-    const entity = await Accounts.create({
-      name,
-      userId,
-      type,
-      initalValue,
-    });
-
-    res.json(entity);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const create = (req, res) => Controller.create(req, res, Accounts, {
+  userId: {
+    validation: validate.number,
+  },
+  name: {
+    validation: validate.string,
+  },
+  type: {
+    validation: validate.string,
+  },
+  initalValue: {
+    validation: validate.float,
+  },
+});
 
 export const get = async (req, res) => Controller.get(req, res, Accounts);
 
