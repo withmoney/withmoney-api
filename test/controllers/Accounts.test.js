@@ -1,11 +1,10 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { sequelize, Transactions } from '../../src/models';
-import * as Controller from '../../src/controllers/Transactions';
+import { sequelize, Accounts } from '../../src/models';
+import * as Controller from '../../src/controllers/Accounts';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
-import transactionsFacture from '../factures/Transactions';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
 
 iconv.encodings = encodings;
@@ -17,20 +16,16 @@ let resMock = {
   json: jest.fn(),
 };
 
-describe('Transactions Controller should', () => {
+describe('Accounts Controller should', () => {
   let user;
   let account;
-  let accountTwo;
-  let transaction;
 
   beforeAll(async () => {
     await truncate();
     user = await usersFacture();
     account = await accountsFacture({ userId: user.id });
-    accountTwo = await accountsFacture({ name: 'bank two', userId: user.id });
-    transaction = await transactionsFacture({ accountId: account.id });
 
-    transaction = await Transactions.findById(transaction.id);
+    account = await Accounts.findById(account.id);
   });
 
   beforeEach(async () => {
@@ -54,7 +49,7 @@ describe('Transactions Controller should', () => {
     sequelize.close();
   });
 
-  it('list transactions', async () => {
+  it('list accounts', async () => {
     await Controller.list(reqMock, resMock);
     expect(resMock.json).toBeCalled();
 
@@ -63,7 +58,7 @@ describe('Transactions Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data[0].toJSON()).toEqual(transaction.toJSON());
+    expect(response.data[0].toJSON()).toEqual(account.toJSON());
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
@@ -74,41 +69,37 @@ describe('Transactions Controller should', () => {
     });
   });
 
-  it('create transaction', async () => {
+  it('create account', async () => {
     const body = {
-      accountId: account.id,
-      name: 'headfone',
-      value: 100.99,
-      type: 'out',
-      isPaid: false,
-      transationDate: '2018-04-02',
+      userId: user.id,
+      name: 'bank one',
+      initalValue: 100.99,
+      type: 'wallet',
     };
 
     reqMock.body = body;
 
     await Controller.create(reqMock, resMock);
 
-    let transactionCreated = resMock.json.mock.calls[0][0];
-    transactionCreated = transactionCreated.toJSON();
+    let accountCreated = resMock.json.mock.calls[0][0];
+    accountCreated = accountCreated.toJSON();
 
-    expect(body.name).toEqual(transactionCreated.name);
-    expect(body.value).toEqual(transactionCreated.value);
-    expect(body.type).toEqual(transactionCreated.type);
-    expect(body.isPaid).toEqual(transactionCreated.isPaid);
-    expect(body.transationDate).toEqual(transactionCreated.transationDate);
+    expect(body.name).toEqual(accountCreated.name);
+    expect(body.initalValue).toEqual(accountCreated.initalValue);
+    expect(body.type).toEqual(accountCreated.type);
   });
 
-  it('get transaction', async () => {
-    reqMock.params.id = transaction.id;
+  it('get account', async () => {
+    reqMock.params.id = account.id;
 
     await Controller.get(reqMock, resMock);
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(transaction);
+    expect(response).toEqual(account);
   });
 
-  it('get transaction not find transaction', async () => {
+  it('get account not find account', async () => {
     reqMock.params.id = 99999999;
 
     await Controller.get(reqMock, resMock);
@@ -119,20 +110,19 @@ describe('Transactions Controller should', () => {
     expect(resMock.send.mock.calls[0][0]).toEqual(EXCEPTION_NOT_FOUND);
   });
 
-  it('update transaction', async () => {
-    reqMock.params.id = transaction.id;
+  it('update account', async () => {
+    reqMock.params.id = account.id;
     const body = {
-      name: 'Bola',
-      accountId: accountTwo.id,
-      value: 40.7,
-      isPaid: true,
-      transationDate: '2018-04-21',
+      name: 'BankTwo',
+      userId: user.id,
+      initalValue: 40.7,
+      type: 'investing',
     };
     reqMock.body = body;
 
     await Controller.update(reqMock, resMock);
 
-    transaction = await Transactions.findById(transaction.id);
+    account = await Accounts.findById(account.id);
 
     expect(resMock.json).toBeCalled();
 
@@ -140,19 +130,17 @@ describe('Transactions Controller should', () => {
 
     expect(response).toBeTruthy();
     expect(response.toJSON()).toHaveProperty('name');
-    expect(response.toJSON()).toHaveProperty('accountId');
-    expect(response.toJSON()).toHaveProperty('value');
-    expect(response.toJSON()).toHaveProperty('isPaid');
-    expect(response.toJSON()).toHaveProperty('transationDate');
+    expect(response.toJSON()).toHaveProperty('userId');
+    expect(response.toJSON()).toHaveProperty('initalValue');
+    expect(response.toJSON()).toHaveProperty('type');
     expect(response.name).toEqual(body.name);
-    expect(response.accountId).toEqual(body.accountId);
-    expect(response.value).toEqual(body.value);
-    expect(response.isPaid).toEqual(body.isPaid);
-    expect(response.transationDate).toEqual(body.transationDate);
+    expect(response.userId).toEqual(body.userId);
+    expect(response.toJSON().initalValue).toEqual(body.initalValue);
+    expect(response.type).toEqual(body.type);
   });
 
-  it('delete transaction', async () => {
-    reqMock.params.id = transaction.id;
+  it('delete account', async () => {
+    reqMock.params.id = account.id;
 
     await Controller.destroy(reqMock, resMock);
 

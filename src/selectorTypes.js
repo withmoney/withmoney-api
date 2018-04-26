@@ -22,6 +22,8 @@ export const valueSelType = floatType;
 
 export const userIdSelType = numberType;
 
+export const accountIdSelType = numberType;
+
 export const accountFromIdSelType = numberType;
 
 export const typeSelType = stringType;
