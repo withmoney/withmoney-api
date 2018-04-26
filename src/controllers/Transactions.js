@@ -1,7 +1,13 @@
 import { Transactions } from '../models';
 import * as Controller from './Controller';
-import * as validate from '../utils/validate';
-import { nameSelType, userIdSelType, valueSelType } from '../selectorTypes';
+import {
+  nameSelType,
+  userIdSelType,
+  valueSelType,
+  typeSelType,
+  isPaidSelType,
+  transationDateSelType,
+} from '../selectorTypes';
 
 export const list = (req, res) => Controller.list(req, res, Transactions);
 
@@ -9,15 +15,9 @@ export const create = (req, res) => Controller.create(req, res, Transactions, {
   userId: userIdSelType,
   name: nameSelType,
   value: valueSelType,
-  type: {
-    validation: validate.string,
-  },
-  isPaid: {
-    validation: validate.bool,
-  },
-  transationDate: {
-    validation: validate.string,
-  },
+  type: typeSelType,
+  isPaid: isPaidSelType,
+  transationDate: transationDateSelType,
 });
 
 export const get = async (req, res) => Controller.get(req, res, Transactions);
