@@ -1,22 +1,12 @@
 import { Users, Accounts } from '../models';
 import * as Controller from './Controller';
+import { nameSelType } from '../selectorTypes';
 
 export const list = (req, res) => Controller.list(req, res, Users);
 
-export const create = async (req, res) => {
-  const { name } = req.body;
-
-  try {
-    const data = await Users.create({
-      name,
-    });
-
-    res.json(data);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const create = (req, res) => Controller.create(req, res, Users, {
+  name: nameSelType,
+});
 
 export const get = async (req, res) => Controller.get(req, res, Users);
 

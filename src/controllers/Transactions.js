@@ -1,34 +1,24 @@
 import { Transactions } from '../models';
 import * as Controller from './Controller';
+import {
+  nameSelType,
+  userIdSelType,
+  valueSelType,
+  typeSelType,
+  isPaidSelType,
+  transationDateSelType,
+} from '../selectorTypes';
 
 export const list = (req, res) => Controller.list(req, res, Transactions);
 
-export const create = async (req, res) => {
-  const {
-    userId,
-    name,
-    value,
-    type,
-    isPaid,
-    transationDate,
-  } = req.body;
-
-  try {
-    const entity = await Transactions.create({
-      userId,
-      name,
-      value,
-      type,
-      isPaid,
-      transationDate,
-    });
-
-    res.json(entity);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const create = (req, res) => Controller.create(req, res, Transactions, {
+  userId: userIdSelType,
+  name: nameSelType,
+  value: valueSelType,
+  type: typeSelType,
+  isPaid: isPaidSelType,
+  transationDate: transationDateSelType,
+});
 
 export const get = async (req, res) => Controller.get(req, res, Transactions);
 
