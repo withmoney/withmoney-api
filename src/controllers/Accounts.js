@@ -31,9 +31,11 @@ export const update = async (req, res) => {
       req.body.initalValue = parseFloat(req.body.initalValue);
     }
 
-    const data = await entity.update(req.body);
+    await entity.update(req.body);
 
-    res.json(data.toJSON());
+    const accountUpdated = await Accounts.findById(id);
+
+    res.json(accountUpdated);
   } catch (e) {
     console.error(e);
     res.status(500).send(e);
