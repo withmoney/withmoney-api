@@ -18,28 +18,11 @@ export const create = (req, res) => Controller.create(req, res, Accounts, {
 
 export const get = async (req, res) => Controller.get(req, res, Accounts);
 
-export const update = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const entity = await Accounts.findById(id);
-
-    if (req.body.userId) {
-      req.body.userId = parseInt(req.body.userId, 10);
-    }
-    if (req.body.initalValue) {
-      req.body.initalValue = parseFloat(req.body.initalValue);
-    }
-
-    await entity.update(req.body);
-
-    const accountUpdated = await Accounts.findById(id);
-
-    res.json(accountUpdated);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e);
-  }
-};
+export const update = (req, res) => Controller.update(req, res, Accounts, {
+  userId: userIdSelType,
+  name: nameSelType,
+  type: typeSelType,
+  initalValue: valueSelType,
+});
 
 export const destroy = (req, res) => Controller.destroy(req, res, Accounts);

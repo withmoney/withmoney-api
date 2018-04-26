@@ -113,6 +113,25 @@ export const create = async ({ body }, res, Model, data) => {
   }
 };
 
+export const update = async ({ params, body }, res, Model, data) => {
+  const { id } = params;
+
+  const dataBody = selector(data, body);
+
+  try {
+    const entity = await Model.findById(id);
+
+    await entity.update(dataBody);
+
+    const entityUpdated = await Model.findById(id);
+
+    res.json(entityUpdated);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+};
+
 export const destroy = async (req, res, Model) => {
   const { id } = req.params;
 
