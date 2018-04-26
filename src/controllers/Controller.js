@@ -55,7 +55,6 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
       pagination,
     });
   } catch (e) {
-    console.error(e);
     res.status(500).send(e);
   }
 };
@@ -88,7 +87,6 @@ export const create = async ({ body }, res, Model, data) => {
 
     res.json(entity);
   } catch (e) {
-    console.error(e);
     res.status(500).send(e);
   }
 };
@@ -103,11 +101,8 @@ export const update = async ({ params, body }, res, Model, data) => {
 
     const updated = await entity.update(dataBody);
 
-    // const entityUpdated = await Model.findById(id);
-
     res.json(updated);
   } catch (e) {
-    console.error(e);
     res.status(500).send(e);
   }
 };
@@ -122,7 +117,6 @@ export const destroy = async (req, res, Model) => {
 
     res.status(204).send();
   } catch (e) {
-    console.error(e);
     res.status(500).send(e);
   }
 };
