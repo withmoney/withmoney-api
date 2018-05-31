@@ -1,15 +1,49 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Login from '@/pages/Login';
+import TransactionEdit from '@/pages/TransactionEdit';
+import TransactionList from '@/pages/TransactionList';
+import store from '../store';
 
 Vue.use(Router);
+
+const insecure = (to, from, next) => {
+  if (!store.getters.user) {
+    next();
+    return;
+  }
+
+  next('/');
+};
+
+const secure = (to, from, next) => {
+  if (store.getters.user) {
+    next();
+    return;
+  }
+
+  next('/login');
+};
 
 export default new Router({
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      beforeEnter: insecure,
+    },
+    {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'TransactionList',
+      component: TransactionList,
+      beforeEnter: secure,
+    },
+    {
+      path: '/transaction/:id',
+      name: 'TransactionEdit',
+      component: TransactionEdit,
+      beforeEnter: secure,
     },
   ],
 });
