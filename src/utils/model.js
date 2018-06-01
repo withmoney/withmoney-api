@@ -1,5 +1,6 @@
 export const listDefaultOptions = {
   where: {},
+  filter: null,
 };
 
 export const getModelAlias = (aliasDatabase, db) => (model) => {

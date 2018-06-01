@@ -85,6 +85,7 @@ describe('Users Controller should', () => {
         {
           id: user.id,
           name: user.name,
+          email: user.email,
           updatedAt: user.updatedAt,
           createdAt: user.createdAt,
           Accounts: [
@@ -125,6 +126,7 @@ describe('Users Controller should', () => {
     expect(response.toJSON()).toEqual({
       id: user.id,
       name: user.name,
+      email: user.email,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
       Accounts: accounts.map(accountItem => ({

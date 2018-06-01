@@ -2,7 +2,6 @@
 // import faker from "faker";
 import models from '../../src/models';
 
-
 /**
  * Generate an object which container attributes needed
  * to successfully create a user instance.
@@ -14,6 +13,7 @@ import models from '../../src/models';
 const data = async (props = {}) => {
   const defaultProps = {
     name: 'name',
+    email: 'email@domain.com',
   };
   return Object.assign({}, defaultProps, props);
 };

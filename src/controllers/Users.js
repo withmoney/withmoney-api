@@ -1,8 +1,14 @@
 import { Users, Accounts } from '../models';
 import * as Controller from './Controller';
 import { userForm } from '../definitions';
+import * as SelType from '../selectorTypes';
 
-export const list = (req, res) => Controller.list(req, res, Users);
+export const list = (req, res) => Controller.list(req, res, Users, {
+  filter: {
+    name: SelType.nameSelType,
+    email: SelType.emailSelType,
+  },
+});
 
 export const create = (req, res) => Controller.create(req, res, Users, userForm);
 
