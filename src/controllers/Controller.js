@@ -12,18 +12,19 @@ const aliasDatabase = {
 
 export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
   const {
-    where,
+    filter,
   } = options;
+  let where = {};
 
   const {
     limit,
     page,
     batch,
   } = selector({
-    name: SelType.nameSelType,
     limit: SelType.limitSelType,
     page: SelType.pageSelType,
     batch: SelType.batchSelType,
+    ...filter,
   }, query);
 
   const select = {
@@ -32,7 +33,8 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     order: [['id', 'DESC']],
   };
 
-  if (where !== null) {
+  if (filter) {
+    where = selector(filter, query);
     select.where = where;
   }
 
