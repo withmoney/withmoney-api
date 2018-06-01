@@ -1,65 +1,55 @@
+const timestamp = {
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
 const user = {
   name: 'David Costa',
   email: 'davidcostadev@gmail.com',
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  ...timestamp,
 };
 
 const bancointer = {
-  userId: null,
   name: 'Banco Inter',
   type: 'checking_account',
   initalValue: 505.18,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  ...timestamp,
 };
 
 const carteira = {
-  userId: null,
   name: 'Carteira',
   type: 'wallet',
   initalValue: 650,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  ...timestamp,
 };
 
 const transactionOnInter = {
-  accountId: null,
   name: 'Lanche na Sonia',
   value: 30.90,
   type: 'out',
   isPaid: true,
-  transationDate: new Date('2018-04-01'),
-  createdAt: new Date('2018-04-01'),
-  updatedAt: new Date('2018-04-01'),
+  transationDate: new Date(),
+  ...timestamp,
 };
 
 const transactionOnWallet = {
-  accountId: null,
   name: 'Coxinha',
   value: 3.13,
   type: 'out',
-  isPaid: true,
-  transationDate: new Date('2018-04-01'),
-  createdAt: new Date('2018-04-01'),
-  updatedAt: new Date('2018-04-01'),
+  isPaid: false,
+  transationDate: new Date(),
+  ...timestamp,
 };
 
 const transferOne = {
   value: 10,
-  accountFromId: null,
-  accountToId: null,
-  transferDate: new Date('2018-04-01'),
-  createdAt: new Date('2018-04-01'),
-  updatedAt: new Date('2018-04-01'),
+  transferDate: new Date(),
+  ...timestamp,
 };
 const transferTwo = {
   value: 10,
-  accountFromId: null,
-  accountToId: null,
-  transferDate: new Date('2018-04-01'),
-  createdAt: new Date('2018-04-01'),
-  updatedAt: new Date('2018-04-01'),
+  transferDate: new Date(),
+  ...timestamp,
 };
 
 module.exports = {
