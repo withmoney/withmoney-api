@@ -13,6 +13,11 @@ It is a project of money control
 2. npm run sequelize db:migrate
 3. npm run sequelize db:seed #in development
 
+## Development
+
+To use in development environment always run the `npm run sequelize db:migrate` before, and you can
+run `npm run dev` to start the server.
+
 ## APIs 
 
 [Users](docs/users.md)
