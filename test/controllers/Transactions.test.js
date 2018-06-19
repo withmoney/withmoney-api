@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { sequelize, Transactions } from '../../src/models';
-import * as Controller from '../../src/controllers/Transactions';
+import Controller from '../../src/controllers/Transactions';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';

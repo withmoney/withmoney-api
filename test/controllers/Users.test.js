@@ -2,7 +2,7 @@ import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { sequelize, Users, Accounts } from '../../src/models';
 import { injectModel } from '../../src/services/inject';
-import * as Controller from '../../src/controllers/Users';
+import Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
@@ -150,7 +150,7 @@ describe('Users Controller should', () => {
       },
     };
 
-    await Controller.accounts(injectModel(UserModelMock))(reqMock, resMock);
+    await Controller.accounts(UserModelMock)(reqMock, resMock);
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();

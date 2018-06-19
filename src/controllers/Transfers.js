@@ -1,13 +1,6 @@
-import { Transfers } from '../models';
-import * as Controller from './Controller';
-import { transferForm } from '../definitions';
+import TransferService from '../services/TransferService';
+import creatorController from '../utils/creatorController';
 
-export const list = (req, res) => Controller.list(req, res, Transfers);
+const TransferController = creatorController(TransferService);
 
-export const create = (req, res) => Controller.create(req, res, Transfers, transferForm);
-
-export const get = async (req, res) => Controller.get(req, res, Transfers);
-
-export const update = (req, res) => Controller.update(req, res, Transfers, transferForm);
-
-export const destroy = (req, res) => Controller.destroy(req, res, Transfers);
+export default TransferController;
