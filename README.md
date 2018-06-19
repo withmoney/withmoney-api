@@ -5,6 +5,7 @@ It is a project of money control
 [![Maintainability](https://api.codeclimate.com/v1/badges/a4125a26d0c9b7019652/maintainability)](https://codeclimate.com/github/davidcostadev/mymoney/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a4125a26d0c9b7019652/test_coverage)](https://codeclimate.com/github/davidcostadev/mymoney/test_coverage)
 [![Build Status](https://travis-ci.org/davidcostadev/mymoney.svg?branch=master)](https://travis-ci.org/davidcostadev/mymoney)
+[![codecov](https://codecov.io/gh/davidcostadev/mymoney/branch/master/graph/badge.svg)](https://codecov.io/gh/davidcostadev/mymoney)
 
 ## Instalation
 
