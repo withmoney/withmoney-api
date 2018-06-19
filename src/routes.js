@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Users as UsersModel } from './models';
-import diModel from './services/diModel';
+import { injectModel } from './services/inject';
 import * as Users from './controllers/Users';
 import * as Accounts from './controllers/Accounts';
 import * as Transactions from './controllers/Transactions';
@@ -56,7 +56,7 @@ router.put('/api/v1/users/:id', Users.update);
 
 // users associated
 
-router.get('/api/v1/users/:id/accounts', Users.accounts(diModel(UsersModel)));
+router.get('/api/v1/users/:id/accounts', Users.accounts(injectModel(UsersModel)));
 
 // accounts
 
