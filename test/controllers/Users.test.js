@@ -1,6 +1,7 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { sequelize, Users, Accounts } from '../../src/models';
+import { injectModel } from '../../src/services/inject';
 import * as Controller from '../../src/controllers/Users';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
@@ -116,7 +117,7 @@ describe('Users Controller should', () => {
   it('list accounts by user', async () => {
     reqMock.params.id = user.id;
 
-    await Controller.accounts(reqMock, resMock);
+    await Controller.accounts(injectModel(Users))(reqMock, resMock);
     const accounts = await user.getAccounts();
 
     expect(resMock.json).toBeCalled();
@@ -140,6 +141,20 @@ describe('Users Controller should', () => {
         initalValue: accountItem.initalValue,
       })),
     });
+  });
+
+  it('get a error listing accounts by user', async () => {
+    const UserModelMock = {
+      findById: () => {
+        throw new Error('sequelize error');
+      },
+    };
+
+    await Controller.accounts(injectModel(UserModelMock))(reqMock, resMock);
+
+    expect(resMock.status).toBeCalled();
+    expect(resMock.send).toBeCalled();
+    expect(resMock.status.mock.calls[0][0]).toEqual(500);
   });
 
   it('create user', async () => {

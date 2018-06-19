@@ -16,7 +16,7 @@ export const get = async (req, res) => Controller.get(req, res, Users);
 
 export const update = (req, res) => Controller.update(req, res, Users, userForm);
 
-export const accounts = async (req, res) => {
+export const accounts = UsersModel => async (req, res) => {
   const { id } = req.params;
 
   const select = {
@@ -26,11 +26,10 @@ export const accounts = async (req, res) => {
   };
 
   try {
-    const user = await Users.findById(id, select);
+    const user = await UsersModel.findById(id, select);
 
     res.json(user);
   } catch (e) {
-    console.error(e);
     res.status(500).send(e);
   }
 };
