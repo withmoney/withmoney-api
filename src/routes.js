@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Users as UsersModel } from './models';
 import { injectModel } from './services/inject';
+import resources from './services/resources';
 import * as Users from './controllers/Users';
 import * as Accounts from './controllers/Accounts';
 import * as Transactions from './controllers/Transactions';
@@ -46,40 +47,16 @@ router.get('/', (req, res) => {
   });
 });
 
-// users
+const namespace = '/api/v1/';
 
-router.get('/api/v1/users', Users.list);
-router.post('/api/v1/users', Users.create);
-router.get('/api/v1/users/:id', Users.get);
-router.delete('/api/v1/users/:id', Users.destroy);
-router.put('/api/v1/users/:id', Users.update);
+// resources
+resources(`${namespace}users`, { router, controller: Users });
+resources(`${namespace}accounts`, { router, controller: Accounts });
+resources(`${namespace}transactions`, { router, controller: Transactions });
+resources(`${namespace}transfers`, { router, controller: Transfers });
 
-// users associated
+// custom routers
 
-router.get('/api/v1/users/:id/accounts', Users.accounts(injectModel(UsersModel)));
-
-// accounts
-
-router.get('/api/v1/accounts', Accounts.list);
-router.post('/api/v1/accounts', Accounts.create);
-router.get('/api/v1/accounts/:id', Accounts.get);
-router.delete('/api/v1/accounts/:id', Accounts.destroy);
-router.put('/api/v1/accounts/:id', Accounts.update);
-
-// transactions
-
-router.get('/api/v1/transactions', Transactions.list);
-router.post('/api/v1/transactions', Transactions.create);
-router.get('/api/v1/transactions/:id', Transactions.get);
-router.delete('/api/v1/transactions/:id', Transactions.destroy);
-router.put('/api/v1/transactions/:id', Transactions.update);
-
-// transfers
-
-router.get('/api/v1/transfers', Transfers.list);
-router.post('/api/v1/transfers', Transfers.create);
-router.get('/api/v1/transfers/:id', Transfers.get);
-router.delete('/api/v1/transfers/:id', Transfers.destroy);
-router.put('/api/v1/transfers/:id', Transfers.update);
+router.get(`${namespace}users/:id/accounts`, Users.accounts(injectModel(UsersModel)));
 
 export default router;
