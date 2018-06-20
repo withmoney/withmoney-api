@@ -1,6 +1,6 @@
 import { Transactions } from '../models';
 import { transactionForm } from '../definitions';
-import createService from '../utils/createService';
+import createResourceService from '../utils/createResourceService';
 import { fields as accountFields } from './AccountService';
 
 export const fields = [
@@ -16,7 +16,7 @@ export const fields = [
   { Account: accountFields },
 ];
 
-const TransactionService = createService(Transactions, {
+const TransactionService = createResourceService(Transactions, {
   definitions: transactionForm,
   options: { fields },
 });

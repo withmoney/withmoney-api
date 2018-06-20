@@ -1,6 +1,6 @@
 import { Users } from '../models';
 import { userForm } from '../definitions';
-import createService from '../utils/createService';
+import createResourceService from '../utils/createResourceService';
 import * as SelType from '../selectorTypes';
 import { fields as accountFields } from './AccountService';
 
@@ -15,7 +15,7 @@ export const fields = [
   },
 ];
 
-const UserService = createService(Users, {
+const UserService = createResourceService(Users, {
   definitions: userForm,
   options: {
     fields,

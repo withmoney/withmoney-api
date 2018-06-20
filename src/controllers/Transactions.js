@@ -1,6 +1,6 @@
 import TransactionService from '../services/TransactionService';
-import createController from '../utils/createController';
+import createResourceController from '../utils/createResourceController';
 
-const TransactionController = createController(TransactionService);
+const TransactionController = createResourceController(TransactionService);
 
 export default TransactionController;

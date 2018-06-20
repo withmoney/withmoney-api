@@ -1,6 +1,6 @@
 import TransferService from '../services/TransferService';
-import createController from '../utils/createController';
+import createResourceController from '../utils/createResourceController';
 
-const TransferController = createController(TransferService);
+const TransferController = createResourceController(TransferService);
 
 export default TransferController;

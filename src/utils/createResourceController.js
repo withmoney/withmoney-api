@@ -1,7 +1,7 @@
 import Controller from './Controller';
 import { ACTIONS } from '../definitions';
 
-const createController = (service, { only = ACTIONS, custom = {} } = {}) => {
+const createResourceController = (service, { only = ACTIONS, custom = {} } = {}) => {
   const methods = {};
 
   only.forEach((action) => {
@@ -14,4 +14,4 @@ const createController = (service, { only = ACTIONS, custom = {} } = {}) => {
   };
 };
 
-export default createController;
+export default createResourceController;

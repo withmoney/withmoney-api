@@ -1,7 +1,7 @@
 import Service from './Service';
 import { ACTIONS } from '../definitions';
 
-const createService = (model, {
+const createResourceService = (model, {
   only = ACTIONS,
   definitions = {},
   options = {},
@@ -19,4 +19,4 @@ const createService = (model, {
   };
 };
 
-export default createService;
+export default createResourceService;

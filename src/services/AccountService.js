@@ -1,6 +1,6 @@
 import { Accounts } from '../models';
 import { accountForm } from '../definitions';
-import createService from '../utils/createService';
+import createResourceService from '../utils/createResourceService';
 
 export const fields = [
   'id',
@@ -13,7 +13,7 @@ export const fields = [
   'updatedAt',
 ];
 
-const AccountService = createService(Accounts, {
+const AccountService = createResourceService(Accounts, {
   definitions: accountForm,
   options: { fields },
 });
