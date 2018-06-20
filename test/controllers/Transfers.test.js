@@ -63,10 +63,7 @@ describe('Transfers Controller should', () => {
   });
 
   it('list transfers', async () => {
-    try {
-      await Controller.list(reqMock, resMock);
-
-    } catch(e) { console.log(e) }
+    await Controller.list(reqMock, resMock);
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
@@ -85,7 +82,7 @@ describe('Transfers Controller should', () => {
     });
   });
 
-  it.only('list users with batch', async () => {
+  it('list users with batch', async () => {
     reqMock.query = {
       batch: 'AccountFrom,AccountTo',
     };
