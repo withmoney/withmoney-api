@@ -58,7 +58,6 @@ const list = async ({ query }, Model, { filters = listDefaultOptions }) => {
       pagination,
     };
   } catch (e) {
-    console.log(e);
     throw new Error(EXCEPTION_NOT_FOUND);
   }
 };
@@ -99,10 +98,18 @@ const update = async ({ params, body }, Model, { definitions }) => {
   try {
     const entity = await Model.findById(id);
 
+    if (!entity) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
     const updated = await entity.update(dataBody);
 
     return updated;
   } catch (e) {
+    if (e.message === EXCEPTION_NOT_FOUND) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
     throw new Error(EXCEPTION_UNPROCESSABLE_ENTITY);
   }
 };
