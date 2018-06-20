@@ -10,11 +10,11 @@ const aliasDatabase = {
   AccountTo: 'Accounts',
 };
 
-const list = async ({ query }, Model, { filters = listDefaultOptions }) => {
+const list = async ({ query }, Model, { options = listDefaultOptions }) => {
   const {
     filter,
     fields,
-  } = filters;
+  } = options;
   let where = {};
 
   const {

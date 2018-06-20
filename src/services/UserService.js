@@ -1,6 +1,6 @@
 import { Users } from '../models';
 import { userForm } from '../definitions';
-import creatorService from '../utils/creatorService';
+import createService from '../utils/createService';
 import * as SelType from '../selectorTypes';
 import { fields as accountFields } from './AccountService';
 
@@ -15,9 +15,9 @@ export const fields = [
   },
 ];
 
-const UserService = creatorService(Users, {
+const UserService = createService(Users, {
   definitions: userForm,
-  filters: {
+  options: {
     fields,
     filter: {
       name: SelType.nameSelType,

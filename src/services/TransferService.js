@@ -1,6 +1,6 @@
 import { Transfers } from '../models';
 import { transferForm } from '../definitions';
-import creatorService from '../utils/creatorService';
+import createService from '../utils/createService';
 import { fields as accountFields } from './AccountService';
 
 export const fields = [
@@ -17,9 +17,9 @@ export const fields = [
   },
 ];
 
-const TransferService = creatorService(Transfers, {
+const TransferService = createService(Transfers, {
   definitions: transferForm,
-  filters: { fields },
+  options: { fields },
 });
 
 export default TransferService;

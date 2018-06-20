@@ -1,6 +1,6 @@
 import AccountService from '../services/AccountService';
-import creatorController from '../utils/creatorController';
+import createController from '../utils/createController';
 
-const AccountController = creatorController(AccountService);
+const AccountController = createController(AccountService);
 
 export default AccountController;

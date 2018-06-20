@@ -11,6 +11,8 @@ import {
   transationDateSelType,
 } from './selectorTypes';
 
+export const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
+
 export const userForm = {
   name: nameSelType,
 };

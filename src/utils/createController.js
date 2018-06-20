@@ -1,8 +1,7 @@
 import Controller from './Controller';
+import { ACTIONS } from '../definitions';
 
-const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
-
-const creatorController = (service, { only = ACTIONS, custom = {} } = {}) => {
+const createController = (service, { only = ACTIONS, custom = {} } = {}) => {
   const methods = {};
 
   only.forEach((action) => {
@@ -15,4 +14,4 @@ const creatorController = (service, { only = ACTIONS, custom = {} } = {}) => {
   };
 };
 
-export default creatorController;
+export default createController;

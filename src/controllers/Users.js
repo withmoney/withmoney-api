@@ -1,6 +1,6 @@
 import { Accounts } from '../models';
 import UserService from '../services/UserService';
-import creatorController from '../utils/creatorController';
+import createController from '../utils/createController';
 
 const accounts = UsersModel => async (req, res) => {
   const { id } = req.params;
@@ -20,7 +20,7 @@ const accounts = UsersModel => async (req, res) => {
   }
 };
 
-const UserController = creatorController(UserService, {
+const UserController = createController(UserService, {
   custom: { accounts },
 });
 

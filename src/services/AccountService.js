@@ -1,6 +1,6 @@
 import { Accounts } from '../models';
 import { accountForm } from '../definitions';
-import creatorService from '../utils/creatorService';
+import createService from '../utils/createService';
 
 export const fields = [
   'id',
@@ -13,9 +13,9 @@ export const fields = [
   'updatedAt',
 ];
 
-const AccountService = creatorService(Accounts, {
+const AccountService = createService(Accounts, {
   definitions: accountForm,
-  filters: { fields },
+  options: { fields },
 });
 
 export default AccountService;

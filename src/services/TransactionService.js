@@ -1,6 +1,6 @@
 import { Transactions } from '../models';
 import { transactionForm } from '../definitions';
-import creatorService from '../utils/creatorService';
+import createService from '../utils/createService';
 import { fields as accountFields } from './AccountService';
 
 export const fields = [
@@ -16,9 +16,9 @@ export const fields = [
   { Account: accountFields },
 ];
 
-const TransactionService = creatorService(Transactions, {
+const TransactionService = createService(Transactions, {
   definitions: transactionForm,
-  filters: { fields },
+  options: { fields },
 });
 
 export default TransactionService;
