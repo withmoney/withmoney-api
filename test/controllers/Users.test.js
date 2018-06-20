@@ -7,6 +7,8 @@ import truncate from '../truncate';
 import userFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
+import { fields as userFields } from '../../src/services/UserService';
+import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 
@@ -19,15 +21,21 @@ let resMock = {
 
 describe('Users Controller should', () => {
   let user;
+  let userDavid;
   let account;
+  let accountTwo;
 
   beforeAll(async () => {
     await truncate();
     user = await userFacture();
+    userDavid = await userFacture({ name: 'david', email: 'david@costa.com' });
     account = await accountsFacture({ userId: user.id });
+    accountTwo = await accountsFacture({ userId: userDavid.id });
 
     user = await Users.findById(user.id);
+    userDavid = await Users.findById(userDavid.id);
     account = await Accounts.findById(account.id);
+    accountTwo = await Accounts.findById(accountTwo.id);
   });
 
   afterAll(() => {
@@ -57,7 +65,39 @@ describe('Users Controller should', () => {
 
     const response = resMock.json.mock.calls[0][0];
     expect(response).toEqual({
-      data: [user],
+      data: clearData([userDavid, user], userFields),
+      pagination: {
+        currentPage: 1,
+        nextPage: null,
+        perPage: 100,
+        previousPage: null,
+        totalItems: 2,
+        totalPages: 1,
+      },
+    });
+  });
+
+  it('list users with filter by name', async () => {
+    reqMock.query = {
+      name: 'david',
+    };
+
+    await Controller.list(reqMock, resMock);
+    expect(resMock.json).toBeCalled();
+
+    const response = resMock.json.mock.calls[0][0];
+
+    expect(response.data.length).toEqual(1);
+    expect(response).toEqual({
+      data: [
+        {
+          id: userDavid.id,
+          createdAt: userDavid.createdAt,
+          email: userDavid.email,
+          name: userDavid.name,
+          updatedAt: userDavid.updatedAt,
+        },
+      ],
       pagination: {
         currentPage: 1,
         nextPage: null,
@@ -79,10 +119,27 @@ describe('Users Controller should', () => {
 
     const response = resMock.json.mock.calls[0][0];
 
-    response.data[0] = response.data[0].toJSON();
-
     expect(response).toEqual({
       data: [
+        {
+          id: userDavid.id,
+          name: userDavid.name,
+          email: userDavid.email,
+          updatedAt: userDavid.updatedAt,
+          createdAt: userDavid.createdAt,
+          Accounts: [
+            {
+              id: accountTwo.id,
+              userId: accountTwo.userId,
+              UserId: accountTwo.UserId,
+              createdAt: accountTwo.createdAt,
+              name: accountTwo.name,
+              type: accountTwo.type,
+              updatedAt: accountTwo.updatedAt,
+              initalValue: accountTwo.initalValue,
+            },
+          ],
+        },
         {
           id: user.id,
           name: user.name,
@@ -108,7 +165,7 @@ describe('Users Controller should', () => {
         nextPage: null,
         perPage: 100,
         previousPage: null,
-        totalItems: 1,
+        totalItems: 2,
         totalPages: 1,
       },
     });

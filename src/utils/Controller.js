@@ -1,12 +1,16 @@
 import { EXCEPTION_NOT_FOUND } from '../errors';
 
-const list = async (req, res, service) => {
+const defaultResponse = async (req, res, service) => {
   try {
     res.json(await service(req));
   } catch (e) {
     res.status(500).send(e);
   }
 };
+
+const list = defaultResponse;
+const create = defaultResponse;
+const update = defaultResponse;
 
 const get = async (req, res, service) => {
   try {
@@ -17,22 +21,6 @@ const get = async (req, res, service) => {
     } else {
       res.status(500).send(e);
     }
-  }
-};
-
-const create = async (req, res, service) => {
-  try {
-    res.json(await service(req));
-  } catch (e) {
-    res.status(500).send(e);
-  }
-};
-
-const update = async (req, res, service) => {
-  try {
-    res.json(await service(req));
-  } catch (e) {
-    res.status(500).send(e);
   }
 };
 

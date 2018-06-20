@@ -7,6 +7,7 @@ const creatorService = (model, {
   definitions = {},
   filters = {},
   custom = {},
+  fields = ['id'],
 }) => {
   const methods = {};
 

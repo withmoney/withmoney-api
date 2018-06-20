@@ -6,6 +6,8 @@ import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
+import { fields as accountFields } from '../../src/services/AccountService';
+import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 
@@ -58,7 +60,7 @@ describe('Accounts Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data[0].toJSON()).toEqual(account.toJSON());
+    expect(response.data).toEqual(clearData([account], accountFields));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,

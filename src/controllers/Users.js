@@ -20,13 +20,6 @@ const accounts = UsersModel => async (req, res) => {
   }
 };
 
-// const list = (req, res) => Controller.list(req, res, Users, {
-//   filter: {
-//     name: SelType.nameSelType,
-//     email: SelType.emailSelType,
-//   },
-// });
-
 const UserController = creatorController(UserService, {
   custom: { accounts },
 });

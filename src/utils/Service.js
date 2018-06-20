@@ -3,7 +3,7 @@ import database from '../models';
 import selector from '../utils/selector';
 import * as SelType from '../selectorTypes';
 import { EXCEPTION_NOT_FOUND, EXCEPTION_UNPROCESSABLE_ENTITY } from '../errors';
-import { getModelAlias, listDefaultOptions } from '../utils/model';
+import { getModelAlias, listDefaultOptions, clearData } from '../utils/model';
 
 const aliasDatabase = {
   AccountFrom: 'Accounts',
@@ -13,6 +13,7 @@ const aliasDatabase = {
 const list = async ({ query }, Model, { filters = listDefaultOptions }) => {
   const {
     filter,
+    fields,
   } = filters;
   let where = {};
 
@@ -53,10 +54,11 @@ const list = async ({ query }, Model, { filters = listDefaultOptions }) => {
     const pagination = paginationParse(count, page, limit);
 
     return {
-      data,
+      data: clearData(data, fields),
       pagination,
     };
   } catch (e) {
+    console.log(e);
     throw new Error(EXCEPTION_NOT_FOUND);
   }
 };
