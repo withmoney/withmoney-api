@@ -104,8 +104,6 @@ describe('Transfers Controller should', () => {
             transferDate: transfer.transferDate,
             updatedAt: transfer.updatedAt,
             createdAt: transfer.createdAt,
-            // AccountFromId: transfer.AccountFromId,
-            // AccountToId: transfer.AccountToId,
             accountFromId: transfer.accountFromId,
             accountToId: transfer.accountToId,
             AccountFrom: {
