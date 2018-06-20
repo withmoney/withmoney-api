@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { Users as UsersModel } from './models';
 import { injectModel } from './services/inject';
 import resources from './services/resources';
-import * as Users from './controllers/Users';
-import * as Accounts from './controllers/Accounts';
-import * as Transactions from './controllers/Transactions';
-import * as Transfers from './controllers/Transfers';
+import Users from './controllers/Users';
+import Accounts from './controllers/Accounts';
+import Transactions from './controllers/Transactions';
+import Transfers from './controllers/Transfers';
 
 const router = Router();
 

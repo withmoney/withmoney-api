@@ -2,17 +2,18 @@ import paginationParse from '../utils/pagination';
 import database from '../models';
 import selector from '../utils/selector';
 import * as SelType from '../selectorTypes';
-import { EXCEPTION_NOT_FOUND } from '../errors';
-import { getModelAlias, listDefaultOptions } from '../utils/model';
+import { EXCEPTION_NOT_FOUND, EXCEPTION_UNPROCESSABLE_ENTITY } from '../errors';
+import { getModelAlias, listDefaultOptions, clearData } from '../utils/model';
 
 const aliasDatabase = {
   AccountFrom: 'Accounts',
   AccountTo: 'Accounts',
 };
 
-export const list = async ({ query }, res, Model, options = listDefaultOptions) => {
+const list = async ({ query }, Model, { options = listDefaultOptions }) => {
   const {
-    filter,
+    filters,
+    fields,
   } = options;
   let where = {};
 
@@ -24,7 +25,7 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     limit: SelType.limitSelType,
     page: SelType.pageSelType,
     batch: SelType.batchSelType,
-    ...filter,
+    ...filters,
   }, query);
 
   const select = {
@@ -33,8 +34,8 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     order: [['id', 'DESC']],
   };
 
-  if (filter) {
-    where = selector(filter, query);
+  if (filters) {
+    where = selector(filters, query);
     select.where = where;
   }
 
@@ -52,16 +53,16 @@ export const list = async ({ query }, res, Model, options = listDefaultOptions) 
     const { count } = await Model.findAndCountAll({ where });
     const pagination = paginationParse(count, page, limit);
 
-    res.json({
-      data,
+    return {
+      data: clearData(data, fields),
       pagination,
-    });
+    };
   } catch (e) {
-    res.status(500).send(e);
+    throw new Error(EXCEPTION_NOT_FOUND);
   }
 };
 
-export const get = async (req, res, Model) => {
+const get = async (req, Model) => {
   const { id } = req.params;
 
   try {
@@ -71,45 +72,49 @@ export const get = async (req, res, Model) => {
       throw new Error(EXCEPTION_NOT_FOUND);
     }
 
-    res.json(entity);
+    return entity;
   } catch (e) {
-    if (e.message === EXCEPTION_NOT_FOUND) {
-      res.status(404).send(e.message);
-    } else {
-      res.status(500).send(e);
-    }
+    throw new Error(EXCEPTION_NOT_FOUND);
   }
 };
 
-export const create = async ({ body }, res, Model, data) => {
-  const dataBody = selector(data, body);
+const create = async ({ body }, Model, { definitions }) => {
+  const dataBody = selector(definitions, body);
 
   try {
     const entity = await Model.create(dataBody);
 
-    res.json(entity);
+    return entity;
   } catch (e) {
-    res.status(500).send(e);
+    throw new Error(EXCEPTION_UNPROCESSABLE_ENTITY);
   }
 };
 
-export const update = async ({ params, body }, res, Model, data) => {
+const update = async ({ params, body }, Model, { definitions }) => {
   const { id } = params;
 
-  const dataBody = selector(data, body);
+  const dataBody = selector(definitions, body);
 
   try {
     const entity = await Model.findById(id);
 
+    if (!entity) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
     const updated = await entity.update(dataBody);
 
-    res.json(updated);
+    return updated;
   } catch (e) {
-    res.status(500).send(e);
+    if (e.message === EXCEPTION_NOT_FOUND) {
+      throw new Error(EXCEPTION_NOT_FOUND);
+    }
+
+    throw new Error(EXCEPTION_UNPROCESSABLE_ENTITY);
   }
 };
 
-export const destroy = async (req, res, Model) => {
+const destroy = async (req, Model) => {
   const { id } = req.params;
 
   try {
@@ -117,8 +122,16 @@ export const destroy = async (req, res, Model) => {
       where: { id },
     });
 
-    res.status(204).send();
+    return true;
   } catch (e) {
-    res.status(500).send(e);
+    throw new Error(EXCEPTION_UNPROCESSABLE_ENTITY);
   }
+};
+
+export default {
+  list,
+  create,
+  get,
+  update,
+  destroy,
 };

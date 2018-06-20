@@ -1,22 +1,8 @@
-import { Users, Accounts } from '../models';
-import * as Controller from './Controller';
-import { userForm } from '../definitions';
-import * as SelType from '../selectorTypes';
+import { Accounts } from '../models';
+import UserService from '../services/UserService';
+import createResourceController from '../utils/createResourceController';
 
-export const list = (req, res) => Controller.list(req, res, Users, {
-  filter: {
-    name: SelType.nameSelType,
-    email: SelType.emailSelType,
-  },
-});
-
-export const create = (req, res) => Controller.create(req, res, Users, userForm);
-
-export const get = async (req, res) => Controller.get(req, res, Users);
-
-export const update = (req, res) => Controller.update(req, res, Users, userForm);
-
-export const accounts = UsersModel => async (req, res) => {
+const accounts = UsersModel => async (req, res) => {
   const { id } = req.params;
 
   const select = {
@@ -34,4 +20,8 @@ export const accounts = UsersModel => async (req, res) => {
   }
 };
 
-export const destroy = (req, res) => Controller.destroy(req, res, Users);
+const UserController = createResourceController(UserService, {
+  custom: { accounts },
+});
+
+export default UserController;

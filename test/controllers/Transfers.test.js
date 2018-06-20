@@ -1,12 +1,14 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { sequelize, Transfers, Accounts } from '../../src/models';
-import * as Controller from '../../src/controllers/Transfers';
+import Controller from '../../src/controllers/Transfers';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import transfersFacture from '../factures/Transfers';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
+import { fields as transferFields } from '../../src/services/TransferService';
+import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 
@@ -61,7 +63,10 @@ describe('Transfers Controller should', () => {
   });
 
   it('list transfers', async () => {
-    await Controller.list(reqMock, resMock);
+    try {
+      await Controller.list(reqMock, resMock);
+
+    } catch(e) { console.log(e) }
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
@@ -69,7 +74,7 @@ describe('Transfers Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data[0].toJSON()).toEqual(transfer.toJSON());
+    expect(response.data).toEqual(clearData([transfer], transferFields));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
@@ -80,7 +85,7 @@ describe('Transfers Controller should', () => {
     });
   });
 
-  it('list users with batch', async () => {
+  it.only('list users with batch', async () => {
     reqMock.query = {
       batch: 'AccountFrom,AccountTo',
     };
@@ -90,42 +95,41 @@ describe('Transfers Controller should', () => {
 
     const response = resMock.json.mock.calls[0][0];
 
-    response.data[0] = response.data[0].toJSON();
-
     expect(response).toEqual({
-      data: [
-        {
-          id: transfer.id,
-          value: transfer.value,
-          transferDate: transfer.transferDate,
-          updatedAt: transfer.updatedAt,
-          createdAt: transfer.createdAt,
-          AccountFromId: transfer.AccountFromId,
-          AccountToId: transfer.AccountToId,
-          accountFromId: transfer.accountFromId,
-          accountToId: transfer.accountToId,
-          AccountFrom: {
-            id: accountOne.id,
-            userId: accountOne.userId,
-            UserId: accountOne.UserId,
-            createdAt: accountOne.createdAt,
-            name: accountOne.name,
-            type: accountOne.type,
-            updatedAt: accountOne.updatedAt,
-            initalValue: accountOne.initalValue,
+      data: clearData(
+        [
+          {
+            id: transfer.id,
+            value: transfer.value,
+            transferDate: transfer.transferDate,
+            updatedAt: transfer.updatedAt,
+            createdAt: transfer.createdAt,
+            accountFromId: transfer.accountFromId,
+            accountToId: transfer.accountToId,
+            AccountFrom: {
+              id: accountOne.id,
+              userId: accountOne.userId,
+              UserId: accountOne.UserId,
+              createdAt: accountOne.createdAt,
+              name: accountOne.name,
+              type: accountOne.type,
+              updatedAt: accountOne.updatedAt,
+              initalValue: accountOne.initalValue,
+            },
+            AccountTo: {
+              id: accountTwo.id,
+              userId: accountTwo.userId,
+              UserId: accountTwo.UserId,
+              createdAt: accountTwo.createdAt,
+              name: accountTwo.name,
+              type: accountTwo.type,
+              updatedAt: accountTwo.updatedAt,
+              initalValue: accountTwo.initalValue,
+            },
           },
-          AccountTo: {
-            id: accountTwo.id,
-            userId: accountTwo.userId,
-            UserId: accountTwo.UserId,
-            createdAt: accountTwo.createdAt,
-            name: accountTwo.name,
-            type: accountTwo.type,
-            updatedAt: accountTwo.updatedAt,
-            initalValue: accountTwo.initalValue,
-          },
-        },
-      ],
+        ],
+        transferFields,
+      ),
       pagination: {
         currentPage: 1,
         nextPage: null,

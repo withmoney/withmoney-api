@@ -1,12 +1,14 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { sequelize, Transactions } from '../../src/models';
-import * as Controller from '../../src/controllers/Transactions';
+import Controller from '../../src/controllers/Transactions';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import transactionsFacture from '../factures/Transactions';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
+import { fields as TransactionFields } from '../../src/services/TransactionService';
+import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 
@@ -63,7 +65,7 @@ describe('Transactions Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data[0].toJSON()).toEqual(transaction.toJSON());
+    expect(response.data).toEqual(clearData([transaction], TransactionFields));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
