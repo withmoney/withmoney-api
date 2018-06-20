@@ -19,7 +19,7 @@ const UserService = createService(Users, {
   definitions: userForm,
   options: {
     fields,
-    filter: {
+    filters: {
       name: SelType.nameSelType,
       email: SelType.emailSelType,
     },

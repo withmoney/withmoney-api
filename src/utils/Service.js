@@ -12,7 +12,7 @@ const aliasDatabase = {
 
 const list = async ({ query }, Model, { options = listDefaultOptions }) => {
   const {
-    filter,
+    filters,
     fields,
   } = options;
   let where = {};
@@ -25,7 +25,7 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
     limit: SelType.limitSelType,
     page: SelType.pageSelType,
     batch: SelType.batchSelType,
-    ...filter,
+    ...filters,
   }, query);
 
   const select = {
@@ -34,8 +34,8 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
     order: [['id', 'DESC']],
   };
 
-  if (filter) {
-    where = selector(filter, query);
+  if (filters) {
+    where = selector(filters, query);
     select.where = where;
   }
 
