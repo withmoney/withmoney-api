@@ -1,5 +1,6 @@
 import {
   nameSelType,
+  emailSelType,
   userIdSelType,
   accountIdSelType,
   accountFromIdSelType,
@@ -15,6 +16,7 @@ export const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
 
 export const userForm = {
   name: nameSelType,
+  email: emailSelType,
 };
 
 export const accountForm = {

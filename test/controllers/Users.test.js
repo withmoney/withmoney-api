@@ -218,6 +218,7 @@ describe('Users Controller should', () => {
     reqMock.params.id = user.id;
     const body = {
       name: 'David Costa',
+      email: 'email@davicosta.com.br',
     };
     reqMock.body = body;
 
@@ -226,6 +227,7 @@ describe('Users Controller should', () => {
     user = await Users.findById(userCreated.id);
 
     expect(userCreated.name).toEqual(body.name);
+    expect(userCreated.email).toEqual(body.email);
   });
 
   it('get user', async () => {
@@ -253,6 +255,7 @@ describe('Users Controller should', () => {
     reqMock.params.id = user.id;
     const body = {
       name: 'André',
+      email: 'email@andre.com.br',
     };
     reqMock.body = body;
 
@@ -263,8 +266,9 @@ describe('Users Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-
+    console.log(response)
     expect(response.name).toEqual(body.name);
+    expect(response.email).toEqual(body.email);
   });
 
   it('delete user', async () => {
