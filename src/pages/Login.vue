@@ -11,23 +11,42 @@
         <md-button type="submit" class="md-primary">Login</md-button>
       </md-card-actions>
     </md-card>
+    <md-snackbar :md-active.sync="showError">
+      <span>{{error}}</span>
+      <md-button class="md-primary" @click="showError = false" md-persistent>Retry</md-button>
+    </md-snackbar>
   </form>
 </template>
 
 <script>
+import Users from '../services/users';
+
 export default {
   data() {
     return {
-      email: '',
+      email: 'asdasd@asdasd.asd',
+      error: '',
+      showError: false,
     };
   },
   methods: {
-    onSubmit() {
-      console.log(this.email);
+    async onSubmit() {
+      if (this.email) {
+        const { data } = await Users.getUsers({
+          email: this.email,
+        });
+        if (data.length) {
+          const [user] = data;
+          window.localStorage.setItem('token', 'blahblabh');
 
-      this.$store.dispatch('addUser', { name: 'david', email: 'davicostadev@gmail.com' });
+          this.$store.dispatch('addUser', user);
 
-      this.$router.push('/');
+          this.$router.push('/');
+        } else {
+          this.showError = true;
+          this.error = 'Usuário não encontrado.';
+        }
+      }
     },
   },
 };

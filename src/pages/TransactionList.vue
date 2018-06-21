@@ -35,16 +35,14 @@ export default {
     };
   },
   methods: {
-    onSelectTransaction({ id, name }) {
-      console.log('onSelectTransaction', id, name);
+    onSelectTransaction({ id }) {
       this.$router.push(`/transaction/${id}`);
     },
   },
-  created() {
-    Transaction.getTransactions()
-      .then(({ data }) => {
-        this.transactions = data.data;
-      });
+  async created() {
+    const { data } = await Transaction.getTransactions();
+
+    this.transactions = data;
   },
 };
 </script>

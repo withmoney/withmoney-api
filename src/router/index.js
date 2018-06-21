@@ -8,7 +8,9 @@ import store from '../store';
 Vue.use(Router);
 
 const insecure = (to, from, next) => {
-  if (!store.getters.user) {
+  const token = window.localStorage.getItem('token');
+
+  if (!store.getters.user && !token) {
     next();
     return;
   }
@@ -17,7 +19,9 @@ const insecure = (to, from, next) => {
 };
 
 const secure = (to, from, next) => {
-  if (store.getters.user) {
+  const token = window.localStorage.getItem('token');
+
+  if (store.getters.user || token) {
     next();
     return;
   }
