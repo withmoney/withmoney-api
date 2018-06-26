@@ -10,14 +10,8 @@ const config = configs[env];
 const db = {};
 let sequelize;
 
-if (env === 'production') {
-  config.host = process.env.DATABASE_HOST || config.host;
-  sequelize = new Sequelize(
-    process.env.DATABASE || config.database,
-    process.env.DATABASE_USERNAME || config.username,
-    process.env.DATABASE_PASSWORD || config.password,
-    config,
-  );
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
