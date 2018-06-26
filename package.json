@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "sequelize": "node ./node_modules/.bin/sequelize",
-    "start": "node dist/server.js",
+    "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
     "build": "babel src --out-dir dist",
     "pretest": "NODE_ENV=test npm run sequelize db:migrate",
     "test": "jest -i --forceExit && codecov",
     "jest:update": "jest -i --forceExit --updateSnapshot",
     "jest:coverage": "jest -i --forceExit --coverage",
-    "coverage": "http-server ./coverage/lcov-report -o"
+    "coverage": "http-server ./coverage/lcov-report -o",
+    "heroku-postbuild": "NODE_ENV=production NODE_PATH=. npm run sequelize db:migrate --url=$DATABASE_URL"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "jest": "^23.1.0",
     "mysql2": "^1.5.3",
     "nodemon": "^1.17.5",
+    "pg": "^7.4.3",
     "ramda": "^0.25.0",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0"
