@@ -5,7 +5,7 @@ import { fields as accountFields } from './AccountService';
 
 export const fields = [
   'id',
-  'accountId',
+  'AccountId',
   'name',
   'value',
   'type',

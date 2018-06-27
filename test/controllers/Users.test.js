@@ -29,8 +29,8 @@ describe('Users Controller should', () => {
     await truncate();
     user = await userFacture();
     userDavid = await userFacture({ name: 'david', email: 'david@costa.com' });
-    account = await accountsFacture({ userId: user.id });
-    accountTwo = await accountsFacture({ userId: userDavid.id });
+    account = await accountsFacture({ UserId: user.id });
+    accountTwo = await accountsFacture({ UserId: userDavid.id });
 
     user = await Users.findById(user.id);
     userDavid = await Users.findById(userDavid.id);
@@ -266,7 +266,7 @@ describe('Users Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    console.log(response)
+
     expect(response.name).toEqual(body.name);
     expect(response.email).toEqual(body.email);
   });

@@ -20,14 +20,14 @@ export const userForm = {
 };
 
 export const accountForm = {
-  userId: userIdSelType,
+  UserId: userIdSelType,
   name: nameSelType,
   type: typeSelType,
   initalValue: valueSelType,
 };
 
 export const transactionForm = {
-  accountId: accountIdSelType,
+  AccountId: accountIdSelType,
   name: nameSelType,
   value: valueSelType,
   type: typeSelType,
@@ -37,7 +37,7 @@ export const transactionForm = {
 
 export const transferForm = {
   value: valueSelType,
-  accountFromId: accountFromIdSelType,
-  accountToId: accountToIdSelType,
+  AccountFromId: accountFromIdSelType,
+  AccountToId: accountToIdSelType,
   transferDate: transferDateSelType,
 };

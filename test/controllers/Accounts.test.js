@@ -25,7 +25,7 @@ describe('Accounts Controller should', () => {
   beforeAll(async () => {
     await truncate();
     user = await usersFacture();
-    account = await accountsFacture({ userId: user.id });
+    account = await accountsFacture({ UserId: user.id });
 
     account = await Accounts.findById(account.id);
   });
@@ -73,9 +73,9 @@ describe('Accounts Controller should', () => {
 
   it('create account', async () => {
     const body = {
-      userId: user.id,
+      UserId: user.id,
       name: 'bank one',
-      initalValue: 100.99,
+      initalValue: '100.99',
       type: 'wallet',
     };
 
@@ -86,6 +86,7 @@ describe('Accounts Controller should', () => {
     let accountCreated = resMock.json.mock.calls[0][0];
     accountCreated = accountCreated.toJSON();
 
+    expect(body.UserId).toEqual(accountCreated.UserId);
     expect(body.name).toEqual(accountCreated.name);
     expect(body.initalValue).toEqual(accountCreated.initalValue);
     expect(body.type).toEqual(accountCreated.type);
@@ -116,7 +117,7 @@ describe('Accounts Controller should', () => {
     reqMock.params.id = account.id;
     const body = {
       name: 'BankTwo',
-      userId: user.id,
+      UserId: user.id,
       initalValue: 40.7,
       type: 'investing',
     };
@@ -132,11 +133,11 @@ describe('Accounts Controller should', () => {
 
     expect(response).toBeTruthy();
     expect(response.toJSON()).toHaveProperty('name');
-    expect(response.toJSON()).toHaveProperty('userId');
+    expect(response.toJSON()).toHaveProperty('UserId');
     expect(response.toJSON()).toHaveProperty('initalValue');
     expect(response.toJSON()).toHaveProperty('type');
     expect(response.name).toEqual(body.name);
-    expect(response.userId).toEqual(body.userId);
+    expect(response.UserId).toEqual(body.UserId);
     expect(response.toJSON().initalValue).toEqual(body.initalValue);
     expect(response.type).toEqual(body.type);
   });

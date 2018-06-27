@@ -4,8 +4,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(10, 2),
       defaultValue: 0,
     },
-    accountFromId: DataTypes.INTEGER,
-    accountToId: DataTypes.INTEGER,
     transferDate: DataTypes.DATEONLY,
   }, {});
   Transfers.associate = ({ Accounts }) => {

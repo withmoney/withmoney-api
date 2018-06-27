@@ -28,9 +28,9 @@ describe('Transactions Controller should', () => {
   beforeAll(async () => {
     await truncate();
     user = await usersFacture();
-    account = await accountsFacture({ userId: user.id });
-    accountTwo = await accountsFacture({ name: 'bank two', userId: user.id });
-    transaction = await transactionsFacture({ accountId: account.id });
+    account = await accountsFacture({ UserId: user.id });
+    accountTwo = await accountsFacture({ name: 'bank two', UserId: user.id });
+    transaction = await transactionsFacture({ AccountId: account.id });
 
     transaction = await Transactions.findById(transaction.id);
   });
@@ -78,9 +78,9 @@ describe('Transactions Controller should', () => {
 
   it('create transaction', async () => {
     const body = {
-      accountId: account.id,
+      AccountId: account.id,
       name: 'headfone',
-      value: 100.99,
+      value: '100.99',
       type: 'out',
       isPaid: false,
       transationDate: '2018-04-02',
@@ -125,7 +125,7 @@ describe('Transactions Controller should', () => {
     reqMock.params.id = transaction.id;
     const body = {
       name: 'Bola',
-      accountId: accountTwo.id,
+      AccountId: accountTwo.id,
       value: 40.7,
       isPaid: true,
       transationDate: '2018-04-21',
@@ -142,12 +142,12 @@ describe('Transactions Controller should', () => {
 
     expect(response).toBeTruthy();
     expect(response.toJSON()).toHaveProperty('name');
-    expect(response.toJSON()).toHaveProperty('accountId');
+    expect(response.toJSON()).toHaveProperty('AccountId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('isPaid');
     expect(response.toJSON()).toHaveProperty('transationDate');
     expect(response.name).toEqual(body.name);
-    expect(response.accountId).toEqual(body.accountId);
+    expect(response.AccountId).toEqual(body.AccountId);
     expect(response.value).toEqual(body.value);
     expect(response.isPaid).toEqual(body.isPaid);
     expect(response.transationDate).toEqual(body.transationDate);

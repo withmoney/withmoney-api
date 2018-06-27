@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Transactions = sequelize.define('Transactions', {
-    accountId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     value: {
       type: DataTypes.DECIMAL(10, 2),
