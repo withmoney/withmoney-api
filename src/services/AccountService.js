@@ -4,7 +4,6 @@ import createResourceService from '../utils/createResourceService';
 
 export const fields = [
   'id',
-  'userId',
   'UserId',
   'name',
   'type',
