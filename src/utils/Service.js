@@ -58,6 +58,7 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
       pagination,
     };
   } catch (e) {
+    console.error(e);
     throw new Error(EXCEPTION_NOT_FOUND);
   }
 };
