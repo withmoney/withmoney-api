@@ -62,7 +62,7 @@ describe('Transfers Controller should', () => {
     sequelize.close();
   });
 
-  it.only('list transfers', async () => {
+  it('list transfers', async () => {
     await Controller.list(reqMock, resMock);
     expect(resMock.json).toBeCalled();
 
