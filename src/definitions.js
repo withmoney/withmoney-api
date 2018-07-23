@@ -10,6 +10,8 @@ import {
   isPaidSelType,
   transferDateSelType,
   transationDateSelType,
+  createdAtSelType,
+  updatedAtSelType,
 } from './selectorTypes';
 
 export const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
@@ -33,6 +35,8 @@ export const transactionForm = {
   type: typeSelType,
   isPaid: isPaidSelType,
   transationDate: transationDateSelType,
+  createdAt: createdAtSelType,
+  updatedAt: updatedAtSelType,
 };
 
 export const transferForm = {

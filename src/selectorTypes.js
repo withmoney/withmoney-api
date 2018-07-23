@@ -10,10 +10,21 @@ const numberType = {
 
 const floatType = {
   validation: validate.float,
+  convert: (val) => {
+    if (typeof val === 'string') {
+      return val.replace(',', '.');
+    }
+
+    return val;
+  },
 };
 
 const boolType = {
   validation: validate.bool,
+};
+
+const datetimeType = {
+  validation: validate.string,
 };
 
 export const nameSelType = stringType;
@@ -39,6 +50,10 @@ export const transationDateSelType = stringType;
 export const isPaidSelType = boolType;
 
 export const batchSelType = stringType;
+
+export const createdAtSelType = datetimeType;
+
+export const updatedAtSelType = datetimeType;
 
 export const limitSelType = {
   ...numberType,

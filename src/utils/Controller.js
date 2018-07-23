@@ -4,7 +4,9 @@ const defaultResponse = async (req, res, service) => {
   try {
     res.json(await service(req));
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).json({
+      error: e.message,
+    });
   }
 };
 

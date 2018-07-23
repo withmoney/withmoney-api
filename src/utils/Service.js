@@ -87,7 +87,7 @@ const create = async ({ body }, Model, { definitions }) => {
 
     return entity;
   } catch (e) {
-    throw new Error(EXCEPTION_UNPROCESSABLE_ENTITY);
+    throw e;
   }
 };
 
