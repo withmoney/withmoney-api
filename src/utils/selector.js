@@ -1,29 +1,23 @@
-import R from 'ramda';
+const selector = (definitions, query = {}) => {
+  const select = {};
 
-const getDefault = fieldCfg => R.propOr(
-  null,
-  'default',
-)(fieldCfg);
+  Object.keys(definitions).forEach((key) => {
+    if (typeof query[key] !== 'undefined') {
+      if (definitions[key].validation(query[key])) {
+        if (typeof definitions[key].convert !== 'undefined') {
+          select[key] = definitions[key].convert(query[key], key);
+        } else {
+          select[key] = query[key];
+        }
+      } else if (typeof definitions[key].default !== 'undefined') {
+        select[key] = definitions[key].default;
+      }
+    } else if (typeof definitions[key].default !== 'undefined') {
+      select[key] = definitions[key].default;
+    }
+  });
 
-const getVal = (fieldCfg, key) => R.propOr(
-  getDefault(fieldCfg),
-  key,
-);
-
-const validateVal = (fieldCfg, key) => R.ifElse(
-  R.pipe(R.prop('validation')(fieldCfg)),
-  R.objOf(key),
-  R.always({}),
-);
-
-const addFilter = (qr, fieldCfg, key) => (
-  validateVal(fieldCfg, key)(getVal(fieldCfg, key)(qr))
-);
-
-const selector = (fields, query) => (
-  R.mergeAll(Object.keys(fields).map(key => (
-    addFilter(query, R.prop(key)(fields), key)
-  )))
-);
+  return select;
+};
 
 export default selector;

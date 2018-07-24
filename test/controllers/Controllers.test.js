@@ -35,9 +35,11 @@ describe('Accounts Controller should', () => {
     await Controller.list(reqMock, resMock, serviceMock);
 
     expect(resMock.status).toBeCalled();
-    expect(resMock.send).toBeCalled();
+    expect(resMock.json).toBeCalled();
     expect(resMock.status.mock.calls[0][0]).toEqual(500);
-    expect(resMock.send.mock.calls[0][0]).toEqual(new Error('Async error'));
+    expect(resMock.json.mock.calls[0][0]).toEqual({
+      error: 'Async error',
+    });
   });
 
   it('simulate error on get', async () => {
@@ -57,9 +59,11 @@ describe('Accounts Controller should', () => {
     await Controller.create(reqMock, resMock, ModelMock, {});
 
     expect(resMock.status).toBeCalled();
-    expect(resMock.send).toBeCalled();
+    expect(resMock.json).toBeCalled();
     expect(resMock.status.mock.calls[0][0]).toEqual(500);
-    expect(resMock.send.mock.calls[0][0]).toEqual(new Error('Async error'));
+    expect(resMock.json.mock.calls[0][0]).toEqual({
+      error: 'Async error',
+    });
   });
 
   it('simulate error on update', async () => {
@@ -68,9 +72,11 @@ describe('Accounts Controller should', () => {
     await Controller.update(reqMock, resMock, ModelMock, {});
 
     expect(resMock.status).toBeCalled();
-    expect(resMock.send).toBeCalled();
+    expect(resMock.json).toBeCalled();
     expect(resMock.status.mock.calls[0][0]).toEqual(500);
-    expect(resMock.send.mock.calls[0][0]).toEqual(new Error('Async error'));
+    expect(resMock.json.mock.calls[0][0]).toEqual({
+      error: 'Async error',
+    });
   });
 
   it('simulate error on destroy', async () => {

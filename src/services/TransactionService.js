@@ -1,5 +1,6 @@
 import { Transactions } from '../models';
-import { transactionForm } from '../definitions';
+import { transactionForm as definitions } from '../definitions';
+import { transactionFilters as filters } from '../definitionsFilters';
 import createResourceService from '../utils/createResourceService';
 import { fields as accountFields } from './AccountService';
 
@@ -17,8 +18,8 @@ export const fields = [
 ];
 
 const TransactionService = createResourceService(Transactions, {
-  definitions: transactionForm,
-  options: { fields },
+  definitions,
+  options: { fields, filters },
 });
 
 export default TransactionService;

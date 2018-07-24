@@ -43,7 +43,13 @@ describe('Accounts Service should', () => {
       };
 
       try {
+        const { error } = console;
+        console.error = jest.fn();
+
         await Service.list(reqMock, modelMock, {});
+
+        expect(console.error).toBeCalled();
+        console.error = error;
       } catch (e) {
         expect(e.message).toBe(EXCEPTION_NOT_FOUND);
       }
@@ -73,7 +79,7 @@ describe('Accounts Service should', () => {
       try {
         await Service.create(reqMock, modelMock, { definitions });
       } catch (e) {
-        expect(e.message).toBe(EXCEPTION_UNPROCESSABLE_ENTITY);
+        expect(e.message).toBe('Async error');
       }
     });
 
