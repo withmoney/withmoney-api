@@ -3,16 +3,14 @@ const selector = (definitions, query = {}) => {
 
   Object.keys(definitions).forEach((key) => {
     if (typeof query[key] !== 'undefined') {
-      if (typeof definitions[key].validation !== 'undefined') {
-        if (definitions[key].validation(query[key])) {
-          if (typeof definitions[key].convert !== 'undefined') {
-            select[key] = definitions[key].convert(query[key], key);
-          } else {
-            select[key] = query[key];
-          }
-        } else if (typeof definitions[key].default !== 'undefined') {
-          select[key] = definitions[key].default;
+      if (definitions[key].validation(query[key])) {
+        if (typeof definitions[key].convert !== 'undefined') {
+          select[key] = definitions[key].convert(query[key], key);
+        } else {
+          select[key] = query[key];
         }
+      } else if (typeof definitions[key].default !== 'undefined') {
+        select[key] = definitions[key].default;
       }
     } else if (typeof definitions[key].default !== 'undefined') {
       select[key] = definitions[key].default;

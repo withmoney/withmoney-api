@@ -39,3 +39,25 @@ it('should match object', () => {
   expect(selector(fieldsConfig, queryTwo)).toEqual({ limit: 10, name: 'David' });
   expect(selector(fieldsConfig, queryThree)).toEqual({ limit: 50 });
 });
+
+it('wrong value on validation', () => {
+  const query = {
+    limit: 'asdsa',
+  };
+  const config = {
+    limit: {
+      validation: validate.number,
+      default: 10,
+    },
+  };
+  expect(selector(config, query)).toEqual({ limit: 10 });
+});
+
+it('with any thing on query params', () => {
+  const config = {
+    limit: {
+      default: 10,
+    },
+  };
+  expect(selector(config)).toEqual({ limit: 10 });
+});
