@@ -11,7 +11,7 @@ import {
   isPaidSelType,
 } from './selectorTypes';
 
-const dateFilter = {
+export const dateFilter = {
   validation: () => true,
   convert: (val) => {
     if (val.indexOf(',') > -1) {
