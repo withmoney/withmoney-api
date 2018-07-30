@@ -1,6 +1,7 @@
 import {
   nameSelType,
   emailSelType,
+  passwordSelType,
   userIdSelType,
   accountIdSelType,
   accountFromIdSelType,
@@ -19,6 +20,7 @@ export const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
 export const userForm = {
   name: nameSelType,
   email: emailSelType,
+  password: passwordSelType,
 };
 
 export const accountForm = {
