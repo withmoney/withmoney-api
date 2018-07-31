@@ -6,8 +6,8 @@ const getToken = (req) => {
     return req.body.token;
   } else if (typeof req.query.token !== 'undefined') {
     return req.query.token;
-  } else if (typeof req.headers.token !== 'undefined') {
-    return req.headers.token;
+  } else if (typeof req.headers.authorization !== 'undefined') {
+    return req.headers.authorization.replace('Bearer ', '');
   }
 
   return null;

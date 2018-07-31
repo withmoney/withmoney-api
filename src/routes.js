@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Users as UsersModel } from './models';
 import { injectModel } from './services/inject';
 import middleware from './middleware';
-import resources from './services/resources';
+import { resourcesAuth } from './services/resources';
 import Auth from './controllers/Auth';
 import Users from './controllers/Users';
 import Accounts from './controllers/Accounts';
@@ -54,23 +54,24 @@ router.get('/', (req, res) => {
 
 const namespace = '/api/v1/';
 
-// resources
-resources(`${namespace}users`, {
-  router,
-  controller: Users,
-  middleware: middleware.checkAuth,
-});
-resources(`${namespace}accounts`, {
+// resourcesAuth
+resourcesAuth(`${namespace}accounts`, {
   router,
   controller: Accounts,
   middleware: middleware.checkAuth,
 });
-resources(`${namespace}transactions`, {
+
+resourcesAuth(`${namespace}users`, {
+  router,
+  controller: Users,
+  middleware: middleware.checkAuth,
+});
+resourcesAuth(`${namespace}transactions`, {
   router,
   controller: Transactions,
   middleware: middleware.checkAuth,
 });
-resources(`${namespace}transfers`, {
+resourcesAuth(`${namespace}transfers`, {
   router,
   controller: Transfers,
   middleware: middleware.checkAuth,
