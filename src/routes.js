@@ -63,6 +63,6 @@ resources(`${namespace}transfers`, { router, controller: Transfers });
 
 router.get(`${namespace}users/:id/accounts`, Users.accounts(injectModel(UsersModel)));
 
-router.get(`${namespace}login`, Auth.login);
+router.post(`${namespace}login`, Auth.login);
 
 export default router;

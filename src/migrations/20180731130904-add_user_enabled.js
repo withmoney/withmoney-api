@@ -1,15 +1,16 @@
 module.exports = {
   up: (queryInterface, Sequelize) => (
     queryInterface.addColumn(
-      'Users', 'password',
+      'Users', 'enabled',
       {
-        type: Sequelize.STRING,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        after: 'email',
+        defaultValue: false,
+        after: 'password',
       },
     )
   ),
   down: (queryInterface) => {
-    queryInterface.removeColumn('Users', 'password');
+    queryInterface.removeColumn('Users', 'enabled');
   },
 };

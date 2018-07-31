@@ -9,6 +9,7 @@ export const fields = [
   'name',
   'email',
   'password',
+  'enabled',
   'createdAt',
   'updatedAt',
   {

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    enabled: DataTypes.BOOLEAN,
   }, { });
 
   Users.beforeCreate(cryptPassword);

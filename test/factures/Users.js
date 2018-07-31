@@ -15,6 +15,7 @@ const data = async (props = {}) => {
     name: 'name',
     email: 'email@domain.com',
     password: 'P@ssw0rd',
+    enabled: true,
   };
   return Object.assign({}, defaultProps, props);
 };

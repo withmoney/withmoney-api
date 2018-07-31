@@ -10,6 +10,7 @@ const user = {
   name: 'David Costa',
   email: 'davidcostadev@gmail.com',
   password: bcrypt.hashSync('P@ssw0rd', bcrypt.genSaltSync(config.BCRYPT_SALT)),
+  enabled: true,
   ...timestamp,
 };
 

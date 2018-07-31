@@ -96,6 +96,7 @@ describe('Users Controller should', () => {
           createdAt: userDavid.createdAt,
           email: userDavid.email,
           name: userDavid.name,
+          enabled: userDavid.enabled,
           password: userDavid.password,
           updatedAt: userDavid.updatedAt,
         },
@@ -127,6 +128,7 @@ describe('Users Controller should', () => {
           id: userDavid.id,
           name: userDavid.name,
           email: userDavid.email,
+          enabled: userDavid.enabled,
           password: userDavid.password,
           updatedAt: userDavid.updatedAt,
           createdAt: userDavid.createdAt,
@@ -148,6 +150,7 @@ describe('Users Controller should', () => {
           name: user.name,
           email: user.email,
           password: user.password,
+          enabled: user.enabled,
           updatedAt: user.updatedAt,
           createdAt: user.createdAt,
           Accounts: [
@@ -190,6 +193,7 @@ describe('Users Controller should', () => {
       name: user.name,
       email: user.email,
       password: user.password,
+      enabled: user.enabled,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
       Accounts: accounts.map(accountItem => ({
