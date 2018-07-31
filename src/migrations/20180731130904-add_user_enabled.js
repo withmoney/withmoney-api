@@ -4,7 +4,6 @@ module.exports = {
       'Users', 'enabled',
       {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
         after: 'password',
       },
