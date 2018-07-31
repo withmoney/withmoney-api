@@ -1,9 +1,19 @@
-const resources = (prefix, { router, controller }) => {
-  router.get(`${prefix}`, controller.list);
-  router.post(`${prefix}`, controller.create);
-  router.get(`${prefix}/:id`, controller.get);
-  router.delete(`${prefix}/:id`, controller.destroy);
-  router.put(`${prefix}/:id`, controller.update);
+import { Router } from 'express';
+
+const routerBuilder = Router();
+
+const resources = (prefix, { router, controller, middleware }) => {
+  routerBuilder.get('/', controller.list);
+  routerBuilder.post('/', controller.create);
+  routerBuilder.get('/:id', controller.get);
+  routerBuilder.delete('/:id', controller.destroy);
+  routerBuilder.put('/:id', controller.update);
+
+  if (middleware) {
+    router.use(prefix, middleware, routerBuilder);
+  } else {
+    router.use(prefix, routerBuilder);
+  }
 };
 
 export default resources;
