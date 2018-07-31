@@ -53,5 +53,9 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 4.0.0"
   }
 }
