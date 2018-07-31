@@ -3,7 +3,6 @@ import Auth from '../../src/controllers/Auth';
 import truncate from '../truncate';
 import userFacture from '../factures/Users';
 import { sequelize } from '../../src/models';
-import { EXCEPTION_EMAIL_DUPLICATED } from '../../src/errors';
 
 describe('Auth Controller', () => {
   let userBen;

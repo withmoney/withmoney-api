@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { authenticate } from '../../src/services/auth';
+import { authenticate, getUserByEmail } from '../../src/services/auth';
 import config from '../../config/envs';
 
 describe('authenticate should', () => {
@@ -16,8 +16,10 @@ describe('authenticate should', () => {
     };
 
     Model = {
-      findOne: () => Promise.resolve(user),
+      findOne: jest.fn(),
     };
+
+    Model.findOne.mockResolvedValue(user);
   });
 
   it('find user', async () => {
@@ -100,6 +102,16 @@ describe('authenticate should', () => {
       } catch (e) {
         expect(e.message).toBe('Authentication failed. Wrong password.');
       }
+    });
+  });
+
+  describe('getUserByEmail should', () => {
+    it('get user', async () => {
+      const result = await getUserByEmail(Model)('user@domain.com');
+
+      expect(Model.findOne).toBeCalled();
+      expect(Model.findOne.mock.calls[0][0]).toEqual({ where: { email: 'user@domain.com' } })
+      expect(result).toEqual(user);
     });
   });
 });
