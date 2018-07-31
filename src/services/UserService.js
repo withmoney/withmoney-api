@@ -8,6 +8,8 @@ export const fields = [
   'id',
   'name',
   'email',
+  'password',
+  'enabled',
   'createdAt',
   'updatedAt',
   {

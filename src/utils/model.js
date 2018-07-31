@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import config from '../../config/envs';
+
 export const listDefaultOptions = {
   where: {},
   filter: null,
@@ -47,3 +50,10 @@ export const clearData = (data, scheme) => {
 
   return clearItem(scheme)(data);
 };
+
+/* eslint no-param-reassign: "off" */
+export const cryptPassword = user => bcrypt
+  .hash(user.password, bcrypt.genSaltSync(config.BCRYPT_SALT))
+  .then((hash) => {
+    user.password = hash;
+  });

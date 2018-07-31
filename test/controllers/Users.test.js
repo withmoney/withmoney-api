@@ -28,6 +28,7 @@ describe('Users Controller should', () => {
   beforeAll(async () => {
     await truncate();
     user = await userFacture();
+
     userDavid = await userFacture({ name: 'david', email: 'david@costa.com' });
     account = await accountsFacture({ UserId: user.id });
     accountTwo = await accountsFacture({ UserId: userDavid.id });
@@ -95,6 +96,8 @@ describe('Users Controller should', () => {
           createdAt: userDavid.createdAt,
           email: userDavid.email,
           name: userDavid.name,
+          enabled: userDavid.enabled,
+          password: userDavid.password,
           updatedAt: userDavid.updatedAt,
         },
       ],
@@ -125,6 +128,8 @@ describe('Users Controller should', () => {
           id: userDavid.id,
           name: userDavid.name,
           email: userDavid.email,
+          enabled: userDavid.enabled,
+          password: userDavid.password,
           updatedAt: userDavid.updatedAt,
           createdAt: userDavid.createdAt,
           Accounts: [
@@ -144,6 +149,8 @@ describe('Users Controller should', () => {
           id: user.id,
           name: user.name,
           email: user.email,
+          password: user.password,
+          enabled: user.enabled,
           updatedAt: user.updatedAt,
           createdAt: user.createdAt,
           Accounts: [
@@ -185,6 +192,8 @@ describe('Users Controller should', () => {
       id: user.id,
       name: user.name,
       email: user.email,
+      password: user.password,
+      enabled: user.enabled,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt,
       Accounts: accounts.map(accountItem => ({
@@ -219,6 +228,7 @@ describe('Users Controller should', () => {
     const body = {
       name: 'David Costa',
       email: 'email@davicosta.com.br',
+      password: 'P@ssw0rd',
     };
     reqMock.body = body;
 

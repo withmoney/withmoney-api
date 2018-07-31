@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { Users as UsersModel } from './models';
 import { injectModel } from './services/inject';
 import resources from './services/resources';
+import Auth from './controllers/Auth';
 import Users from './controllers/Users';
 import Accounts from './controllers/Accounts';
 import Transactions from './controllers/Transactions';
@@ -42,6 +43,9 @@ router.get('/', (req, res) => {
           '[delete] /api/v1/transfers/:id',
           '[put] /api/v1/transfers/:id',
         ],
+        auth: [
+          '[post] /api/v1/login',
+        ],
       },
     },
   });
@@ -58,5 +62,7 @@ resources(`${namespace}transfers`, { router, controller: Transfers });
 // custom routers
 
 router.get(`${namespace}users/:id/accounts`, Users.accounts(injectModel(UsersModel)));
+
+router.post(`${namespace}login`, Auth.login);
 
 export default router;

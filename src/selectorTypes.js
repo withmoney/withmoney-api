@@ -31,6 +31,10 @@ export const nameSelType = stringType;
 
 export const emailSelType = stringType;
 
+export const passwordSelType = stringType;
+
+export const enabledSelType = boolType;
+
 export const valueSelType = floatType;
 
 export const userIdSelType = numberType;
