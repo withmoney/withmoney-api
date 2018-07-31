@@ -5,6 +5,9 @@ describe('cryptPassword should', () => {
   it('sucessful', async () => {
     const user = {
       password: '123',
+      _previousDataValues: {
+        password: '1234',
+      },
     };
 
     await cryptPassword(user);

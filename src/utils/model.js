@@ -52,8 +52,15 @@ export const clearData = (data, scheme) => {
 };
 
 /* eslint no-param-reassign: "off" */
-export const cryptPassword = user => bcrypt
-  .hash(user.password, bcrypt.genSaltSync(config.BCRYPT_SALT))
-  .then((hash) => {
-    user.password = hash;
-  });
+/* eslint no-underscore-dangle: "off" */
+export const cryptPassword = (user) => {
+  if (user.password !== user._previousDataValues.password) {
+    return bcrypt
+      .hash(user.password, bcrypt.genSaltSync(config.BCRYPT_SALT))
+      .then((hash) => {
+        user.password = hash;
+      });
+  }
+
+  return null;
+};
