@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     type: DataTypes.ENUM('in', 'out'),
     isPaid: DataTypes.BOOLEAN,
-    transationDate: DataTypes.DATEONLY,
+    transactionDate: DataTypes.DATEONLY,
   }, {});
   Transactions.associate = (models) => {
     Transactions.belongsTo(models.Accounts);

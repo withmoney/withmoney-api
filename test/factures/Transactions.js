@@ -16,7 +16,7 @@ const data = async (props = {}) => {
     value: 30.90,
     type: 'out',
     isPaid: true,
-    transationDate: new Date('2018-04-01'),
+    transactionDate: new Date('2018-04-01'),
     ...props,
   };
 

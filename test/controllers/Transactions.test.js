@@ -83,7 +83,7 @@ describe('Transactions Controller should', () => {
       value: '100.99',
       type: 'out',
       isPaid: false,
-      transationDate: '2018-04-02',
+      transactionDate: '2018-04-02',
     };
 
     reqMock.body = body;
@@ -97,7 +97,7 @@ describe('Transactions Controller should', () => {
     expect(body.value).toEqual(transactionCreated.value);
     expect(body.type).toEqual(transactionCreated.type);
     expect(body.isPaid).toEqual(transactionCreated.isPaid);
-    expect(body.transationDate).toEqual(transactionCreated.transationDate);
+    expect(body.transactionDate).toEqual(transactionCreated.transactionDate);
   });
 
   it('get transaction', async () => {
@@ -128,7 +128,7 @@ describe('Transactions Controller should', () => {
       AccountId: accountTwo.id,
       value: 40.7,
       isPaid: true,
-      transationDate: '2018-04-21',
+      transactionDate: '2018-04-21',
     };
     reqMock.body = body;
 
@@ -145,12 +145,12 @@ describe('Transactions Controller should', () => {
     expect(response.toJSON()).toHaveProperty('AccountId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('isPaid');
-    expect(response.toJSON()).toHaveProperty('transationDate');
+    expect(response.toJSON()).toHaveProperty('transactionDate');
     expect(response.name).toEqual(body.name);
     expect(response.AccountId).toEqual(body.AccountId);
     expect(response.value).toEqual(body.value);
     expect(response.isPaid).toEqual(body.isPaid);
-    expect(response.transationDate).toEqual(body.transationDate);
+    expect(response.transactionDate).toEqual(body.transactionDate);
   });
 
   it('delete transaction', async () => {
