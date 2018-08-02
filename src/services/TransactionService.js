@@ -11,7 +11,7 @@ export const fields = [
   'value',
   'type',
   'isPaid',
-  'transationDate',
+  'transactionDate',
   'createdAt',
   'updatedAt',
   { Account: accountFields },

@@ -1,3 +1,4 @@
+import Moment from 'moment';
 import * as validate from './utils/validate';
 
 const stringType = {
@@ -27,6 +28,11 @@ const datetimeType = {
   validation: validate.string,
 };
 
+const dateType = {
+  validation: validate.string,
+  convert: val => Moment(val).format('YYYY-MM-DD'),
+};
+
 export const nameSelType = stringType;
 
 export const emailSelType = stringType;
@@ -49,7 +55,7 @@ export const accountToIdSelType = numberType;
 
 export const transferDateSelType = stringType;
 
-export const transationDateSelType = stringType;
+export const transactionDateSelType = dateType;
 
 export const isPaidSelType = boolType;
 

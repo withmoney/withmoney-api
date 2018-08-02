@@ -33,7 +33,7 @@ const transactionOnInter = {
   value: 30.90,
   type: 'out',
   isPaid: true,
-  transationDate: new Date(),
+  transactionDate: new Date(),
   ...timestamp,
 };
 
@@ -42,7 +42,7 @@ const transactionOnWallet = {
   value: 3.13,
   type: 'out',
   isPaid: false,
-  transationDate: new Date(),
+  transactionDate: new Date(),
   ...timestamp,
 };
 

@@ -55,7 +55,7 @@ export const transactionFilters = {
   value: valueSelType,
   type: typeSelType,
   isPaid: isPaidSelType,
-  transationDate: dateFilter,
+  transactionDate: dateFilter,
   ...timestamp,
 };
 

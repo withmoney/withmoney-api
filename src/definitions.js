@@ -11,7 +11,7 @@ import {
   typeSelType,
   isPaidSelType,
   transferDateSelType,
-  transationDateSelType,
+  transactionDateSelType,
   createdAtSelType,
   updatedAtSelType,
 } from './selectorTypes';
@@ -38,7 +38,7 @@ export const transactionForm = {
   value: valueSelType,
   type: typeSelType,
   isPaid: isPaidSelType,
-  transationDate: transationDateSelType,
+  transactionDate: transactionDateSelType,
   createdAt: createdAtSelType,
   updatedAt: updatedAtSelType,
 };
