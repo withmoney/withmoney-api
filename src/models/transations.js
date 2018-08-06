@@ -9,8 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     isPaid: DataTypes.BOOLEAN,
     transactionDate: DataTypes.DATEONLY,
   }, {});
-  Transactions.associate = (models) => {
-    Transactions.belongsTo(models.Accounts);
+  Transactions.associate = ({ Accounts, Users }) => {
+    Transactions.belongsTo(Accounts);
+    Transactions.belongsTo(Users);
   };
   return Transactions;
 };

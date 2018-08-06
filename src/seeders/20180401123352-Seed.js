@@ -66,12 +66,16 @@ module.exports = {
     const accountIdInter = await queryInterface.bulkInsert('Accounts', [bancointer]);
     const accountIdWallet = await queryInterface.bulkInsert('Accounts', [carteira]);
 
+    transactionOnInter.UserId = userId;
+    transactionOnWallet.UserId = userId;
     transactionOnInter.AccountId = accountIdInter;
     transactionOnWallet.AccountId = accountIdWallet;
 
     await queryInterface.bulkInsert('Transactions', [transactionOnInter]);
     await queryInterface.bulkInsert('Transactions', [transactionOnWallet]);
 
+    transferOne.UserId = userId;
+    transferTwo.UserId = userId;
     transferOne.AccountFromId = accountIdInter;
     transferOne.AccountToId = accountIdWallet;
     transferTwo.AccountFromId = accountIdWallet;

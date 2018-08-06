@@ -97,6 +97,7 @@ describe('Transfers Controller should', () => {
         [
           {
             id: transfer.id,
+            UserId: transfer.UserId,
             value: transfer.value,
             transferDate: transfer.transferDate,
             updatedAt: transfer.updatedAt,
@@ -105,7 +106,6 @@ describe('Transfers Controller should', () => {
             AccountToId: transfer.AccountToId,
             AccountFrom: {
               id: accountOne.id,
-              userId: accountOne.userId,
               UserId: accountOne.UserId,
               createdAt: accountOne.createdAt,
               name: accountOne.name,
@@ -115,7 +115,6 @@ describe('Transfers Controller should', () => {
             },
             AccountTo: {
               id: accountTwo.id,
-              userId: accountTwo.userId,
               UserId: accountTwo.UserId,
               createdAt: accountTwo.createdAt,
               name: accountTwo.name,
@@ -140,6 +139,7 @@ describe('Transfers Controller should', () => {
 
   it('create transfer', async () => {
     const body = {
+      UserId: user.id,
       AccountFromId: accountOne.id,
       AccountToId: accountTwo.id,
       value: '100.99',
@@ -153,6 +153,7 @@ describe('Transfers Controller should', () => {
     let transferCreated = resMock.json.mock.calls[0][0];
     transferCreated = transferCreated.toJSON();
 
+    expect(body.UserId).toEqual(transferCreated.UserId);
     expect(body.AccountFromId).toEqual(transferCreated.AccountFromId);
     expect(body.AccountToId).toEqual(transferCreated.AccountToId);
     expect(body.value).toEqual(transferCreated.value);
@@ -183,6 +184,7 @@ describe('Transfers Controller should', () => {
   it('update transfer', async () => {
     reqMock.params.id = transfer.id;
     const body = {
+      UserId: user.id,
       AccountFromId: accountOne.id,
       AccountToId: accountTwo.id,
       value: 56.1,
@@ -199,10 +201,12 @@ describe('Transfers Controller should', () => {
     const response = resMock.json.mock.calls[0][0];
 
     expect(response).toBeTruthy();
+    expect(response.toJSON()).toHaveProperty('UserId');
     expect(response.toJSON()).toHaveProperty('AccountFromId');
     expect(response.toJSON()).toHaveProperty('AccountToId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('transferDate');
+    expect(response.UserId).toEqual(body.UserId);
     expect(response.AccountFromId).toEqual(body.AccountFromId);
     expect(response.AccountToId).toEqual(body.AccountToId);
     expect(response.value).toEqual(body.value);
