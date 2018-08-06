@@ -6,20 +6,22 @@ const timestamp = {
   updatedAt: new Date(),
 };
 
-const userOne = {
-  name: 'David Costa',
-  email: 'davidcostadev@gmail.com',
+const user = {
   password: bcrypt.hashSync('P@ssw0rd', bcrypt.genSaltSync(config.BCRYPT_SALT)),
   enabled: true,
   ...timestamp,
 };
 
+const userOne = {
+  name: 'David Costa',
+  email: 'davidcostadev@gmail.com',
+  ...user,
+};
+
 const userTwo = {
   name: 'Halan Pinheiro',
   email: 'Halan@gmail.com',
-  password: bcrypt.hashSync('P@ssw0rd', bcrypt.genSaltSync(config.BCRYPT_SALT)),
-  enabled: true,
-  ...timestamp,
+  ...user,
 };
 
 const salarioCategory = {
