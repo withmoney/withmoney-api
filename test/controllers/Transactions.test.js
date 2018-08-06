@@ -78,6 +78,7 @@ describe('Transactions Controller should', () => {
 
   it('create transaction', async () => {
     const body = {
+      UserId: user.id,
       AccountId: account.id,
       name: 'headfone',
       value: '100.99',
@@ -94,6 +95,7 @@ describe('Transactions Controller should', () => {
     transactionCreated = transactionCreated.toJSON();
 
     expect(body.name).toEqual(transactionCreated.name);
+    expect(body.UserId).toEqual(transactionCreated.UserId);
     expect(body.value).toEqual(transactionCreated.value);
     expect(body.type).toEqual(transactionCreated.type);
     expect(body.isPaid).toEqual(transactionCreated.isPaid);
@@ -125,6 +127,7 @@ describe('Transactions Controller should', () => {
     reqMock.params.id = transaction.id;
     const body = {
       name: 'Bola',
+      UserId: user.id,
       AccountId: accountTwo.id,
       value: 40.7,
       isPaid: true,
@@ -142,11 +145,13 @@ describe('Transactions Controller should', () => {
 
     expect(response).toBeTruthy();
     expect(response.toJSON()).toHaveProperty('name');
+    expect(response.toJSON()).toHaveProperty('UserId');
     expect(response.toJSON()).toHaveProperty('AccountId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('isPaid');
     expect(response.toJSON()).toHaveProperty('transactionDate');
     expect(response.name).toEqual(body.name);
+    expect(response.UserId).toEqual(body.UserId);
     expect(response.AccountId).toEqual(body.AccountId);
     expect(response.value).toEqual(body.value);
     expect(response.isPaid).toEqual(body.isPaid);

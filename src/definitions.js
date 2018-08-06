@@ -34,6 +34,7 @@ export const accountForm = {
 
 export const transactionForm = {
   AccountId: accountIdSelType,
+  UserId: userIdSelType,
   name: nameSelType,
   value: valueSelType,
   type: typeSelType,
@@ -45,6 +46,7 @@ export const transactionForm = {
 
 export const transferForm = {
   value: valueSelType,
+  UserId: userIdSelType,
   AccountFromId: accountFromIdSelType,
   AccountToId: accountToIdSelType,
   transferDate: transferDateSelType,
