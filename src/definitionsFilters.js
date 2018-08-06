@@ -36,6 +36,7 @@ const timestamp = {
 };
 
 export const userFilters = {
+  id: userIdSelType,
   name: nameSelType,
   email: emailSelType,
   ...timestamp,
@@ -49,7 +50,15 @@ export const accountFilters = {
   ...timestamp,
 };
 
+export const categoryFilters = {
+  UserId: userIdSelType,
+  name: nameSelType,
+  type: typeSelType,
+  ...timestamp,
+};
+
 export const transactionFilters = {
+  UserId: userIdSelType,
   AccountId: accountIdSelType,
   name: nameSelType,
   value: valueSelType,
@@ -60,6 +69,7 @@ export const transactionFilters = {
 };
 
 export const transferFilters = {
+  UserId: userIdSelType,
   value: valueSelType,
   AccountFromId: accountFromIdSelType,
   AccountToId: accountToIdSelType,

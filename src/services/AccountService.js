@@ -1,5 +1,6 @@
 import { Accounts } from '../models';
 import { accountForm } from '../definitions';
+import { accountFilters as filters } from '../definitionsFilters';
 import createResourceService from '../utils/createResourceService';
 
 export const fields = [
@@ -14,7 +15,7 @@ export const fields = [
 
 const AccountService = createResourceService(Accounts, {
   definitions: accountForm,
-  options: { fields },
+  options: { fields, filters },
 });
 
 export default AccountService;
