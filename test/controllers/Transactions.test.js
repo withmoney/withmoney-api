@@ -4,6 +4,7 @@ import { sequelize, Transactions } from '../../src/models';
 import Controller from '../../src/controllers/Transactions';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
+import categoryFacture from '../factures/Categories';
 import accountsFacture from '../factures/Accounts';
 import transactionsFacture from '../factures/Transactions';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
@@ -21,6 +22,7 @@ let resMock = {
 
 describe('Transactions Controller should', () => {
   let user;
+  let category;
   let account;
   let accountTwo;
   let transaction;
@@ -28,6 +30,7 @@ describe('Transactions Controller should', () => {
   beforeAll(async () => {
     await truncate();
     user = await usersFacture();
+    category = await categoryFacture({ UserId: user.id });
     account = await accountsFacture({ UserId: user.id });
     accountTwo = await accountsFacture({ name: 'bank two', UserId: user.id });
     transaction = await transactionsFacture({ AccountId: account.id });
@@ -80,6 +83,7 @@ describe('Transactions Controller should', () => {
     const body = {
       UserId: user.id,
       AccountId: account.id,
+      CategoryId: category.id,
       name: 'headfone',
       value: '100.99',
       type: 'out',
@@ -96,6 +100,7 @@ describe('Transactions Controller should', () => {
 
     expect(body.name).toEqual(transactionCreated.name);
     expect(body.UserId).toEqual(transactionCreated.UserId);
+    expect(body.CategoryId).toEqual(transactionCreated.CategoryId);
     expect(body.value).toEqual(transactionCreated.value);
     expect(body.type).toEqual(transactionCreated.type);
     expect(body.isPaid).toEqual(transactionCreated.isPaid);
@@ -129,6 +134,7 @@ describe('Transactions Controller should', () => {
       name: 'Bola',
       UserId: user.id,
       AccountId: accountTwo.id,
+      CategoryId: category.id,
       value: 40.7,
       isPaid: true,
       transactionDate: '2018-04-21',
@@ -147,12 +153,14 @@ describe('Transactions Controller should', () => {
     expect(response.toJSON()).toHaveProperty('name');
     expect(response.toJSON()).toHaveProperty('UserId');
     expect(response.toJSON()).toHaveProperty('AccountId');
+    expect(response.toJSON()).toHaveProperty('CategoryId');
     expect(response.toJSON()).toHaveProperty('value');
     expect(response.toJSON()).toHaveProperty('isPaid');
     expect(response.toJSON()).toHaveProperty('transactionDate');
     expect(response.name).toEqual(body.name);
     expect(response.UserId).toEqual(body.UserId);
     expect(response.AccountId).toEqual(body.AccountId);
+    expect(response.CategoryId).toEqual(body.CategoryId);
     expect(response.value).toEqual(body.value);
     expect(response.isPaid).toEqual(body.isPaid);
     expect(response.transactionDate).toEqual(body.transactionDate);

@@ -4,6 +4,7 @@ import {
   passwordSelType,
   enabledSelType,
   userIdSelType,
+  categoryIdSelType,
   accountIdSelType,
   accountFromIdSelType,
   accountToIdSelType,
@@ -32,9 +33,16 @@ export const accountForm = {
   initalValue: valueSelType,
 };
 
-export const transactionForm = {
-  AccountId: accountIdSelType,
+export const categoryForm = {
   UserId: userIdSelType,
+  name: nameSelType,
+  type: typeSelType,
+};
+
+export const transactionForm = {
+  UserId: categoryIdSelType,
+  AccountId: accountIdSelType,
+  CategoryId: accountIdSelType,
   name: nameSelType,
   value: valueSelType,
   type: typeSelType,
@@ -45,9 +53,9 @@ export const transactionForm = {
 };
 
 export const transferForm = {
-  value: valueSelType,
   UserId: userIdSelType,
   AccountFromId: accountFromIdSelType,
   AccountToId: accountToIdSelType,
+  value: valueSelType,
   transferDate: transferDateSelType,
 };

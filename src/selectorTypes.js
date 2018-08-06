@@ -47,6 +47,8 @@ export const userIdSelType = numberType;
 
 export const accountIdSelType = numberType;
 
+export const categoryIdSelType = numberType;
+
 export const accountFromIdSelType = numberType;
 
 export const typeSelType = stringType;
