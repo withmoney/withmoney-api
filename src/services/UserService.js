@@ -1,7 +1,7 @@
 import { Users } from '../models';
 import { userForm } from '../definitions';
+import { userFilters as filters } from '../definitionsFilters';
 import createResourceService from '../utils/createResourceService';
-import * as SelType from '../selectorTypes';
 import { fields as accountFields } from './AccountService';
 
 export const fields = [
@@ -19,13 +19,7 @@ export const fields = [
 
 const UserService = createResourceService(Users, {
   definitions: userForm,
-  options: {
-    fields,
-    filters: {
-      name: SelType.nameSelType,
-      email: SelType.emailSelType,
-    },
-  },
+  options: { fields, filters },
 });
 
 export default UserService;

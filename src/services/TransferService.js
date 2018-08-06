@@ -1,5 +1,6 @@
 import { Transfers } from '../models';
 import { transferForm } from '../definitions';
+import { transferFilters as filters } from '../definitionsFilters';
 import createResourceService from '../utils/createResourceService';
 import { fields as accountFields } from './AccountService';
 
@@ -20,7 +21,7 @@ export const fields = [
 
 const TransferService = createResourceService(Transfers, {
   definitions: transferForm,
-  options: { fields },
+  options: { fields, filters },
 });
 
 export default TransferService;

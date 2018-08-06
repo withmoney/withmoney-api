@@ -35,6 +35,24 @@ const checkAuth = (req, res, next) => {
   }
 };
 
-export default {
-  checkAuth,
+const onlyUser = (req, res, next) => {
+  let filter = 'UserId';
+
+  if (req.route.path === '/api/v1/users/') {
+    filter = 'id';
+  }
+
+  req.query = {
+    ...req.query,
+    [filter]: res.user.id,
+  };
+
+  next();
 };
+
+export const middleware = [
+  checkAuth,
+  onlyUser,
+];
+
+export default middleware;

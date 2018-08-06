@@ -7,11 +7,21 @@ const timestamp = {
 };
 
 const user = {
-  name: 'David Costa',
-  email: 'davidcostadev@gmail.com',
   password: bcrypt.hashSync('P@ssw0rd', bcrypt.genSaltSync(config.BCRYPT_SALT)),
   enabled: true,
   ...timestamp,
+};
+
+const userOne = {
+  name: 'David Costa',
+  email: 'davidcostadev@gmail.com',
+  ...user,
+};
+
+const userTwo = {
+  name: 'Halan Pinheiro',
+  email: 'Halan@gmail.com',
+  ...user,
 };
 
 const salarioCategory = {
@@ -65,6 +75,15 @@ const walletTransaction = {
   ...timestamp,
 };
 
+const halanWalletTransaction = {
+  name: 'Cafe',
+  value: 23,
+  type: 'out',
+  isPaid: true,
+  transactionDate: new Date(),
+  ...timestamp,
+};
+
 const transferOne = {
   value: 10,
   transferDate: new Date(),
@@ -75,26 +94,45 @@ const transferTwo = {
   transferDate: new Date(),
   ...timestamp,
 };
+const transferThree = {
+  value: 10,
+  transferDate: new Date(),
+  ...timestamp,
+};
 
 module.exports = {
   up: async (queryInterface) => {
-    const userId = await queryInterface.bulkInsert('Users', [user]);
+    const userOneId = await queryInterface.bulkInsert('Users', [userOne]);
+    const userTwoId = await queryInterface.bulkInsert('Users', [userTwo]);
 
-    lancheCategory.UserId = userId;
-    salarioCategory.UserId = userId;
+    lancheCategory.UserId = userOneId;
+    salarioCategory.UserId = userOneId;
 
     const lancheCategoryId = await queryInterface.bulkInsert('Categories', [lancheCategory]);
     const salarioCategoryId = await queryInterface.bulkInsert('Categories', [salarioCategory]);
 
-    bancointerAccount.UserId = userId;
-    carteiraAccount.UserId = userId;
+    lancheCategory.UserId = userTwoId;
+
+    const lancheCategoryTwoId = await queryInterface.bulkInsert('Categories', [lancheCategory]);
+
+    bancointerAccount.UserId = userOneId;
+    carteiraAccount.UserId = userOneId;
 
     const accountIdInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
     const accountIdWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
 
-    interTransactionOne.UserId = userId;
-    interTransactionTwo.UserId = userId;
-    walletTransaction.UserId = userId;
+    carteiraAccount.UserId = userTwoId;
+
+    const accountIdTwoInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
+    const accountIdTwoWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
+
+    interTransactionOne.UserId = userOneId;
+    interTransactionTwo.UserId = userOneId;
+    walletTransaction.UserId = userOneId;
+    halanWalletTransaction.UserId = userTwoId;
+    halanWalletTransaction.CategoryId = lancheCategoryTwoId;
+    halanWalletTransaction.AccountId = accountIdTwoWallet;
+
     interTransactionOne.CategoryId = salarioCategoryId;
     interTransactionTwo.CategoryId = lancheCategoryId;
     walletTransaction.CategoryId = lancheCategoryId;
@@ -105,17 +143,24 @@ module.exports = {
     await queryInterface.bulkInsert('Transactions', [interTransactionOne]);
     await queryInterface.bulkInsert('Transactions', [interTransactionTwo]);
     await queryInterface.bulkInsert('Transactions', [walletTransaction]);
+    await queryInterface.bulkInsert('Transactions', [halanWalletTransaction]);
 
-    transferOne.UserId = userId;
-    transferTwo.UserId = userId;
+    transferOne.UserId = userOneId;
     transferOne.AccountFromId = accountIdInter;
     transferOne.AccountToId = accountIdWallet;
+
+    transferTwo.UserId = userOneId;
     transferTwo.AccountFromId = accountIdWallet;
     transferTwo.AccountToId = accountIdInter;
+
+    transferThree.UserId = userTwoId;
+    transferThree.AccountFromId = accountIdTwoInter;
+    transferThree.AccountToId = accountIdTwoWallet;
 
     await queryInterface.bulkInsert('Transfers', [
       transferOne,
       transferTwo,
+      transferThree,
     ]);
   },
   down: (queryInterface) => {
