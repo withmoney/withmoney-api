@@ -6,6 +6,7 @@ import { resourcesAuth } from './services/resources';
 import Auth from './controllers/Auth';
 import Users from './controllers/Users';
 import Accounts from './controllers/Accounts';
+import Categories from './controllers/Categories';
 import Transactions from './controllers/Transactions';
 import Transfers from './controllers/Transfers';
 
@@ -29,6 +30,13 @@ router.get('/', (req, res) => {
           '[get] /api/v1/accounts/:id',
           '[delete] /api/v1/accounts/:id',
           '[put] /api/v1/accounts/:id',
+        ],
+        categories: [
+          '[get] /api/v1/categories',
+          '[post] /api/v1/categories',
+          '[get] /api/v1/categories/:id',
+          '[delete] /api/v1/categories/:id',
+          '[put] /api/v1/categories/:id',
         ],
         transactions: [
           '[get] /api/v1/transactions',
@@ -58,6 +66,12 @@ const namespace = '/api/v1/';
 resourcesAuth(`${namespace}accounts`, {
   router,
   controller: Accounts,
+  middleware: middleware.checkAuth,
+});
+
+resourcesAuth(`${namespace}categories`, {
+  router,
+  controller: Categories,
   middleware: middleware.checkAuth,
 });
 

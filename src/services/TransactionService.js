@@ -8,6 +8,7 @@ export const fields = [
   'id',
   'UserId',
   'AccountId',
+  'CategoryId',
   'name',
   'value',
   'type',
