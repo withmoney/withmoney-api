@@ -33,6 +33,16 @@ const dateType = {
   convert: val => Moment(val).format('YYYY-MM-DD'),
 };
 
+export const orderType = {
+  validation: validate.string,
+  convert: (val) => {
+    const fields = val.split(',').map(a => a.split('.'));
+
+    return fields;
+  },
+  default: [['id', 'DESC']],
+};
+
 export const nameSelType = stringType;
 
 export const emailSelType = stringType;
