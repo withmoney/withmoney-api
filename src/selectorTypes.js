@@ -1,5 +1,6 @@
 import Moment from 'moment';
 import * as validate from './utils/validate';
+import * as convert from './utils/convert';
 
 const stringType = {
   validation: validate.string,
@@ -31,6 +32,12 @@ const datetimeType = {
 const dateType = {
   validation: validate.string,
   convert: val => Moment(val).format('YYYY-MM-DD'),
+};
+
+export const orderType = {
+  validation: validate.string,
+  convert: convert.orderToFilter,
+  default: [['id', 'DESC']],
 };
 
 export const nameSelType = stringType;
