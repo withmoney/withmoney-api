@@ -21,17 +21,20 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
     limit,
     page,
     batch,
+    order,
   } = selector({
     limit: SelType.limitSelType,
     page: SelType.pageSelType,
     batch: SelType.batchSelType,
+    order: SelType.orderType,
     ...filters,
   }, query);
 
   const select = {
     limit,
     offset: parseInt(limit, 10) * (page - 1),
-    order: [['id', 'DESC']],
+    // order: [['id', 'DESC']],
+    order,
   };
 
   if (filters) {
