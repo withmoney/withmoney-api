@@ -47,6 +47,11 @@ const onlyUser = (req, res, next) => {
     [filter]: res.user.id,
   };
 
+  req.body = {
+    ...req.body,
+    [filter]: res.user.id,
+  };
+
   next();
 };
 
