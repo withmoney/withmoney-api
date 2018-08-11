@@ -34,6 +34,11 @@ const lancheCategory = {
   type: 'out',
   ...timestamp,
 };
+const contasCategory = {
+  name: 'Contas',
+  type: 'out',
+  ...timestamp,
+};
 
 const bancointerAccount = {
   name: 'Banco Inter',
@@ -107,9 +112,11 @@ module.exports = {
 
     lancheCategory.UserId = userOneId;
     salarioCategory.UserId = userOneId;
+    contasCategory.UserId = userOneId;
 
     const lancheCategoryId = await queryInterface.bulkInsert('Categories', [lancheCategory]);
     const salarioCategoryId = await queryInterface.bulkInsert('Categories', [salarioCategory]);
+    await queryInterface.bulkInsert('Categories', [contasCategory]);
 
     lancheCategory.UserId = userTwoId;
 
@@ -121,6 +128,7 @@ module.exports = {
     const accountIdInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
     const accountIdWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
 
+    bancointerAccount.UserId = userTwoId;
     carteiraAccount.UserId = userTwoId;
 
     const accountIdTwoInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
