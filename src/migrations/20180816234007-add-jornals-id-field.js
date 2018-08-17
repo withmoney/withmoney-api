@@ -1,3 +1,5 @@
+const { addConstraint } = require('../utils/helpers/migrationsHelpers');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('Transactions', 'JournalId', {
@@ -7,15 +9,10 @@ module.exports = {
       after: 'CategoryId',
     });
 
-    await queryInterface.addConstraint('Transactions', ['JournalId'], {
+    await addConstraint(queryInterface, 'Transactions', {
+      field: 'JournalId',
       name: 'fk_journals_transactions',
-      type: 'foreign key',
-      references: {
-        table: 'Journals',
-        field: 'id',
-      },
-      onDelete: 'cascade',
-      onUpdate: 'no action',
+      tableName: 'Journals',
     });
   },
   down: async (queryInterface) => {

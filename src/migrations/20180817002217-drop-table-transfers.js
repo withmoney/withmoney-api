@@ -1,6 +1,6 @@
+const { dropTable } = require('../utils/helpers/migrationsHelpers');
+
 module.exports = {
-  up: async (queryInterface) => {
-    queryInterface.dropTable('Transfers');
-  },
+  up: dropTable('Transfers'),
   down: () => {},
 };
