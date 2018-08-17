@@ -4,8 +4,6 @@ import {
   emailSelType,
   userIdSelType,
   accountIdSelType,
-  accountFromIdSelType,
-  accountToIdSelType,
   valueSelType,
   typeSelType,
   isPaidSelType,
