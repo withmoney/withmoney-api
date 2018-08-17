@@ -89,19 +89,21 @@ const halanWalletTransaction = {
   ...timestamp,
 };
 
-const transferOne = {
-  value: 10,
-  transferDate: new Date(),
+const transferToWalletOutTransaction = {
+  name: 'transfer',
+  value: 100,
+  type: 'out',
+  isPaid: true,
+  transactionDate: new Date(),
   ...timestamp,
 };
-const transferTwo = {
-  value: 10,
-  transferDate: new Date(),
-  ...timestamp,
-};
-const transferThree = {
-  value: 10,
-  transferDate: new Date(),
+
+const transferToWalletInTransaction = {
+  name: 'transfer',
+  value: 100,
+  type: 'in',
+  isPaid: true,
+  transactionDate: new Date(),
   ...timestamp,
 };
 
@@ -131,7 +133,6 @@ module.exports = {
     bancointerAccount.UserId = userTwoId;
     carteiraAccount.UserId = userTwoId;
 
-    const accountIdTwoInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
     const accountIdTwoWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
 
     interTransactionOne.UserId = userOneId;
@@ -148,27 +149,27 @@ module.exports = {
     interTransactionTwo.AccountId = accountIdInter;
     walletTransaction.AccountId = accountIdWallet;
 
-    await queryInterface.bulkInsert('Transactions', [interTransactionOne]);
-    await queryInterface.bulkInsert('Transactions', [interTransactionTwo]);
-    await queryInterface.bulkInsert('Transactions', [walletTransaction]);
-    await queryInterface.bulkInsert('Transactions', [halanWalletTransaction]);
+    const journalId = await queryInterface.bulkInsert('Journals', [{
+      UserId: userOneId,
+      type: 'transfers',
+      ...timestamp,
+    }]);
 
-    transferOne.UserId = userOneId;
-    transferOne.AccountFromId = accountIdInter;
-    transferOne.AccountToId = accountIdWallet;
+    transferToWalletOutTransaction.UserId = userOneId;
+    transferToWalletOutTransaction.AccountId = accountIdInter;
+    transferToWalletOutTransaction.JournalId = journalId;
 
-    transferTwo.UserId = userOneId;
-    transferTwo.AccountFromId = accountIdWallet;
-    transferTwo.AccountToId = accountIdInter;
+    transferToWalletInTransaction.UserId = userOneId;
+    transferToWalletInTransaction.AccountId = accountIdWallet;
+    transferToWalletInTransaction.JournalId = journalId;
 
-    transferThree.UserId = userTwoId;
-    transferThree.AccountFromId = accountIdTwoInter;
-    transferThree.AccountToId = accountIdTwoWallet;
-
-    await queryInterface.bulkInsert('Transfers', [
-      transferOne,
-      transferTwo,
-      transferThree,
+    await queryInterface.bulkInsert('Transactions', [
+      interTransactionOne,
+      interTransactionTwo,
+      walletTransaction,
+      halanWalletTransaction,
+      transferToWalletOutTransaction,
+      transferToWalletInTransaction,
     ]);
   },
   down: (queryInterface) => {

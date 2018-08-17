@@ -4,8 +4,6 @@ import {
   emailSelType,
   userIdSelType,
   accountIdSelType,
-  accountFromIdSelType,
-  accountToIdSelType,
   valueSelType,
   typeSelType,
   isPaidSelType,
@@ -68,11 +66,8 @@ export const transactionFilters = {
   ...timestamp,
 };
 
-export const transferFilters = {
+export const journalFilters = {
   UserId: userIdSelType,
-  value: valueSelType,
-  AccountFromId: accountFromIdSelType,
-  AccountToId: accountToIdSelType,
-  transferDate: dateFilter,
+  type: typeSelType,
   ...timestamp,
 };
