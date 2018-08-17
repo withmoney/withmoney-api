@@ -1,4 +1,4 @@
-import { Categories } from '../models';
+import database, { Categories } from '../models';
 import { categoryForm } from '../definitions';
 import { categoryFilters as filters } from '../definitionsFilters';
 
@@ -16,6 +16,7 @@ export const fields = [
 const CategoryService = createResourceService(Categories, {
   definitions: categoryForm,
   options: { fields, filters },
+  database,
 });
 
 export default CategoryService;

@@ -12,15 +12,27 @@ let resMock = {
   json: jest.fn(),
 };
 
-describe('Accounts Service should', () => {
+
+
+describe('Service', () => {
   const definitions = {
+    id: {
+      validation: () => true,
+    },
     name: {
       validation: () => true,
     },
   };
+  let entity;
+  let database;
+  let aliasDatabase;
 
   beforeEach(async () => {
     const status = jest.fn();
+
+    aliasDatabase = {
+      AccountFrom: 'Accounts',
+    };
 
     reqMock = {
       query: {},
@@ -34,10 +46,119 @@ describe('Accounts Service should', () => {
     };
 
     status.mockReturnValue(resMock);
+
+    entity = {
+      id: 1,
+      name: 'David',
+    };
+    database = {
+      Accounts: new (class Accounts { })(),
+      Transactions: new (class Transactions { })(),
+    };
   });
 
-  describe('simulate error on', () => {
-    it('list', async () => {
+  describe('list', () => {
+    it('default', async () => {
+      const modelMock = {
+        findAll: jest.fn().mockResolvedValue([entity]),
+        findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
+      };
+      const fields = [
+        'id',
+        'name',
+      ];
+
+      const result = await Service.list(reqMock, modelMock, {
+        options: {
+          fields,
+        },
+      });
+
+      expect(modelMock.findAll).toBeCalled();
+      expect(modelMock.findAndCountAll).toBeCalled();
+
+      expect(modelMock.findAll.mock.calls).toEqual([
+        [
+          {
+            limit: 100,
+            offset: 0,
+            order: [['id', 'DESC']],
+          },
+        ],
+      ]);
+      expect(modelMock.findAndCountAll.mock.calls).toEqual([
+        [
+          { where: {} },
+        ],
+      ]);
+      expect(result).toEqual({
+        data: [entity],
+        pagination: {
+          currentPage: 1,
+          nextPage: null,
+          perPage: 100,
+          previousPage: null,
+          totalItems: 1,
+          totalPages: 1,
+        },
+      });
+    });
+
+    it('with filters and batch', async () => {
+      const modelMock = {
+        findAll: jest.fn().mockResolvedValue([entity]),
+        findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
+      };
+      const fields = [
+        'id',
+        'name',
+      ];
+
+      reqMock.query = {
+        id: 1,
+        limit: 10,
+        page: 2,
+        order: 'id.ASC,name.DESC',
+        batch: 'AccountFrom,Transactions',
+      };
+      await Service.list(reqMock, modelMock, {
+        options: {
+          fields,
+          filters: definitions,
+          aliasDatabase,
+        },
+        database,
+      });
+
+      expect(modelMock.findAll.mock.calls).toEqual([
+        [
+          {
+            limit: 10,
+            offset: 10,
+            order: [['id', 'ASC'], ['name', 'DESC']],
+            where: { id: 1 },
+            include: [
+              {
+                as: 'AccountFrom',
+                model: {},
+              },
+              {
+                model: {},
+              },
+            ],
+          },
+        ],
+      ]);
+      expect(modelMock.findAndCountAll.mock.calls).toEqual([
+        [
+          {
+            where: { id: 1 },
+          },
+        ],
+      ]);
+    });
+
+    it('simulate error', async () => {
       const modelMock = {
         findAll: jest.fn().mockReturnValue(Promise.reject(new Error('Async error'))),
       };
@@ -54,8 +175,26 @@ describe('Accounts Service should', () => {
         expect(e.message).toBe(EXCEPTION_NOT_FOUND);
       }
     });
+  });
 
-    it('get', async () => {
+  describe('get', () => {
+    it('default', async () => {
+      const modelMock = {
+        findById: jest.fn().mockResolvedValue(entity),
+      };
+
+      reqMock.params = {
+        id: 1,
+      };
+
+      const result = await Service.get(reqMock, modelMock, {});
+
+      expect(modelMock.findById.mock.calls).toEqual([[1]]);
+
+      expect(result).toEqual(result);
+    });
+
+    it('simulate error', async () => {
       const modelMock = {
         findById: jest.fn().mockReturnValue(Promise.resolve(null)),
       };
@@ -66,8 +205,24 @@ describe('Accounts Service should', () => {
         expect(e.message).toBe(EXCEPTION_NOT_FOUND);
       }
     });
+  });
 
-    it('create', async () => {
+  describe('create', () => {
+    it('default', async () => {
+      const modelMock = {
+        create: jest.fn().mockResolvedValue(entity),
+      };
+
+      reqMock.body = entity;
+
+      const result = await Service.create(reqMock, modelMock, { definitions });
+
+      expect(modelMock.create.mock.calls).toEqual([[entity]]);
+
+      expect(result).toEqual(result);
+    });
+
+    it('simulate error', async () => {
       reqMock.body = {
         name: 'David Costa',
       };
@@ -81,6 +236,25 @@ describe('Accounts Service should', () => {
       } catch (e) {
         expect(e.message).toBe('Async error');
       }
+    });
+  });
+
+  describe('update', () => {
+    it('default', async () => {
+      const modelMock = {
+        findById: jest.fn().mockResolvedValue({
+          ...entity,
+          update: jest.fn().mockResolvedValue(entity),
+        }),
+      };
+
+      reqMock.body = entity;
+      reqMock.params = { id: 1 };
+
+      const result = await Service.update(reqMock, modelMock, { definitions });
+
+      expect(modelMock.findById.mock.calls).toEqual([[1]]);
+      expect(result).toEqual(entity);
     });
 
     it('update with wrong user', async () => {
@@ -107,8 +281,23 @@ describe('Accounts Service should', () => {
         expect(e.message).toBe(EXCEPTION_UNPROCESSABLE_ENTITY);
       }
     });
+  });
 
-    it('destroy', async () => {
+  describe('destroy', () => {
+    it('default', async () => {
+      const modelMock = {
+        destroy: jest.fn(),
+      };
+
+      reqMock.params = { id: 1 };
+
+      const result = await Service.destroy(reqMock, modelMock);
+
+      expect(modelMock.destroy.mock.calls).toEqual([[{ where: { id: 1 } }]]);
+      expect(result).toEqual(true);
+    });
+
+    it('simulate error', async () => {
       const modelMock = {
         destroy: jest.fn().mockReturnValue(Promise.reject(new Error('Async error'))),
       };

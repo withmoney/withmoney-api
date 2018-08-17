@@ -1,4 +1,4 @@
-import { Users } from '../models';
+import database, { Users } from '../models';
 import { userForm } from '../definitions';
 import { userFilters as filters } from '../definitionsFilters';
 import createResourceService from '../utils/createResourceService';
@@ -20,6 +20,7 @@ export const fields = [
 const UserService = createResourceService(Users, {
   definitions: userForm,
   options: { fields, filters },
+  database,
 });
 
 export default UserService;
