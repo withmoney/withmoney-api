@@ -12,8 +12,7 @@ import models from '../../src/models';
  */
 const data = async (props = {}) => {
   const defaultProps = {
-    value: 10.5,
-    transferDate: new Date('2018-04-01'),
+    type: 'transfers',
     ...props,
   };
 
@@ -28,4 +27,4 @@ const data = async (props = {}) => {
  *
  * @return {Object}       A user instance
  */
-export default async (props = {}) => models.Transfers.create(await data(props));
+export default async (props = {}) => models.Journals.create(await data(props));

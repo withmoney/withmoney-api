@@ -8,7 +8,7 @@ import Users from './controllers/Users';
 import Accounts from './controllers/Accounts';
 import Categories from './controllers/Categories';
 import Transactions from './controllers/Transactions';
-import Transfers from './controllers/Transfers';
+import Journals from './controllers/Journals';
 
 const router = Router();
 
@@ -45,12 +45,12 @@ router.get('/', (req, res) => {
           '[delete] /api/v1/transactions/:id',
           '[put] /api/v1/transactions/:id',
         ],
-        transfers: [
-          '[get] /api/v1/transfers',
-          '[post] /api/v1/transfers',
-          '[get] /api/v1/transfers/:id',
-          '[delete] /api/v1/transfers/:id',
-          '[put] /api/v1/transfers/:id',
+        journals: [
+          '[get] /api/v1/journals',
+          '[post] /api/v1/journals',
+          '[get] /api/v1/journals/:id',
+          '[delete] /api/v1/journals/:id',
+          '[put] /api/v1/journals/:id',
         ],
         auth: [
           '[post] /api/v1/login',
@@ -85,9 +85,9 @@ resourcesAuth(`${namespace}transactions`, {
   controller: Transactions,
   middleware,
 });
-resourcesAuth(`${namespace}transfers`, {
+resourcesAuth(`${namespace}journals`, {
   router,
-  controller: Transfers,
+  controller: Journals,
   middleware,
 });
 

@@ -6,12 +6,9 @@ import {
   userIdSelType,
   categoryIdSelType,
   accountIdSelType,
-  accountFromIdSelType,
-  accountToIdSelType,
   valueSelType,
   typeSelType,
   isPaidSelType,
-  transferDateSelType,
   transactionDateSelType,
   createdAtSelType,
   updatedAtSelType,
@@ -52,10 +49,7 @@ export const transactionForm = {
   updatedAt: updatedAtSelType,
 };
 
-export const transferForm = {
-  UserId: userIdSelType,
-  AccountFromId: accountFromIdSelType,
-  AccountToId: accountToIdSelType,
-  value: valueSelType,
-  transferDate: transferDateSelType,
+export const journalForm = {
+  UserId: categoryIdSelType,
+  type: typeSelType,
 };
