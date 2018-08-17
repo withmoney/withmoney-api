@@ -12,8 +12,6 @@ let resMock = {
   json: jest.fn(),
 };
 
-
-
 describe('Service', () => {
   const definitions = {
     id: {
