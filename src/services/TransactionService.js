@@ -1,7 +1,7 @@
-import database, { Transactions } from '../models';
-import { transactionForm as definitions } from '../definitions';
+import database, { Transactions as Model } from '../models';
+import { transactionForm as form } from '../definitions';
 import { transactionFilters as filters } from '../definitionsFilters';
-import createResourceService from '../utils/createResourceService';
+import createResourceService, { serviceDefaultProps } from '../utils/createResourceService';
 import { fields as accountFields } from './AccountService';
 import { fields as categoryFields } from './CategoryService';
 
@@ -21,10 +21,9 @@ export const fields = [
   { Category: categoryFields },
 ];
 
-const TransactionService = createResourceService(Transactions, {
-  definitions,
-  options: { fields, filters },
+export default createResourceService(Model, serviceDefaultProps({
+  form,
+  filters,
+  fields,
   database,
-});
-
-export default TransactionService;
+}));

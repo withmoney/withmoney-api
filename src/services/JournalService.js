@@ -1,7 +1,7 @@
-import { Journals } from '../models';
-import { journalForm } from '../definitions';
+import database, { Journals as Model } from '../models';
+import { journalForm as form } from '../definitions';
 import { journalFilters as filters } from '../definitionsFilters';
-import createResourceService from '../utils/createResourceService';
+import createResourceService, { serviceDefaultProps } from '../utils/createResourceService';
 
 export const fields = [
   'id',
@@ -11,9 +11,9 @@ export const fields = [
   'updatedAt',
 ];
 
-const service = createResourceService(Journals, {
-  definitions: journalForm,
-  options: { fields, filters },
-});
-
-export default service;
+export default createResourceService(Model, serviceDefaultProps({
+  form,
+  filters,
+  fields,
+  database,
+}));
