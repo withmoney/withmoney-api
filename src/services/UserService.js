@@ -1,7 +1,7 @@
-import { Users } from '../models';
-import { userForm } from '../definitions';
+import database, { Users as Model } from '../models';
+import { userForm as form } from '../definitions';
 import { userFilters as filters } from '../definitionsFilters';
-import createResourceService from '../utils/createResourceService';
+import createResourceService, { serviceDefaultProps } from '../utils/createResourceService';
 import { fields as accountFields } from './AccountService';
 
 export const fields = [
@@ -17,9 +17,9 @@ export const fields = [
   },
 ];
 
-const UserService = createResourceService(Users, {
-  definitions: userForm,
-  options: { fields, filters },
-});
-
-export default UserService;
+export default createResourceService(Model, serviceDefaultProps({
+  form,
+  filters,
+  fields,
+  database,
+}));

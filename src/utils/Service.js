@@ -1,20 +1,18 @@
 import paginationParse from '../utils/pagination';
-import database from '../models';
 import selector from '../utils/selector';
 import * as SelType from '../selectorTypes';
 import { EXCEPTION_NOT_FOUND, EXCEPTION_UNPROCESSABLE_ENTITY } from '../errors';
 import { getModelAlias, listDefaultOptions, clearData } from '../utils/model';
 
-const aliasDatabase = {
-  AccountFrom: 'Accounts',
-  AccountTo: 'Accounts',
-};
-
-const list = async ({ query }, Model, { options = listDefaultOptions }) => {
+const list = async ({ query }, Model, { options, database }) => {
   const {
     filters,
     fields,
-  } = options;
+    aliasDatabase,
+  } = {
+    ...listDefaultOptions,
+    ...options,
+  };
   let where = {};
 
   const {
@@ -33,7 +31,6 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
   const select = {
     limit,
     offset: parseInt(limit, 10) * (page - 1),
-    // order: [['id', 'DESC']],
     order,
   };
 
@@ -45,10 +42,8 @@ const list = async ({ query }, Model, { options = listDefaultOptions }) => {
   if (batch) {
     let models = batch.split(',');
 
-    if (models.length) {
-      models = models.map(getModelAlias(aliasDatabase, database));
-      select.include = models;
-    }
+    models = models.map(getModelAlias(aliasDatabase, database));
+    select.include = models;
   }
 
   try {

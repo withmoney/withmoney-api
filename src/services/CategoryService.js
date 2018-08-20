@@ -1,8 +1,7 @@
-import { Categories } from '../models';
-import { categoryForm } from '../definitions';
+import database, { Categories as Model } from '../models';
+import { categoryForm as form } from '../definitions';
 import { categoryFilters as filters } from '../definitionsFilters';
-
-import createResourceService from '../utils/createResourceService';
+import createResourceService, { serviceDefaultProps } from '../utils/createResourceService';
 
 export const fields = [
   'id',
@@ -13,9 +12,9 @@ export const fields = [
   'updatedAt',
 ];
 
-const CategoryService = createResourceService(Categories, {
-  definitions: categoryForm,
-  options: { fields, filters },
-});
-
-export default CategoryService;
+export default createResourceService(Model, serviceDefaultProps({
+  form,
+  filters,
+  fields,
+  database,
+}));
