@@ -17,3 +17,9 @@ It is a project of money control
 
 To use in development environment always run the `npm run sequelize db:migrate` before, and you can
 run `npm run dev` to start the server.
+
+## Production
+
+`npm run deploy setup # first time`
+
+`npm run deploy`
