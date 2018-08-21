@@ -7,7 +7,7 @@
     "sequelize": "node ./node_modules/.bin/sequelize",
     "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
-    "build": "babel src --out-dir dist",
+    "build": "NODE_ENV=production babel src --out-dir dist",
     "pretest": "NODE_ENV=test npm run sequelize db:migrate",
     "pre-build": "NODE_ENV=production npm run sequelize db:migrate",
     "deploy": "pm2 deploy production",
