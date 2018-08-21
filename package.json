@@ -7,7 +7,7 @@
     "sequelize": "node ./node_modules/.bin/sequelize",
     "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
-    "config:db": "cp config/database.json.example config/database.json",
+    "config:db": "cp ./config/database.json.example ./config/database.json",
     "build": "NODE_ENV=production babel src --out-dir dist",
     "pretest": "npm run config:db && NODE_ENV=test npm run sequelize db:migrate",
     "pre-build": "NODE_ENV=production npm run sequelize db:migrate",
