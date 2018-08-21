@@ -1,5 +1,5 @@
 {
-  "name": "mymoney",
+  "name": "api-withmoney",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,12 @@
     "sequelize": "node ./node_modules/.bin/sequelize",
     "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
-    "build": "babel src --out-dir dist",
+    "build": "NODE_ENV=production babel src --out-dir dist",
     "pretest": "NODE_ENV=test npm run sequelize db:migrate",
+    "pre-build": "NODE_ENV=production npm run sequelize db:migrate",
+    "deploy": "pm2 deploy production",
     "test": "jest -i --forceExit && codecov",
+    "jest": "jest -i --forceExit",
     "jest:update": "jest -i --forceExit --updateSnapshot",
     "jest:coverage": "jest -i --forceExit --coverage",
     "coverage": "http-server ./coverage/lcov-report -o",
@@ -18,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidcostadev/mymoney.git"
+    "url": "git+https://github.com/davidcostadev/api-withmoney.git"
   },
   "author": "davidcostadev@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/davidcostadev/mymoney/issues"
+    "url": "https://github.com/davidcostadev/api-withmoney/issues"
   },
-  "homepage": "https://github.com/davidcostadev/mymoney#readme",
+  "homepage": "https://github.com/davidcostadev/api-withmoney#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",

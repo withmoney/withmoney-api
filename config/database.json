@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "123",
-    "database": "mymoney_dev",
+    "database": "withmoney_dev",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": "123",
-    "database": "mymoney_test",
+    "database": "withmoney_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
