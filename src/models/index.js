@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const dotenv = require('dotenv');
 const configs = require('../../config/database.json');
+
+dotenv.config();
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
