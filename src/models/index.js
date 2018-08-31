@@ -13,6 +13,10 @@ const config = configs[env];
 const db = {};
 let sequelize;
 
+console.log({
+  DATABASE_URL: process.env.DATABASE_URL,
+});
+
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
