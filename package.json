@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sequelize": "node ./node_modules/.bin/sequelize",
+    "sequelize": "node -r dotenv/config ./node_modules/.bin/sequelize",
     "start": "npm run build && node dist/server.js",
     "dev": "nodemon src/server.js --exec babel-node",
     "config:db": "cp ./config/database.json.example ./config/database.json",
