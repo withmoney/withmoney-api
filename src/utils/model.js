@@ -30,7 +30,9 @@ const clearItem = scheme => (item) => {
   const newItem = {};
 
   scheme.forEach((field) => {
-    if (typeof field === 'string') {
+    if (item === null) {
+      newItem[field] = null;
+    } else if (typeof field === 'string') {
       newItem[field] = item[field];
     } else {
       Object.keys(field).forEach((key) => {
