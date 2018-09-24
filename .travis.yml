@@ -1,6 +1,7 @@
 language: node_js
 services:
   - mysql
+cache: yarn
 addons:
   apt:
     sources:
@@ -9,8 +10,6 @@ addons:
       - mysql-server
       - mysql-client
 dist: trusty
-install:
-  - npm install
 node_js:
   - "8"
 before_install:
@@ -20,8 +19,8 @@ before_install:
   - cp .env.example .env
 
 before_script:
-  - npm run config:db
-  - npm run pretest
+  - yarn run config:db
+  - yarn run pretest
   - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
   - "chmod +x ./cc-test-reporter"
   - "./cc-test-reporter before-build"
