@@ -1,63 +1,64 @@
-import { table } from '../../../src/utils/helpers/tableTypes';
+import { table } from "../../../src/utils/helpers/tableTypes";
 
-describe('tableTypes', () => {
-  describe('table should works', () => {
-    let DataTypes;aaaa
+describe("tableTypes", () => {
+  describe("table should works", () => {
+    let DataTypes;
+    aaaaasdasds;
 
     beforeEach(() => {
       DataTypes = {
-        STRING: 'STRING',
-        INTEGER: 'INTEGER',
-        DATE: 'DATE',
+        STRING: "STRING",
+        INTEGER: "INTEGER",
+        DATE: "DATE"
       };
     });
 
-    it('with defaults props', () => {
+    it("with defaults props", () => {
       const result = table(DataTypes);
 
       expect(result).toEqual({
         id: {
-          type: 'INTEGER',
+          type: "INTEGER",
           allowNull: false,
           autoIncrement: true,
-          primaryKey: true,
+          primaryKey: true
         },
         updatedAt: {
-          type: 'DATE',
-          allowNull: false,
+          type: "DATE",
+          allowNull: false
         },
         createdAt: {
-          type: 'DATE',
-          allowNull: false,
-        },
+          type: "DATE",
+          allowNull: false
+        }
       });
     });
 
-    it('with props', () => {
+    it("with props", () => {
       const result = table(DataTypes, {
         name: {
-          type: DataTypes.STRING,
-        },
+          type: DataTypes.STRING
+        }
       });
 
       expect(result).toEqual({
         id: {
-          type: 'INTEGER',
+          type: "INTEGER",
           allowNull: false,
           autoIncrement: true,
-          primaryKey: true,
+          primaryKey: true
         },
         name: {
-          type: 'STRING',
+          type: "STRING"
         },
         updatedAt: {
-          type: 'DATE',
-          allowNull: false,
+          type: "DATE",
+          allowNull: false
         },
         createdAt: {
-          type: 'DATE',
-          allowNull: false,
-        },
+          type: "DATE",
+          allowNull: false
+        }
       });
 
       // console.log(queryInterface.createTable.mock.calls[0])
