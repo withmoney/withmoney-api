@@ -2,7 +2,7 @@ import { table } from '../../../src/utils/helpers/tableTypes';
 
 describe('tableTypes', () => {
   describe('table should works', () => {
-    let DataTypes;
+    let DataTypes;aaaa
 
     beforeEach(() => {
       DataTypes = {
