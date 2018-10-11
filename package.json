@@ -18,7 +18,7 @@
     "jest:coverage": "jest -i --forceExit --coverage",
     "coverage": "http-server ./coverage/lcov-report -o",
     "truncate": "babel-node ./config/clean.js",
-    "heroku-postbuild": "cp .env.example .env && NODE_ENV=production NODE_PATH=. npm run sequelize db:migrate --url=$DATABASE_URL"
+    "heroku-postbuild": "npm run config:db && cp .env.example .env && NODE_ENV=production NODE_PATH=. npm run sequelize db:migrate --url=$DATABASE_URL"
   },
   "repository": {
     "type": "git",
