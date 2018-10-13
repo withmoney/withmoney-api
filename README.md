@@ -11,7 +11,7 @@ It is a project of money control
 
 1. npm install
 2. npm run sequelize db:migrate
-3. npm run sequelize db:seed #in development
+3. npm run sequelize db:seed:all #in development
 
 ## Development
 
