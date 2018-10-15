@@ -22,6 +22,7 @@ const accounts = UsersModel => async (req, res) => {
 
 const UserController = createController(UserService, {
   custom: { accounts },
+  only: ['get', 'update', 'create'],
 });
 
 export default UserController;
