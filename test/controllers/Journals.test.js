@@ -1,5 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
+import { clearData } from 'fastexpress';
 import { sequelize, Journals } from '../../src/models';
 import Controller from '../../src/controllers/Journals';
 import truncate from '../truncate';
@@ -7,7 +8,6 @@ import usersFacture from '../factures/Users';
 import journalsFacture from '../factures/Journals';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
 import { fields as journalFields } from '../../src/services/JournalService';
-import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 

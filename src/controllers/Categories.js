@@ -1,6 +1,6 @@
+import { createController } from 'fastexpress';
 import CategoryService from '../services/CategoryService';
-import createResourceController from '../utils/createResourceController';
 
-const CategoryController = createResourceController(CategoryService);
+const CategoryController = createController(CategoryService);
 
 export default CategoryController;

@@ -1,6 +1,5 @@
 import Moment from 'moment';
-import * as validate from './utils/validate';
-import * as convert from './utils/convert';
+import { validate, convert } from 'fastexpress';
 
 const stringType = {
   validation: validate.string,

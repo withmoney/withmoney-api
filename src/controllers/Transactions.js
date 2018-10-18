@@ -1,6 +1,6 @@
+import { createController } from 'fastexpress';
 import TransactionService from '../services/TransactionService';
-import createResourceController from '../utils/createResourceController';
 
-const TransactionController = createResourceController(TransactionService);
+const TransactionController = createController(TransactionService);
 
 export default TransactionController;

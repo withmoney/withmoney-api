@@ -1,6 +1,6 @@
+import { createController } from 'fastexpress';
 import AccountService from '../services/AccountService';
-import createResourceController from '../utils/createResourceController';
 
-const AccountController = createResourceController(AccountService);
+const AccountController = createController(AccountService);
 
 export default AccountController;

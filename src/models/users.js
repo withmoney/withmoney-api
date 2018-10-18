@@ -1,4 +1,5 @@
-import { cryptPassword } from '../utils/model';
+import { cryptPassword } from 'fastexpress';
+import config from '../../config/envs';
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
@@ -8,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     enabled: DataTypes.BOOLEAN,
   }, { });
 
-  Users.beforeCreate(cryptPassword);
-  Users.beforeUpdate(cryptPassword);
+  Users.beforeCreate(cryptPassword(config.BCRYPT_SALT));
+  Users.beforeUpdate(cryptPassword(config.BCRYPT_SALT));
 
   Users.associate = (models) => {
     Users.hasMany(models.Accounts);
