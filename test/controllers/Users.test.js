@@ -1,5 +1,6 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
+import { clearData } from 'fastexpress';
 import { sequelize, Users, Accounts } from '../../src/models';
 import { injectModel } from '../../src/services/inject';
 import Controller from '../../src/controllers/Users';
@@ -8,7 +9,6 @@ import userFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
 import { fields as userFields } from '../../src/services/UserService';
-import { clearData } from '../../src/utils/model';
 
 iconv.encodings = encodings;
 

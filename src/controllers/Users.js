@@ -1,6 +1,6 @@
+import { createController } from 'fastexpress';
 import { Accounts } from '../models';
 import UserService from '../services/UserService';
-import createResourceController from '../utils/createResourceController';
 
 const accounts = UsersModel => async (req, res) => {
   const { id } = req.params;
@@ -20,7 +20,7 @@ const accounts = UsersModel => async (req, res) => {
   }
 };
 
-const UserController = createResourceController(UserService, {
+const UserController = createController(UserService, {
   custom: { accounts },
 });
 

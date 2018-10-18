@@ -1,7 +1,10 @@
+import {
+  createService,
+  serviceDefaultProps,
+} from 'fastexpress';
 import database, { Accounts as Model } from '../models';
 import { accountForm as form } from '../definitions';
 import { accountFilters as filters } from '../definitionsFilters';
-import createResourceService, { serviceDefaultProps } from '../utils/createResourceService';
 
 export const fields = [
   'id',
@@ -13,7 +16,7 @@ export const fields = [
   'updatedAt',
 ];
 
-export default createResourceService(Model, serviceDefaultProps({
+export default createService(Model, serviceDefaultProps({
   form,
   filters,
   fields,

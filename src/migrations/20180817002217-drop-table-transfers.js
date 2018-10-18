@@ -1,6 +1,6 @@
-const { dropTable } = require('../utils/helpers/migrationsHelpers');
+const { migrationActions } = require('fastexpress');
 
 module.exports = {
-  up: dropTable('Transfers'),
+  up: migrationActions.dropTable('Transfers'),
   down: () => {},
 };
