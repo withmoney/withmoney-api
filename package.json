@@ -10,6 +10,7 @@
     "config:db": "cp ./config/database.json.example ./config/database.json",
     "build": "NODE_ENV=production babel src --out-dir dist",
     "pretest": "NODE_ENV=test npm run sequelize db:migrate",
+    "test:createdb": "NODE_ENV=test npm run sequelize db:create",
     "pre-build": "NODE_ENV=production npm run sequelize db:migrate",
     "deploy": "pm2 deploy production",
     "test": "jest -i --forceExit && codecov",
