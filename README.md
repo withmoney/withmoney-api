@@ -9,17 +9,26 @@ It is a project of money control
 
 ## Instalation
 
-1. npm install
-2. npm run sequelize db:migrate
-3. npm run sequelize db:seed #in development
+1. cp config/database.json.example config/database.json
+2. cp .env.example .env
+3. yarn
+4. yarn run sequelize db:migrate
 
 ## Development
 
-To use in development environment always run the `npm run sequelize db:migrate` before, and you can
-run `npm run dev` to start the server.
+To use in development environment always run the `yarn run sequelize db:migrate` before, and you can
+
+`yarn run sequelize db:seed:all` #in development
+
+run `yarn run dev` to start the server.
+
+## Tests
+
+`yarn run test:createdb` - To create a database of test.
+`yarn run jest`
 
 ## Production
 
-`npm run deploy setup # first time`
+`yarn run deploy setup # first time`
 
-`npm run deploy`
+`yarn run deploy`
