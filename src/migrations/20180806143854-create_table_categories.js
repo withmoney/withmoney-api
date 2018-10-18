@@ -1,7 +1,7 @@
-const { createTable, addConstraint } = require('../utils/helpers/migrationsHelpers');
+const { migrationActions } = require('fastexpress');
 
 module.exports = {
-  up: createTable('Categories', Sequelize => ({
+  up: migrationActions.createTable('Categories', Sequelize => ({
     name: {
       type: Sequelize.STRING,
     },
@@ -13,7 +13,7 @@ module.exports = {
       type: Sequelize.ENUM('in', 'out'),
     },
   }), async (queryInterface, Sequelize) => {
-    await addConstraint(queryInterface, 'Categories', {
+    await migrationActions.addConstraint(queryInterface, 'Categories', {
       field: 'UserId',
       name: 'fk_user_categories',
       tableName: 'Users',

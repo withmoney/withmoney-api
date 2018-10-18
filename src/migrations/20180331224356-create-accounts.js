@@ -1,7 +1,7 @@
-const { createTable, dropTable, addConstraint } = require('../utils/helpers/migrationsHelpers');
+const { migrationActions } = require('fastexpress');
 
 module.exports = {
-  up: createTable('Accounts', Sequelize => ({
+  up: migrationActions.createTable('Accounts', Sequelize => ({
     userId: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -17,11 +17,11 @@ module.exports = {
       defaultValue: 0,
     },
   }), queryInterface => (
-    addConstraint(queryInterface, 'Accounts', {
+    migrationActions.addConstraint(queryInterface, 'Accounts', {
       field: 'userId',
       name: 'fk_users_account',
       tableName: 'Users',
     })
   )),
-  down: dropTable('Accounts'),
+  down: migrationActions.dropTable('Accounts'),
 };

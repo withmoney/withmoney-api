@@ -1,10 +1,10 @@
-const { createTable, dropTable } = require('../utils/helpers/migrationsHelpers');
+const { migrationActions } = require('fastexpress');
 
 module.exports = {
-  up: createTable('Users', Sequelize => ({
+  up: migrationActions.createTable('Users', Sequelize => ({
     name: {
       type: Sequelize.STRING,
     },
   })),
-  down: dropTable('Users'),
+  down: migrationActions.dropTable('Users'),
 };

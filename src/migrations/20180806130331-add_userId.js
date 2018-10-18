@@ -1,4 +1,4 @@
-const { addConstraint } = require('../utils/helpers/migrationsHelpers');
+const { migrationActions } = require('fastexpress');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -10,12 +10,12 @@ module.exports = {
     await queryInterface.addColumn('Transactions', 'UserId', UserIdDefinitions);
     await queryInterface.addColumn('Transfers', 'UserId', UserIdDefinitions);
 
-    await addConstraint(queryInterface, 'Transactions', {
+    await migrationActions.addConstraint(queryInterface, 'Transactions', {
       tableName: 'Users',
       field: 'UserId',
       name: 'fk_users_transactions',
     });
-    await addConstraint(queryInterface, 'Transfers', {
+    await migrationActions.addConstraint(queryInterface, 'Transfers', {
       tableName: 'Users',
       field: 'UserId',
       name: 'fk_users_transfers',
