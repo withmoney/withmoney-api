@@ -3,8 +3,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     type: DataTypes.ENUM('in', 'out'),
   }, {});
-  Categories.associate = ({ Users }) => {
+  Categories.associate = ({ Users, Transactions }) => {
     Categories.belongsTo(Users);
+    Categories.hasMany(Transactions);
   };
   return Categories;
 };
