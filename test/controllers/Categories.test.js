@@ -1,13 +1,15 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
 import { clearData } from 'fastexpress';
-import { sequelize, Categories } from '../../src/models';
+import { sequelize, Categories, Transactions } from '../../src/models';
 import Controller from '../../src/controllers/Categories';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import categoriesFacture from '../factures/Categories';
+import transactionsFacture from '../factures/Transactions';
+import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
-import { fields as categoryFields } from '../../src/services/AccountService';
+import { fields as categoryFields } from '../../src/services/CategoryService';
 
 iconv.encodings = encodings;
 
@@ -21,13 +23,22 @@ let resMock = {
 describe('Categories Controller should', () => {
   let user;
   let category;
+  let transaction;
+  let account;
 
   beforeAll(async () => {
     await truncate();
     user = await usersFacture();
+    account = await accountsFacture({ UserId: user.id });
     category = await categoriesFacture({ UserId: user.id });
+    transaction = await transactionsFacture({
+      UserId: user.id,
+      CategoryId: category.id,
+      AccountId: account.id,
+    });
 
     category = await Categories.findById(category.id);
+    transaction = await Transactions.findById(transaction.id);
   });
 
   beforeEach(async () => {
@@ -61,6 +72,34 @@ describe('Categories Controller should', () => {
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
     expect(response.data).toEqual(clearData([category], categoryFields));
+    expect(response.pagination).toEqual({
+      currentPage: 1,
+      nextPage: null,
+      perPage: 100,
+      previousPage: null,
+      totalItems: 1,
+      totalPages: 1,
+    });
+  });
+
+  it('list categories with batch', async () => {
+    reqMock.query = {
+      batch: 'Transactions',
+    };
+
+    await Controller.list(reqMock, resMock);
+    expect(resMock.json).toBeCalled();
+
+    const response = resMock.json.mock.calls[0][0];
+
+    expect(response).toHaveProperty('data');
+    expect(response).toHaveProperty('pagination');
+    expect(response.data.length).toBeTruthy();
+    category.Transactions = [
+      transaction,
+    ];
+    expect(response.data).toEqual(clearData([category], categoryFields));
+    delete category.Transactions;
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
