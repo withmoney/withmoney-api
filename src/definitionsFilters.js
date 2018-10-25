@@ -7,6 +7,8 @@ import {
   valueSelType,
   typeSelType,
   isPaidSelType,
+  repeatAmount,
+  repeatType,
 } from './selectorTypes';
 
 export const dateFilter = {
@@ -69,5 +71,7 @@ export const transactionFilters = {
 export const journalFilters = {
   UserId: userIdSelType,
   type: typeSelType,
+  repeatAmount,
+  repeatType,
   ...timestamp,
 };

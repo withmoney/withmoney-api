@@ -12,6 +12,8 @@ import {
   transactionDateSelType,
   createdAtSelType,
   updatedAtSelType,
+  repeatAmount,
+  repeatType,
 } from './selectorTypes';
 
 export const ACTIONS = ['create', 'get', 'list', 'destroy', 'update'];
@@ -52,4 +54,6 @@ export const transactionForm = {
 export const journalForm = {
   UserId: categoryIdSelType,
   type: typeSelType,
+  repeatAmount,
+  repeatType,
 };

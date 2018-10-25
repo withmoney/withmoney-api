@@ -73,6 +73,10 @@ export const createdAtSelType = datetimeType;
 
 export const updatedAtSelType = datetimeType;
 
+export const repeatAmount = numberType;
+
+export const repeatType = stringType;
+
 export const limitSelType = {
   ...numberType,
   default: 100,

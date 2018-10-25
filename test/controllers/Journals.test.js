@@ -63,7 +63,15 @@ describe('Journals Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data).toEqual(clearData([journal], journalFields));
+    expect(response.data).toEqual(clearData([{
+      id: journal.id,
+      UserId: journal.UserId,
+      type: journal.type,
+      repeatAmount: journal.repeatAmount,
+      repeatType: journal.repeatType,
+      updatedAt: journal.updatedAt,
+      createdAt: journal.createdAt,
+    }], journalFields));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
@@ -74,40 +82,10 @@ describe('Journals Controller should', () => {
     });
   });
 
-  it('list users with batch', async () => {
-    await Controller.list(reqMock, resMock);
-    expect(resMock.json).toBeCalled();
-
-    const response = resMock.json.mock.calls[0][0];
-
-    expect(response).toEqual({
-      data: clearData(
-        [
-          {
-            id: journal.id,
-            UserId: journal.UserId,
-            type: journal.type,
-            updatedAt: journal.updatedAt,
-            createdAt: journal.createdAt,
-          },
-        ],
-        journalFields,
-      ),
-      pagination: {
-        currentPage: 1,
-        nextPage: null,
-        perPage: 100,
-        previousPage: null,
-        totalItems: 1,
-        totalPages: 1,
-      },
-    });
-  });
-
-  it('create journal', async () => {
+  it('create journal type transfer', async () => {
     const body = {
       UserId: user.id,
-      tyoe: 'transfers',
+      type: 'transfers',
     };
 
     reqMock.body = body;
@@ -119,6 +97,29 @@ describe('Journals Controller should', () => {
 
     expect(body.UserId).toEqual(journalCreated.UserId);
     expect(body.type).toEqual(journalCreated.type);
+    expect(body.repeatType).toEqual(journalCreated.repeatType);
+    expect(body.repeatAmount).toEqual(journalCreated.repeatAmount);
+  });
+
+  it('create journal type repeat', async () => {
+    const body = {
+      UserId: user.id,
+      type: 'repeat',
+      repeatType: 'month',
+      repeatAmount: 6,
+    };
+
+    reqMock.body = body;
+
+    await Controller.create(reqMock, resMock);
+
+    let journalCreated = resMock.json.mock.calls[0][0];
+    journalCreated = journalCreated.toJSON();
+
+    expect(body.UserId).toEqual(journalCreated.UserId);
+    expect(body.type).toEqual(journalCreated.type);
+    expect(body.repeatType).toEqual(journalCreated.repeatType);
+    expect(body.repeatAmount).toEqual(journalCreated.repeatAmount);
   });
 
   it('get journal', async () => {

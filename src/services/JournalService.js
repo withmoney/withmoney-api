@@ -10,6 +10,8 @@ export const fields = [
   'id',
   'UserId',
   'type',
+  'repeatAmount',
+  'repeatType',
   'createdAt',
   'updatedAt',
 ];
