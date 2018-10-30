@@ -14,7 +14,7 @@ const accounts = UsersModel => async (req, res) => {
   try {
     const user = await UsersModel.findById(id, select);
 
-    res.json(user);
+    res.json(JSON.parse(JSON.stringify(user)));
   } catch (e) {
     res.status(500).send(e);
   }

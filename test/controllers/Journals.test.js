@@ -1,13 +1,11 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { clearData } from 'fastexpress';
 import { sequelize, Journals } from '../../src/models';
 import Controller from '../../src/controllers/Journals';
 import truncate from '../truncate';
 import usersFacture from '../factures/Users';
 import journalsFacture from '../factures/Journals';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
-import { fields as journalFields } from '../../src/services/JournalService';
 
 iconv.encodings = encodings;
 
@@ -63,7 +61,7 @@ describe('Journals Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data).toEqual(clearData([{
+    expect(response.data).toEqual(JSON.parse(JSON.stringify([{
       id: journal.id,
       UserId: journal.UserId,
       type: journal.type,
@@ -71,7 +69,7 @@ describe('Journals Controller should', () => {
       repeatType: journal.repeatType,
       updatedAt: journal.updatedAt,
       createdAt: journal.createdAt,
-    }], journalFields));
+    }])));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
