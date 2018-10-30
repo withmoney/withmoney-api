@@ -91,12 +91,12 @@ describe('Users Controller should', () => {
       data: [
         {
           id: userDavid.id,
-          createdAt: userDavid.createdAt,
+          createdAt: userDavid.createdAt.toISOString(),
           email: userDavid.email,
           name: userDavid.name,
           enabled: userDavid.enabled,
           password: userDavid.password,
-          updatedAt: userDavid.updatedAt,
+          updatedAt: userDavid.updatedAt.toISOString(),
         },
       ],
       pagination: {
@@ -128,17 +128,17 @@ describe('Users Controller should', () => {
           email: userDavid.email,
           enabled: userDavid.enabled,
           password: userDavid.password,
-          updatedAt: userDavid.updatedAt,
-          createdAt: userDavid.createdAt,
+          updatedAt: userDavid.updatedAt.toISOString(),
+          createdAt: userDavid.createdAt.toISOString(),
           Accounts: [
             {
               id: accountTwo.id,
               userId: accountTwo.userId,
               UserId: accountTwo.UserId,
-              createdAt: accountTwo.createdAt,
+              createdAt: accountTwo.createdAt.toISOString(),
               name: accountTwo.name,
               type: accountTwo.type,
-              updatedAt: accountTwo.updatedAt,
+              updatedAt: accountTwo.updatedAt.toISOString(),
               initalValue: accountTwo.initalValue,
             },
           ],
@@ -149,17 +149,17 @@ describe('Users Controller should', () => {
           email: user.email,
           password: user.password,
           enabled: user.enabled,
-          updatedAt: user.updatedAt,
-          createdAt: user.createdAt,
+          updatedAt: user.updatedAt.toISOString(),
+          createdAt: user.createdAt.toISOString(),
           Accounts: [
             {
               id: account.id,
               userId: account.userId,
               UserId: account.UserId,
-              createdAt: account.createdAt,
+              createdAt: account.createdAt.toISOString(),
               name: account.name,
               type: account.type,
-              updatedAt: account.updatedAt,
+              updatedAt: account.updatedAt.toISOString(),
               initalValue: account.initalValue,
             },
           ],
@@ -186,22 +186,22 @@ describe('Users Controller should', () => {
 
     const response = resMock.json.mock.calls[0][0];
 
-    expect(response.toJSON()).toEqual({
+    expect(response).toEqual({
       id: user.id,
       name: user.name,
       email: user.email,
       password: user.password,
       enabled: user.enabled,
-      updatedAt: user.updatedAt,
-      createdAt: user.createdAt,
+      updatedAt: user.updatedAt.toISOString(),
+      createdAt: user.createdAt.toISOString(),
       Accounts: accounts.map(accountItem => ({
         id: accountItem.id,
         userId: accountItem.userId,
         UserId: accountItem.UserId,
-        createdAt: accountItem.createdAt,
+        createdAt: accountItem.createdAt.toISOString(),
         name: accountItem.name,
         type: accountItem.type,
-        updatedAt: accountItem.updatedAt,
+        updatedAt: accountItem.updatedAt.toISOString(),
         initalValue: accountItem.initalValue,
       })),
     });
