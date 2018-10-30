@@ -1,6 +1,5 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { clearData } from 'fastexpress';
 import { sequelize, Categories, Transactions } from '../../src/models';
 import Controller from '../../src/controllers/Categories';
 import truncate from '../truncate';
@@ -9,7 +8,6 @@ import categoriesFacture from '../factures/Categories';
 import transactionsFacture from '../factures/Transactions';
 import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
-import { fields as categoryFields } from '../../src/services/CategoryService';
 
 iconv.encodings = encodings;
 
@@ -71,7 +69,7 @@ describe('Categories Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data).toEqual(clearData([category], categoryFields));
+    expect(response.data).toEqual(JSON.parse(JSON.stringify([category])));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
@@ -95,11 +93,10 @@ describe('Categories Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    category.Transactions = [
-      transaction,
-    ];
-    expect(response.data).toEqual(clearData([category], categoryFields));
-    delete category.Transactions;
+    expect(response.data).toEqual(JSON.parse(JSON.stringify([{
+      ...category.toJSON(),
+      Transactions: [transaction],
+    }])));
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,

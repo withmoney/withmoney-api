@@ -1,6 +1,5 @@
 import iconv from 'iconv-lite';
 import encodings from 'iconv-lite/encodings';
-import { clearData } from 'fastexpress';
 import { sequelize, Users, Accounts } from '../../src/models';
 import { injectModel } from '../../src/services/inject';
 import Controller from '../../src/controllers/Users';
@@ -8,7 +7,6 @@ import truncate from '../truncate';
 import userFacture from '../factures/Users';
 import accountsFacture from '../factures/Accounts';
 import { EXCEPTION_NOT_FOUND } from '../../src/errors';
-import { fields as userFields } from '../../src/services/UserService';
 
 iconv.encodings = encodings;
 
@@ -66,7 +64,7 @@ describe('Users Controller should', () => {
 
     const response = resMock.json.mock.calls[0][0];
     expect(response).toEqual({
-      data: clearData([userDavid, user], userFields),
+      data: JSON.parse(JSON.stringify([userDavid, user])),
       pagination: {
         currentPage: 1,
         nextPage: null,
