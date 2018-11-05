@@ -36,6 +36,7 @@ router.get('/', (req, res) => {
     journals: resourceList('journals', { namespace }),
     auth: [
       `[post] ${namespace('login')}`,
+      `[post] ${namespace('signup')}`,
     ],
   }));
 });
@@ -57,5 +58,6 @@ router.get(
 );
 
 router.post(namespace('login'), Auth.login);
+router.post(namespace('signup'), Users.create);
 
 export default router;
