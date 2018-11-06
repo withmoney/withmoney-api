@@ -6,8 +6,6 @@ import {
   namespaceCreator,
   createMiddleware,
 } from 'fastexpress';
-import { Users as UsersModel } from './models';
-import { injectModel } from './services/inject';
 import Auth from './controllers/Auth';
 import Users from './controllers/Users';
 import Accounts from './controllers/Accounts';
