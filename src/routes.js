@@ -54,7 +54,7 @@ resourceWithAuth('journals', Journals, options);
 router.get(
   namespace('users/:id/accounts'),
   middleware,
-  Users.accounts(injectModel(UsersModel)),
+  Users.accounts,
 );
 
 router.post(namespace('login'), Auth.login);
