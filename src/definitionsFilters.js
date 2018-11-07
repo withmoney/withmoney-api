@@ -1,31 +1,4 @@
-import { Op } from 'sequelize';
-import {
-  nameSelType,
-  emailSelType,
-  userIdSelType,
-  accountIdSelType,
-  valueSelType,
-  typeSelType,
-  isPaidSelType,
-  repeatAmount,
-  repeatType,
-} from './selectorTypes';
-
-export const dateFilter = {
-  validation: () => true,
-  convert: (val) => {
-    if (val.indexOf(',') > -1) {
-      const parts = val.split(',');
-      const [start, end] = parts;
-      return {
-        [Op.gte]: start,
-        [Op.lte]: end,
-      };
-    }
-
-    return val;
-  },
-};
+import { type, dateFilter } from 'fastexpress';
 
 const createdAt = dateFilter;
 const updated = dateFilter;
@@ -36,42 +9,42 @@ const timestamp = {
 };
 
 export const userFilters = {
-  id: userIdSelType,
-  name: nameSelType,
-  email: emailSelType,
+  id: type.numberType,
+  name: type.stringType,
+  email: type.stringType,
   ...timestamp,
 };
 
 export const accountFilters = {
-  UserId: userIdSelType,
-  name: nameSelType,
-  type: typeSelType,
-  initalValue: valueSelType,
+  UserId: type.numberType,
+  name: type.stringType,
+  type: type.stringType,
+  initalValue: type.floatType,
   ...timestamp,
 };
 
 export const categoryFilters = {
-  UserId: userIdSelType,
-  name: nameSelType,
-  type: typeSelType,
+  UserId: type.numberType,
+  name: type.stringType,
+  type: type.stringType,
   ...timestamp,
 };
 
 export const transactionFilters = {
-  UserId: userIdSelType,
-  AccountId: accountIdSelType,
-  name: nameSelType,
-  value: valueSelType,
-  type: typeSelType,
-  isPaid: isPaidSelType,
+  UserId: type.numberType,
+  AccountId: type.numberType,
+  name: type.stringType,
+  value: type.floatType,
+  type: type.stringType,
+  isPaid: type.boolType,
   transactionDate: dateFilter,
   ...timestamp,
 };
 
 export const journalFilters = {
-  UserId: userIdSelType,
-  type: typeSelType,
-  repeatAmount,
-  repeatType,
+  UserId: type.numberType,
+  type: type.stringType,
+  repeatAmount: type.numberType,
+  repeatType: type.stringType,
   ...timestamp,
 };

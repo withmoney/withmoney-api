@@ -22,6 +22,14 @@ jest.mock('../../src/models', () => ({
       updatedAt: '2018-08-09 02:02:39',
       update: jest.fn().mockResolvedValue(true),
     }),
+    findOne: jest.fn().mockResolvedValue({
+      id: 1,
+      UserId: 1,
+      type: 'in',
+      createdAt: '2018-08-09 02:02:39',
+      updatedAt: '2018-08-09 02:02:39',
+      update: jest.fn().mockResolvedValue(true),
+    }),
     destroy: jest.fn().mockReturnValue(true),
   },
 }));
@@ -83,7 +91,7 @@ describe('JournalService', () => {
     resMock.params.id = 1;
 
     const result = await Journal.get(resMock);
-    expect(Journals.findById.mock.calls[0][0]).toBe(1);
+    expect(Journals.findOne.mock.calls[0][0]).toEqual({ where: { id: 1 } });
 
     expect(result).toHaveProperty('id');
     expect(result).toHaveProperty('UserId');

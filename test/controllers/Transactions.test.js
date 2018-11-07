@@ -112,13 +112,19 @@ describe('Transactions Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(transaction);
+    expect(response).toEqual(JSON.parse(JSON.stringify(transaction)));
   });
 
   it('get transaction not find transaction', async () => {
     reqMock.params.id = 99999999;
 
+    const errorMock = console.error;
+    console.error = jest.fn();
     await Controller.get(reqMock, resMock);
+
+    expect(console.error).toBeCalled();
+
+    console.error = errorMock;
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();

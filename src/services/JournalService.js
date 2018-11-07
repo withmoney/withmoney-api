@@ -1,24 +1,19 @@
 import {
   createService,
-  serviceDefaultProps,
+  type,
 } from 'fastexpress';
 import database, { Journals as Model } from '../models';
-import { journalForm as form } from '../definitions';
 import { journalFilters as filters } from '../definitionsFilters';
 
-export const fields = [
-  'id',
-  'UserId',
-  'type',
-  'repeatAmount',
-  'repeatType',
-  'createdAt',
-  'updatedAt',
-];
+export const definitions = {
+  UserId: type.numberType,
+  type: type.stringType,
+  repeatAmount: type.numberType,
+  repeatType: type.stringType,
+};
 
-export default createService(Model, serviceDefaultProps({
-  form,
-  filters,
-  fields,
+export default createService(Model, {
+  definitions,
+  options: { filters },
   database,
-}));
+});
