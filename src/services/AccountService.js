@@ -1,24 +1,16 @@
-import {
-  createService,
-  serviceDefaultProps,
-} from 'fastexpress';
+import { createService, type } from 'fastexpress';
 import database, { Accounts as Model } from '../models';
-import { accountForm as form } from '../definitions';
 import { accountFilters as filters } from '../definitionsFilters';
 
-export const fields = [
-  'id',
-  'UserId',
-  'name',
-  'type',
-  'initalValue',
-  'createdAt',
-  'updatedAt',
-];
+export const definitions = {
+  UserId: type.numberType,
+  name: type.stringType,
+  type: type.stringType,
+  initalValue: type.floatType,
+};
 
-export default createService(Model, serviceDefaultProps({
-  form,
-  filters,
-  fields,
+export default createService(Model, {
+  definitions,
+  options: { filters },
   database,
-}));
+});

@@ -1,32 +1,25 @@
 import {
   createService,
-  serviceDefaultProps,
+  type,
 } from 'fastexpress';
 import database, { Transactions as Model } from '../models';
-import { transactionForm as form } from '../definitions';
 import { transactionFilters as filters } from '../definitionsFilters';
-import { fields as accountFields } from './AccountService';
-import { fields as categoryFields } from './CategoryService';
 
-export const fields = [
-  'id',
-  'UserId',
-  'AccountId',
-  'CategoryId',
-  'name',
-  'value',
-  'type',
-  'isPaid',
-  'transactionDate',
-  'createdAt',
-  'updatedAt',
-  { Account: accountFields },
-  { Category: categoryFields },
-];
+export const definitions = {
+  UserId: type.numberType,
+  AccountId: type.numberType,
+  CategoryId: type.numberType,
+  name: type.stringType,
+  value: type.floatType,
+  type: type.stringType,
+  isPaid: type.boolType,
+  transactionDate: type.dateType,
+  createdAt: type.datetimeType,
+  updatedAt: type.datetimeType,
+};
 
-export default createService(Model, serviceDefaultProps({
-  form,
-  filters,
-  fields,
+export default createService(Model, {
+  definitions,
+  options: { filters },
   database,
-}));
+});

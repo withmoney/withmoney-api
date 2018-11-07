@@ -26,6 +26,16 @@ jest.mock('../../src/models', () => ({
       updatedAt: '2018-08-09 02:02:39',
       update: jest.fn().mockResolvedValue(true),
     }),
+    findOne: jest.fn().mockResolvedValue({
+      id: 1,
+      UserId: 1,
+      name: 'Carteira',
+      type: 'wallet',
+      initalValue: 10.13,
+      createdAt: '2018-08-09 02:02:39',
+      updatedAt: '2018-08-09 02:02:39',
+      update: jest.fn().mockResolvedValue(true),
+    }),
     destroy: jest.fn().mockReturnValue(true),
   },
 }));
@@ -90,7 +100,7 @@ describe('AccountService', () => {
     resMock.params.id = 1;
 
     const result = await Account.get(resMock);
-    expect(Accounts.findById.mock.calls[0][0]).toBe(1);
+    expect(Accounts.findOne.mock.calls[0][0]).toEqual({ where: { id: 1 } });
 
     expect(result).toHaveProperty('id');
     expect(result).toHaveProperty('UserId');

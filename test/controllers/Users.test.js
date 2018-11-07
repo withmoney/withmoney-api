@@ -88,7 +88,7 @@ describe('Users Controller should', () => {
 
     expect(response.data.length).toEqual(1);
     expect(response).toEqual({
-      data: [
+      data: JSON.parse(JSON.stringify([
         {
           id: userDavid.id,
           createdAt: userDavid.createdAt.toISOString(),
@@ -98,7 +98,7 @@ describe('Users Controller should', () => {
           password: userDavid.password,
           updatedAt: userDavid.updatedAt.toISOString(),
         },
-      ],
+      ])),
       pagination: {
         currentPage: 1,
         nextPage: null,
@@ -121,7 +121,7 @@ describe('Users Controller should', () => {
     const response = resMock.json.mock.calls[0][0];
 
     expect(response).toEqual({
-      data: [
+      data: JSON.parse(JSON.stringify([
         {
           id: userDavid.id,
           name: userDavid.name,
@@ -164,7 +164,7 @@ describe('Users Controller should', () => {
             },
           ],
         },
-      ],
+      ])),
       pagination: {
         currentPage: 1,
         nextPage: null,
@@ -245,13 +245,19 @@ describe('Users Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(user);
+    expect(response).toEqual(JSON.parse(JSON.stringify(user)));
   });
 
   it('get user not find user', async () => {
     reqMock.params.id = 99999999;
 
+    const errorMock = console.error;
+    console.error = jest.fn();
     await Controller.get(reqMock, resMock);
+
+    expect(console.error).toBeCalled();
+
+    console.error = errorMock;
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();

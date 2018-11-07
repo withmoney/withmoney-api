@@ -127,13 +127,19 @@ describe('Journals Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(journal);
+    expect(response).toEqual(JSON.parse(JSON.stringify(journal)));
   });
 
   it('get journal not find journal', async () => {
     reqMock.params.id = 99999999;
 
+    const errorMock = console.error;
+    console.error = jest.fn();
     await Controller.get(reqMock, resMock);
+
+    expect(console.error).toBeCalled();
+
+    console.error = errorMock;
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();

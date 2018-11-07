@@ -93,10 +93,27 @@ describe('Categories Controller should', () => {
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('pagination');
     expect(response.data.length).toBeTruthy();
-    expect(response.data).toEqual(JSON.parse(JSON.stringify([{
-      ...category.toJSON(),
-      Transactions: [transaction],
-    }])));
+    expect(response.data).toEqual([{
+      id: category.id,
+      name: category.name,
+      type: category.type,
+      createdAt: category.createdAt.toJSON(),
+      updatedAt: category.updatedAt.toJSON(),
+      UserId: category.UserId,
+      Transactions: [{
+        id: transaction.id,
+        name: transaction.name,
+        type: transaction.type,
+        value: transaction.value,
+        isPaid: transaction.isPaid,
+        transactionDate: transaction.transactionDate,
+        CategoryId: transaction.CategoryId,
+        UserId: transaction.UserId,
+        AccountId: transaction.AccountId,
+        createdAt: transaction.createdAt.toJSON(),
+        updatedAt: transaction.updatedAt.toJSON(),
+      }],
+    }]);
     expect(response.pagination).toEqual({
       currentPage: 1,
       nextPage: null,
@@ -133,13 +150,19 @@ describe('Categories Controller should', () => {
     expect(resMock.json).toBeCalled();
 
     const response = resMock.json.mock.calls[0][0];
-    expect(response).toEqual(category);
+    expect(response).toEqual(JSON.parse(JSON.stringify(category)));
   });
 
   it('get category not find category', async () => {
     reqMock.params.id = 99999999;
 
+    const errorMock = console.error;
+    console.error = jest.fn();
     await Controller.get(reqMock, resMock);
+
+    expect(console.error).toBeCalled();
+
+    console.error = errorMock;
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();
