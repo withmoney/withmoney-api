@@ -1,24 +1,7 @@
-import { createController } from 'fastexpress';
-import { Accounts } from '../models';
+import { createController, Controller } from 'fastexpress';
 import UserService from '../services/UserService';
 
-const accounts = UsersModel => async (req, res) => {
-  const { id } = req.params;
-
-  const select = {
-    include: [
-      Accounts,
-    ],
-  };
-
-  try {
-    const user = await UsersModel.findById(id, select);
-
-    res.json(JSON.parse(JSON.stringify(user)));
-  } catch (e) {
-    res.status(500).send(e);
-  }
-};
+const accounts = (req, res) => Controller.get(req, res, UserService.accounts);
 
 const UserController = createController(UserService, {
   custom: { accounts },

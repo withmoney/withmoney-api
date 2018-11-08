@@ -16,6 +16,16 @@ jest.mock('../../src/models', () => ({
       },
     ]),
     findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
+    findOne: jest.fn().mockResolvedValue({
+      id: 1,
+      name: 'david',
+      email: 'davidcostadev@gmail.com',
+      password: '123',
+      enabled: true,
+      createdAt: '2018-08-09 02:02:39',
+      updatedAt: '2018-08-09 02:02:39',
+      update: jest.fn().mockResolvedValue(true),
+    }),
     findById: jest.fn().mockResolvedValue({
       id: 1,
       name: 'david',
@@ -47,6 +57,7 @@ describe('UserService', () => {
     resMock = {
       body: {},
       params: {},
+      query: {},
     };
   });
 
