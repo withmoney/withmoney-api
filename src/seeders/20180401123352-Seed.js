@@ -172,9 +172,9 @@ module.exports = {
       transferToWalletInTransaction,
     ]);
   },
-  down: (queryInterface) => {
-    queryInterface.bulkDelete('Users');
-  }, /* queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+  down: queryInterface => (
+    queryInterface.bulkDelete('Users')
+  ), /* queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
     .then(() => (
       queryInterface.bulkDelete('Users', null, { truncate: true })
         .then(() => (
