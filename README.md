@@ -9,16 +9,16 @@ It is a project of money control
 
 ## Instalation
 
-1. cp config/database.json.example config/database.json
-2. cp .env.example .env
-3. yarn
-4. yarn run sequelize db:migrate
+1. `cp config/database.json.example config/database.json`
+2. `cp .env.example .env`
+3. `yarn`
+4. `yarn run sequelize db:create` to create a database
+5. `yarn run sequelize db:migrate`
+
 
 ## Development
 
-To use in development environment always run the `yarn run sequelize db:migrate` before, and you can
-
-`yarn run sequelize db:seed:all` #in development
+`yarn run sequelize db:seed:all` in development
 
 run `yarn run dev` to start the server.
 
