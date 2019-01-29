@@ -8,7 +8,7 @@ module.exports = {
       },
     )
   ),
-  down: (queryInterface) => {
-    queryInterface.removeColumn('Users', 'password');
-  },
+  down: queryInterface => (
+    queryInterface.removeColumn('Users', 'password')
+  ),
 };
