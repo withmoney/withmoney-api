@@ -29,12 +29,13 @@ jobs:
       after_script:
         - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
     - stage: postgres
-      env:
-        - NODE_ENV=production
-        - DATABASE_URL=postgres://postgres:@127.0.0.1:5432/withmoney_production
       services:
         - postgresql
       before_script:
-        - psql -c 'create database withmoney_production;' -U postgres
+        - psql -c 'create database withmoney_test;' -U postgres
+        - cp .env.example .env
         - yarn run config:db
-        - yarn run pre-build
+        - sed -i 's/mysql/postgres/g' config/database.json
+        - sed -i 's/root/postgres/g' config/database.json
+        - sed -i 's/123//g' config/database.json
+        - yarn run pretest
