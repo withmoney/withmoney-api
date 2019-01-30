@@ -2,22 +2,22 @@ const replaceEnum = require('sequelize-replace-enum-postgres').default;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await replaceEnum({
-      queryInterface,
-      tableName: 'Journals',
-      columnName: 'type',
-      defaultValue: 'transfers',
-      newValues: ['transfers', 'repeat'],
-      enumName: 'enum_Journals_type',
-    });
-    // await queryInterface.sequelize.query(`
-    //   DROP TYPE "enum_Journals_type";
-    // `);
-    // ALTER TABLE "Journals" DROP COLUMN \"sellerAccountType\";
-    // await queryInterface.changeColumn('Journals', 'type', {
-    //   type: Sequelize.ENUM,
-    //   values: ['transfers', 'repeat'],
-    // });
+    const { dialect } = queryInterface.sequelize.options;
+
+    if (dialect === 'postgres') {
+      await replaceEnum({
+        queryInterface,
+        tableName: 'Journals',
+        columnName: 'type',
+        defaultValue: 'transfers',
+        newValues: ['transfers', 'repeat'],
+        enumName: 'enum_Journals_type',
+      });
+    } else {
+      await queryInterface.changeColumn('Journals', 'type', {
+        type: Sequelize.ENUM('transfers', 'repeat'),
+      });
+    }
     await queryInterface.addColumn('Journals', 'repeatAmount', {
       type: Sequelize.INTEGER,
       allowNull: true,
