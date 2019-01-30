@@ -20,7 +20,6 @@ jobs:
         - mysql -e "use mysql; update user set authentication_string=PASSWORD('123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
         - service mysql restart
         - cp .env.example .env
-
       before_script:
         - yarn run config:db
         - yarn run pretest
@@ -29,3 +28,13 @@ jobs:
         - "./cc-test-reporter before-build"
       after_script:
         - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+    - stage: postgres
+      env:
+        - NODE_ENV=production
+        - DATABASE_URL=postgres://postgres:@127.0.0.1:5432/withmoney_production
+      services:
+        - postgresql
+      before_script:
+        - psql -c 'create database withmoney_production;' -U postgres
+        - yarn run config:db
+        - yarn run pre-build
