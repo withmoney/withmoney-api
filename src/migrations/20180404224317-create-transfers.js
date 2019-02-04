@@ -26,27 +26,6 @@ module.exports = {
       name: 'fk_transfers_account_to',
       tableName: 'Accounts',
     });
-    // await queryInterface.addConstraint('Transfers', ['accountFromId'], {
-    //   type: 'foreign key',
-    //   name: 'fk_transfers_account_from',
-    //   references: { // Required field
-    //     table: 'Accounts',
-    //     field: 'id',
-    //   },
-    //   onDelete: 'cascade',
-    //   onUpdate: 'no action',
-    // });
-
-    // await queryInterface.addConstraint('Transfers', ['accountToId'], {
-    //   type: 'foreign key',
-    //   name: 'fk_transfers_account_to',
-    //   references: { // Required field
-    //     table: 'Accounts',
-    //     field: 'id',
-    //   },
-    //   onDelete: 'cascade',
-    //   onUpdate: 'no action',
-    // });
   }),
   down: migrationActions.dropTable('Transfers'),
 };

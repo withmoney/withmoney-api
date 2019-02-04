@@ -84,6 +84,8 @@ describe('Journals Controller should', () => {
     const body = {
       UserId: user.id,
       type: 'transfers',
+      repeatType: null,
+      repeatAmount: null,
     };
 
     reqMock.body = body;

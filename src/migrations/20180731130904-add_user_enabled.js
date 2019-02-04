@@ -9,7 +9,7 @@ module.exports = {
       },
     )
   ),
-  down: (queryInterface) => {
-    queryInterface.removeColumn('Users', 'enabled');
-  },
+  down: queryInterface => (
+    queryInterface.removeColumn('Users', 'enabled')
+  ),
 };

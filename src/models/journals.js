@@ -5,9 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     repeatType: {
       type: DataTypes.ENUM('day', 'week', 'month', 'year'),
+      defaultValue: null,
     },
     repeatAmount: {
       type: DataTypes.INTEGER,
+      defaultValue: null,
     },
   }, {});
   Journals.associate = ({ Users }) => {

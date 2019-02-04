@@ -6,11 +6,11 @@ module.exports = {
       unique: true,
     })
   ),
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => (
     queryInterface.changeColumn('Users', 'email', {
       type: Sequelize.STRING,
       after: 'name',
       unique: false,
-    });
-  },
+    })
+  ),
 };

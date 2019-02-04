@@ -107,33 +107,44 @@ const transferToWalletInTransaction = {
   ...timestamp,
 };
 
+const returnID = value => (
+  Array.isArray(value) ? value[0].id : value
+);
+
+const insertor = bulkInsert => async (table, entity, options = { returning: true }) => (
+  returnID(await bulkInsert(table, [entity], options))
+);
+
 module.exports = {
   up: async (queryInterface) => {
-    const userOneId = await queryInterface.bulkInsert('Users', [userOne]);
-    const userTwoId = await queryInterface.bulkInsert('Users', [userTwo]);
+    const seed = insertor(queryInterface.bulkInsert.bind(queryInterface));
+
+    const userOneId = await seed('Users', userOne);
+
+    const userTwoId = await seed('Users', userTwo);
 
     lancheCategory.UserId = userOneId;
     salarioCategory.UserId = userOneId;
     contasCategory.UserId = userOneId;
 
-    const lancheCategoryId = await queryInterface.bulkInsert('Categories', [lancheCategory]);
-    const salarioCategoryId = await queryInterface.bulkInsert('Categories', [salarioCategory]);
+    const lancheCategoryId = await seed('Categories', lancheCategory);
+    const salarioCategoryId = await seed('Categories', salarioCategory);
     await queryInterface.bulkInsert('Categories', [contasCategory]);
 
     lancheCategory.UserId = userTwoId;
 
-    const lancheCategoryTwoId = await queryInterface.bulkInsert('Categories', [lancheCategory]);
+    const lancheCategoryTwoId = await seed('Categories', lancheCategory);
 
     bancointerAccount.UserId = userOneId;
     carteiraAccount.UserId = userOneId;
 
-    const accountIdInter = await queryInterface.bulkInsert('Accounts', [bancointerAccount]);
-    const accountIdWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
+    const accountIdInter = await seed('Accounts', bancointerAccount);
+    const accountIdWallet = await seed('Accounts', carteiraAccount);
 
     bancointerAccount.UserId = userTwoId;
     carteiraAccount.UserId = userTwoId;
 
-    const accountIdTwoWallet = await queryInterface.bulkInsert('Accounts', [carteiraAccount]);
+    const accountIdTwoWallet = await seed('Accounts', carteiraAccount);
 
     interTransactionOne.UserId = userOneId;
     interTransactionTwo.UserId = userOneId;
@@ -149,11 +160,11 @@ module.exports = {
     interTransactionTwo.AccountId = accountIdInter;
     walletTransaction.AccountId = accountIdWallet;
 
-    const journalId = await queryInterface.bulkInsert('Journals', [{
+    const journalId = await seed('Journals', {
       UserId: userOneId,
       type: 'transfers',
       ...timestamp,
-    }]);
+    });
 
     transferToWalletOutTransaction.UserId = userOneId;
     transferToWalletOutTransaction.AccountId = accountIdInter;
@@ -172,9 +183,9 @@ module.exports = {
       transferToWalletInTransaction,
     ]);
   },
-  down: (queryInterface) => {
-    queryInterface.bulkDelete('Users');
-  }, /* queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+  down: queryInterface => (
+    queryInterface.bulkDelete('Users')
+  ), /* queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
     .then(() => (
       queryInterface.bulkDelete('Users', null, { truncate: true })
         .then(() => (
