@@ -3,6 +3,9 @@ cache: yarn
 dist: trusty
 node_js:
   - 8
+script:
+    - npm test
+    - export NODE_ENV=test && npm run sequelize db:seed:all
 jobs:
   include:
     - stage: mysql
@@ -26,8 +29,8 @@ jobs:
         - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
         - "chmod +x ./cc-test-reporter"
         - "./cc-test-reporter before-build"
+
       after_script:
-        - export NODE_ENV=test && npm run sequelize db:seed:all
         - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
     - stage: postgres
       services:
@@ -40,5 +43,3 @@ jobs:
         - sed -i 's/root/postgres/g' config/database.json
         - sed -i 's/123//g' config/database.json
         - yarn run pretest
-      after_script:
-       - export NODE_ENV=test && npm run sequelize db:seed:all
