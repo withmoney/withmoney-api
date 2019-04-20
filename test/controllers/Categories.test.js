@@ -110,6 +110,7 @@ describe('Categories Controller should', () => {
         CategoryId: transaction.CategoryId,
         UserId: transaction.UserId,
         AccountId: transaction.AccountId,
+        JournalId: transaction.JournalId,
         createdAt: transaction.createdAt.toJSON(),
         updatedAt: transaction.updatedAt.toJSON(),
       }],
