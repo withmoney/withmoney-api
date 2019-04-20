@@ -105,6 +105,31 @@ describe('Transactions Controller should', () => {
     expect(body.transactionDate).toEqual(transactionCreated.transactionDate);
   });
 
+  it('create transaction with only default values', async () => {
+    const body = {
+      UserId: user.id,
+      type: 'out',
+      transactionDate: '2018-04-03',
+    };
+
+    reqMock.body = body;
+
+    await Controller.create(reqMock, resMock);
+
+    let transactionCreated = resMock.json.mock.calls[0][0];
+    transactionCreated = transactionCreated.toJSON();
+
+    expect(transactionCreated.name).toEqual('');
+    expect(transactionCreated.UserId).toEqual(body.UserId);
+    expect(transactionCreated.CategoryId).toEqual(null);
+    expect(transactionCreated.AccountId).toEqual(null);
+    expect(transactionCreated.JournalId).toEqual(null);
+    expect(transactionCreated.value).toEqual('0.00');
+    expect(transactionCreated.type).toEqual(body.type);
+    expect(transactionCreated.isPaid).toEqual(false);
+    expect(transactionCreated.transactionDate).toEqual(body.transactionDate);
+  });
+
   it('get transaction', async () => {
     reqMock.params.id = transaction.id;
 

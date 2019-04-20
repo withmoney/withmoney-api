@@ -175,7 +175,7 @@ describe('Users Controller should', () => {
     });
   });
 
-  it.only('list accounts by user', async () => {
+  it('list accounts by user', async () => {
     reqMock.params.id = user.id;
 
     await Controller.accounts(reqMock, resMock);
@@ -207,17 +207,11 @@ describe('Users Controller should', () => {
   });
 
   it('get a error listing accounts by user', async () => {
-    const UserModelMock = {
-      findById: () => {
-        throw new Error('sequelize error');
-      },
-    };
-
-    await Controller.accounts(UserModelMock)(reqMock, resMock);
+    await Controller.accounts(reqMock, resMock);
 
     expect(resMock.status).toBeCalled();
     expect(resMock.send).toBeCalled();
-    expect(resMock.status.mock.calls[0][0]).toEqual(500);
+    expect(resMock.status.mock.calls[0][0]).toEqual(404);
   });
 
   it('create user', async () => {

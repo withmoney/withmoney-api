@@ -1,12 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
   const Transactions = sequelize.define('Transactions', {
-    name: DataTypes.STRING,
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      defaultValue: null,
+    },
+    AccountId: {
+      type: DataTypes.INTEGER,
+      defaultValue: null,
+    },
+    JournalId: {
+      type: DataTypes.INTEGER,
+      defaultValue: null,
+    },
+    name: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
     value: {
       type: DataTypes.DECIMAL(10, 2),
-      defaultValue: 0,
+      defaultValue: '0.00',
     },
     type: DataTypes.ENUM('in', 'out'),
-    isPaid: DataTypes.BOOLEAN,
+    isPaid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     transactionDate: DataTypes.DATEONLY,
   }, {});
   Transactions.associate = ({ Accounts, Users, Categories }) => {
