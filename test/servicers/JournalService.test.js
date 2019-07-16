@@ -14,7 +14,7 @@ jest.mock('../../src/models', () => ({
       },
     ]),
     findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
-    findById: jest.fn().mockResolvedValue({
+    findByPk: jest.fn().mockResolvedValue({
       id: 1,
       UserId: 1,
       type: 'in',
@@ -115,7 +115,7 @@ describe('JournalService', () => {
     resMock.body = body;
 
     const result = await Journal.update(resMock);
-    expect(Journals.findById.mock.calls[0][0]).toBe(1);
+    expect(Journals.findByPk.mock.calls[0][0]).toBe(1);
 
     expect(result).toBe(true);
   });

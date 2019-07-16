@@ -28,7 +28,7 @@ describe('Journals Controller should', () => {
       UserId: user.id,
     });
 
-    journal = await Journals.findById(journal.id);
+    journal = await Journals.findByPk(journal.id);
   });
 
   beforeEach(async () => {
@@ -159,7 +159,7 @@ describe('Journals Controller should', () => {
 
     await Controller.update(reqMock, resMock);
 
-    journal = await Journals.findById(journal.id);
+    journal = await Journals.findByPk(journal.id);
 
     expect(resMock.json).toBeCalled();
 

@@ -30,10 +30,10 @@ describe('Users Controller should', () => {
     account = await accountsFacture({ UserId: user.id });
     accountTwo = await accountsFacture({ UserId: userDavid.id });
 
-    user = await Users.findById(user.id);
-    userDavid = await Users.findById(userDavid.id);
-    account = await Accounts.findById(account.id);
-    accountTwo = await Accounts.findById(accountTwo.id);
+    user = await Users.findByPk(user.id);
+    userDavid = await Users.findByPk(userDavid.id);
+    account = await Accounts.findByPk(account.id);
+    accountTwo = await Accounts.findByPk(accountTwo.id);
   });
 
   afterAll(() => {
@@ -206,7 +206,7 @@ describe('Users Controller should', () => {
     });
   });
 
-  it('get a error listing accounts by user', async () => {
+  it.only('get a error listing accounts by user', async () => {
     await Controller.accounts(reqMock, resMock);
 
     expect(resMock.status).toBeCalled();
@@ -225,7 +225,7 @@ describe('Users Controller should', () => {
 
     await Controller.create(reqMock, resMock);
     const userCreated = resMock.json.mock.calls[0][0];
-    user = await Users.findById(userCreated.id);
+    user = await Users.findByPk(userCreated.id);
 
     expect(userCreated.name).toEqual(body.name);
     expect(userCreated.email).toEqual(body.email);
@@ -268,7 +268,7 @@ describe('Users Controller should', () => {
 
     await Controller.update(reqMock, resMock);
 
-    user = await Users.findById(user.id);
+    user = await Users.findByPk(user.id);
 
     expect(resMock.json).toBeCalled();
 

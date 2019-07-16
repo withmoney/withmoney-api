@@ -26,7 +26,7 @@ jest.mock('../../src/models', () => ({
       updatedAt: '2018-08-09 02:02:39',
       update: jest.fn().mockResolvedValue(true),
     }),
-    findById: jest.fn().mockResolvedValue({
+    findByPk: jest.fn().mockResolvedValue({
       id: 1,
       name: 'david',
       email: 'davidcostadev@gmail.com',
@@ -140,7 +140,7 @@ describe('UserService', () => {
     resMock.body = body;
 
     const result = await User.update(resMock);
-    expect(Users.findById.mock.calls[0][0]).toBe(1);
+    expect(Users.findByPk.mock.calls[0][0]).toBe(1);
 
     expect(result).toBe(true);
   });

@@ -15,7 +15,7 @@ jest.mock('../../src/models', () => ({
       },
     ]),
     findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
-    findById: jest.fn().mockResolvedValue({
+    findByPk: jest.fn().mockResolvedValue({
       id: 1,
       UserId: 1,
       name: 'Carteira',
@@ -123,7 +123,7 @@ describe('CategoryService', () => {
     resMock.body = body;
 
     const result = await Category.update(resMock);
-    expect(Categories.findById.mock.calls[0][0]).toBe(1);
+    expect(Categories.findByPk.mock.calls[0][0]).toBe(1);
 
     expect(result).toBe(true);
   });
