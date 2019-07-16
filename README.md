@@ -7,7 +7,7 @@ It is a project of money control
 [![Build Status](https://travis-ci.org/davidcostadev/api-withmoney.svg?branch=master)](https://travis-ci.org/davidcostadev/api-withmoney)
 [![codecov](https://codecov.io/gh/davidcostadev/api-withmoney/branch/master/graph/badge.svg)](https://codecov.io/gh/davidcostadev/api-withmoney)
 
-## Instalation
+## Installation
 
 1. `cp config/database.json.example config/database.json`
 2. `cp .env.example .env`
@@ -25,6 +25,7 @@ run `yarn run dev` to start the server.
 ## Tests
 
 `yarn run test:createdb` - To create a database of test.
+`yarn run pretest` - Apply the migration.
 `yarn run jest`
 
 ## Production
