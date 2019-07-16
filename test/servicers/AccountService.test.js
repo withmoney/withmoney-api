@@ -16,7 +16,7 @@ jest.mock('../../src/models', () => ({
       },
     ]),
     findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
-    findById: jest.fn().mockResolvedValue({
+    findByPk: jest.fn().mockResolvedValue({
       id: 1,
       UserId: 1,
       name: 'Carteira',
@@ -130,7 +130,7 @@ describe('AccountService', () => {
     resMock.body = body;
 
     const result = await Account.update(resMock);
-    expect(Accounts.findById.mock.calls[0][0]).toBe(1);
+    expect(Accounts.findByPk.mock.calls[0][0]).toBe(1);
 
     expect(result).toBe(true);
   });

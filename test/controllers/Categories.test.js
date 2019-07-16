@@ -35,8 +35,8 @@ describe('Categories Controller should', () => {
       AccountId: account.id,
     });
 
-    category = await Categories.findById(category.id);
-    transaction = await Transactions.findById(transaction.id);
+    category = await Categories.findByPk(category.id);
+    transaction = await Transactions.findByPk(transaction.id);
   });
 
   beforeEach(async () => {
@@ -182,7 +182,7 @@ describe('Categories Controller should', () => {
 
     await Controller.update(reqMock, resMock);
 
-    category = await Categories.findById(category.id);
+    category = await Categories.findByPk(category.id);
 
     expect(resMock.json).toBeCalled();
 

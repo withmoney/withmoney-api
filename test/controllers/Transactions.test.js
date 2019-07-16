@@ -33,7 +33,7 @@ describe('Transactions Controller should', () => {
     accountTwo = await accountsFacture({ name: 'bank two', UserId: user.id });
     transaction = await transactionsFacture({ AccountId: account.id });
 
-    transaction = await Transactions.findById(transaction.id);
+    transaction = await Transactions.findByPk(transaction.id);
   });
 
   beforeEach(async () => {
@@ -172,7 +172,7 @@ describe('Transactions Controller should', () => {
 
     await Controller.update(reqMock, resMock);
 
-    transaction = await Transactions.findById(transaction.id);
+    transaction = await Transactions.findByPk(transaction.id);
 
     expect(resMock.json).toBeCalled();
 

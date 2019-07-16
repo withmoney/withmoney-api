@@ -25,7 +25,7 @@ describe('Accounts Controller should', () => {
     user = await usersFacture();
     account = await accountsFacture({ UserId: user.id });
 
-    account = await Accounts.findById(account.id);
+    account = await Accounts.findByPk(account.id);
   });
 
   beforeEach(async () => {
@@ -129,7 +129,7 @@ describe('Accounts Controller should', () => {
 
     await Controller.update(reqMock, resMock);
 
-    account = await Accounts.findById(account.id);
+    account = await Accounts.findByPk(account.id);
 
     expect(resMock.json).toBeCalled();
 
