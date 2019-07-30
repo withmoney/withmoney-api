@@ -4,7 +4,7 @@ It is a project of money control
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/fd2c888e3a8f375c2976/maintainability)](https://codeclimate.com/github/davidcostadev/api-withmoney/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/fd2c888e3a8f375c2976/test_coverage)](https://codeclimate.com/github/davidcostadev/api-withmoney/test_coverage)
-[![Build Status](https://travis-ci.org/davidcostadev/api-withmoney.svg?branch=master)](https://travis-ci.org/davidcostadev/api-withmoney)
+[![Build Status](https://travis-ci.org/withmoney/withmoney-api.svg?branch=master)](https://travis-ci.org/withmoney/withmoney-api)
 [![codecov](https://codecov.io/gh/davidcostadev/api-withmoney/branch/master/graph/badge.svg)](https://codecov.io/gh/davidcostadev/api-withmoney)
 
 ## Installation
