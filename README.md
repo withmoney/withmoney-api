@@ -37,10 +37,10 @@ run `yarn run dev` to start the server.
 
 ## Using Database docker
 
-**postgres**
+**PostgreSQL**
 
 `docker run --name withmoney-postgres -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres -p`
 
-**mysql**
+**MySQL**
 
 `docker run --name withmoney-mysql -e MYSQL_ROOT_PASSWORD=123 -p 3306:3306 -d mysql:5`
