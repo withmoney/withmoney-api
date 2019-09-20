@@ -19,9 +19,9 @@ jobs:
             - mysql-server
             - mysql-client
       before_install:
-        - mysql -e 'CREATE DATABASE IF NOT EXISTS withmoney_test;'
-        - mysql -e "use mysql; update user set authentication_string=PASSWORD('123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-        - service mysql restart
+        - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS withmoney_test;'
+        - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+        - sudo service mysql restart
         - cp .env.example .env
       before_script:
         - yarn run config:db
