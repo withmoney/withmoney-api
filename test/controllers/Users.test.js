@@ -206,7 +206,7 @@ describe('Users Controller should', () => {
     });
   });
 
-  it.only('get a error listing accounts by user', async () => {
+  it('get a error listing accounts by user', async () => {
     await Controller.accounts(reqMock, resMock);
 
     expect(resMock.status).toBeCalled();

@@ -85,7 +85,7 @@ describe('Transactions Controller should', () => {
       name: 'headfone',
       value: '100.99',
       type: 'out',
-      isPaid: false,
+      isPaid: 'false',
       transactionDate: '2018-04-02',
     };
 
@@ -101,7 +101,7 @@ describe('Transactions Controller should', () => {
     expect(body.CategoryId).toEqual(transactionCreated.CategoryId);
     expect(body.value).toEqual(transactionCreated.value);
     expect(body.type).toEqual(transactionCreated.type);
-    expect(body.isPaid).toEqual(transactionCreated.isPaid);
+    expect(false).toEqual(transactionCreated.isPaid);
     expect(body.transactionDate).toEqual(transactionCreated.transactionDate);
   });
 
@@ -165,7 +165,7 @@ describe('Transactions Controller should', () => {
       AccountId: accountTwo.id,
       CategoryId: category.id,
       value: 40.7,
-      isPaid: true,
+      isPaid: 'true',
       transactionDate: '2018-04-21',
     };
     reqMock.body = body;
@@ -191,7 +191,7 @@ describe('Transactions Controller should', () => {
     expect(response.AccountId).toEqual(body.AccountId);
     expect(response.CategoryId).toEqual(body.CategoryId);
     expect(response.value).toEqual(body.value);
-    expect(response.isPaid).toEqual(body.isPaid);
+    expect(response.isPaid).toEqual(true);
     expect(response.transactionDate).toEqual(body.transactionDate);
   });
 

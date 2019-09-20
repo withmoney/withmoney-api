@@ -16,16 +16,6 @@ jest.mock('../../src/models', () => ({
       },
     ]),
     findAndCountAll: jest.fn().mockResolvedValue({ count: 1 }),
-    findOne: jest.fn().mockResolvedValue({
-      id: 1,
-      name: 'david',
-      email: 'davidcostadev@gmail.com',
-      password: '123',
-      enabled: true,
-      createdAt: '2018-08-09 02:02:39',
-      updatedAt: '2018-08-09 02:02:39',
-      update: jest.fn().mockResolvedValue(true),
-    }),
     findByPk: jest.fn().mockResolvedValue({
       id: 1,
       name: 'david',
@@ -66,13 +56,18 @@ describe('UserService', () => {
       name: 'David Costa',
       email: 'davidcostadev@gmail.com',
       password: '123456',
-      enabled: true,
+      enabled: 'true',
     };
     resMock.body = body;
 
     const result = await User.create(resMock);
 
-    expect(Users.create.mock.calls[0][0]).toEqual(body);
+    expect(Users.create.mock.calls[0][0]).toEqual({
+      name: 'David Costa',
+      email: 'davidcostadev@gmail.com',
+      password: '123456',
+      enabled: true,
+    });
     expect(result).toEqual(true);
   });
 

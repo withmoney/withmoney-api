@@ -70,14 +70,23 @@ describe('TransactionService', () => {
       name: 'Coxinha',
       value: 2,
       type: 'in',
-      isPaid: true,
+      isPaid: 'true',
       transactionDate: '2018-08-20',
     };
     resMock.body = body;
 
     const result = await Transaction.create(resMock);
 
-    expect(Transactions.create.mock.calls[0][0]).toEqual(body);
+    expect(Transactions.create.mock.calls[0][0]).toEqual({
+      UserId: 1,
+      AccountId: 1,
+      CategoryId: 1,
+      name: 'Coxinha',
+      value: 2,
+      type: 'in',
+      isPaid: true,
+      transactionDate: '2018-08-20',
+    });
     expect(result).toEqual(true);
   });
 
