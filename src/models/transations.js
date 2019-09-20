@@ -20,12 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(10, 2),
       defaultValue: '0.00',
     },
-    type: DataTypes.ENUM('in', 'out'),
+    type: {
+      type: DataTypes.ENUM('in', 'out'),
+      allowNull: false,
+    },
     isPaid: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    transactionDate: DataTypes.DATEONLY,
+    transactionDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: new Date(),
+    },
   }, {});
   Transactions.associate = ({ Accounts, Users, Categories }) => {
     Transactions.belongsTo(Users);
