@@ -42,7 +42,7 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.2",
     "express": "4.17.1",
-    "fastexpress": "2.0.0-alpha.3",
+    "fastexpress": "^2.0.0-alpha.3",
     "iconv-lite": "0.5.0",
     "jest": "24.8.0",
     "jsonwebtoken": "8.5.1",
