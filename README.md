@@ -12,7 +12,7 @@ It is a project of money control
 1. `cp config/database.json.example config/database.json`
 2. `cp .env.example .env`
 3. `yarn`
-4. `yarn run sequelize db:create` to create a database
+4. `yarn run sequelize db:create`(for mysql) to create a database
 5. `yarn run sequelize db:migrate`
 
 
@@ -33,3 +33,14 @@ run `yarn run dev` to start the server.
 `yarn run deploy setup # first time`
 
 `yarn run deploy`
+
+
+## Using Database docker
+
+**PostgreSQL**
+
+`docker run --name withmoney-postgres -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres -p`
+
+**MySQL**
+
+`docker run --name withmoney-mysql -e MYSQL_ROOT_PASSWORD=123 -p 3306:3306 -d mysql:5`
