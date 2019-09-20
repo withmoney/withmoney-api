@@ -2779,10 +2779,10 @@ fast-levenshtein@~2.0.4:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
 
-fastexpress@^2.0.0-alpha.3:
-  version "2.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/fastexpress/-/fastexpress-2.0.0-alpha.5.tgz#9f72d2b495e895d255fcf07f1c02292b7b740b1a"
-  integrity sha512-aX09sFUBs656HjGVJYJCtVlGc/1Q+QtmC+FT9mBSmJ80VqXqXl7A+qbdAr4sG08LXsgMKpj3yXKyilIqOIJikg==
+fastexpress@^2.0.0-alpha.6:
+  version "2.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/fastexpress/-/fastexpress-2.0.0-alpha.6.tgz#3cc910c51e3d412df0821e0a0b2fcc03f188fcee"
+  integrity sha512-pu0D/PmOGduRUSEmD9aTfwPM0nZcqxbBCmh+GtpcMwhCBJ8RI063UcJZjTvhNxhTMtbBuXfCUu+Z09YGMZETew==
   dependencies:
     bcrypt "^3.0.6"
     express "4.17.1"
