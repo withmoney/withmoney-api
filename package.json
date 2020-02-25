@@ -1,0 +1,39 @@
+{
+  "name": "withmoney-api",
+  "version": "2.0.0",
+  "description": "withmoney backend project",
+  "main": "src/main.ts",
+  "scripts": {
+    "dev": "env-cmd nodemon 'src/main.ts' --exec 'ts-node' src/main.ts -e ts,graphql",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withmoney/withmoney-api.git"
+  },
+  "keywords": [
+    "withmoney",
+    "api"
+  ],
+  "author": "David Costa <davidcostadev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/withmoney/withmoney-api/issues"
+  },
+  "homepage": "https://github.com/withmoney/withmoney-api#readme",
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/mongoose": "^5.7.1",
+    "apollo-server-express": "^2.10.1",
+    "bcrypt": "^4.0.0",
+    "express": "^4.17.1",
+    "graphql": "^14.6.0",
+    "mongoose": "^5.9.2"
+  }
+}
