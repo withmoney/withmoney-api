@@ -1,5 +1,17 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { Users } from './database';
+
+if (!process.env.SECRET_SALT) {
+  throw new Error('SECRET_SALT env is undefined');
+}
+
+if (!process.env.SECRET_KEY) {
+  throw new Error('SECRET_KEY env is undefined');
+}
+
+const { SECRET_SALT, SECRET_KEY } = process.env;
+
 
 interface IRegister {
   firstName: string;
@@ -31,12 +43,14 @@ export const resolvers = {
         throw new Error('The User already exists!');
       }
 
-      const newPassword = await bcrypt.hash(data.password, 4);
+      const newPassword = await bcrypt.hash(data.password, parseInt(SECRET_SALT, 10));
 
-      return await Users.create({
+      await Users.create({
         ...data,
         password: newPassword,
       });
+
+      return 'OK';
     },
 
     login: async (root: any, data: ILogin) => {
@@ -52,7 +66,14 @@ export const resolvers = {
         throw new Error('Email or Password invalid');
       }
 
-      return user;
+      return {
+        token: jwt.sign({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+        }, SECRET_KEY),
+      };
     },
   },
 };

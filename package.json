@@ -29,11 +29,13 @@
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
+    "@types/jsonwebtoken": "^8.3.7",
     "@types/mongoose": "^5.7.1",
     "apollo-server-express": "^2.10.1",
     "bcrypt": "^4.0.0",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.2"
   }
 }
