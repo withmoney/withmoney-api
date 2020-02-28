@@ -5,6 +5,6 @@
 - [x] Return the JWT token on login
 - [x] Register mutation should return just a OK message
 - [x] Add register test 
-- [ ] Add login test
+- [x] Add login test
 - [ ] Add hasVerifiedEmail field on user
 - [ ] Send a email on register to check the email

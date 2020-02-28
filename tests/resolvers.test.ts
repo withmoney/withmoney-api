@@ -4,25 +4,25 @@ import { typeDefs } from '../src/schema';
 import { resolvers } from '../src/resolvers';
 import { Users } from '../src/database';
 
+const entity = {
+  id: '5e584b5994515952cab4e97b',
+  email: 'xexeu@gmail.com',
+  password: '$2b$04$V2BrnJds.QlkvQQaGgW1.u7xbP4RDKz729JXh/yxCdrI4fY/ROdfq',
+  firstName: 'Jhonny',
+  lastName: 'Michel',
+};
+
 jest.mock('../src/database', () => ({
   Users: {
-    findOne: jest.fn().mockResolvedValue(null),
-    create: jest.fn().mockResolvedValue({
-      id: '5e584b5994515952cab4e97b',
-      email: 'xexeu@gmail.com',
-      password: '123456',
-      firstName: 'Jhonny',
-      lastName: 'Michel',
-    }),
+    findOne: jest.fn(),
+    create: jest.fn(),
   },
 }));
 
-beforeAll(() => {
-  process.env.SECRET_SALT = '8';
-  process.env.SECRET_KEY = 'lessiknowitsbetter';
-})
-
 it('Should return a OK on register mutation', async () => {
+  Users.findOne = jest.fn().mockResolvedValue(null);
+  Users.create = jest.fn().mockResolvedValue(entity);
+
   const server = new ApolloServer({ typeDefs, resolvers });
 
   const { mutate } = createTestClient(server);
@@ -44,4 +44,41 @@ it('Should return a OK on register mutation', async () => {
   });
 
   expect(res).toMatchSnapshot();
+});
+
+it('Should return a token on login mutation', async () => {
+  Users.findOne = jest.fn().mockResolvedValue(entity);
+  const server = new ApolloServer({ typeDefs, resolvers });
+
+  const { mutate } = createTestClient(server);
+
+  const LOGIN_USER = gql`
+    mutation Login(
+      $email: String!
+      $password: String!
+    ) {
+      login(email: $email, password: $password) {
+        token
+      }
+    }
+  `;
+
+  const res = await mutate({
+    mutation: LOGIN_USER,
+    variables: {
+      email: 'xexeu@gmail.com',
+      password: '123456',
+    },
+  });
+
+  expect(res).toEqual({
+    data: {
+      login: {
+        token: expect.any(String)
+      },
+    },
+    errors: undefined,
+    extensions: undefined,
+    http: expect.any(Object),
+  });
 });
