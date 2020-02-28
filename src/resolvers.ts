@@ -2,16 +2,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Users } from './database';
 
-if (!process.env.SECRET_SALT) {
-  throw new Error('SECRET_SALT env is undefined');
-}
-
-if (!process.env.SECRET_KEY) {
-  throw new Error('SECRET_KEY env is undefined');
-}
-
-const { SECRET_SALT, SECRET_KEY } = process.env;
-
+const SECRET_SALT = process.env.SECRET_SALT || '2';
+const SECRET_KEY = process.env.SECRET_SALT || '';
 
 interface IRegister {
   firstName: string;

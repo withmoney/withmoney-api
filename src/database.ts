@@ -1,12 +1,12 @@
 import mongoose, { Document } from 'mongoose';
 
-const mongodbURL = process.env.MONGODB;
+const { MONGODB } = process.env;
 
-if (!mongodbURL) {
+if (!MONGODB) {
   throw new Error('MONGODB env is not defined');
 }
 
-mongoose.connect(mongodbURL, {
+mongoose.connect(MONGODB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
