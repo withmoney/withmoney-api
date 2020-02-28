@@ -23,8 +23,6 @@ interface IRegister {
 }
 
 interface ILogin {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
 }
@@ -50,6 +48,7 @@ export const resolvers = {
       await Users.create({
         ...data,
         password: newPassword,
+        hasVerifiedEmail: false,
       });
 
       return 'OK';
@@ -73,7 +72,8 @@ export const resolvers = {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
-          email: user.email
+          email: user.email,
+          hasVerifiedEmail: user.hasVerifiedEmail
         }, SECRET_KEY),
       };
     },

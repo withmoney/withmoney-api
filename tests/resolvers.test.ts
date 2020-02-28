@@ -10,6 +10,7 @@ const entity = {
   password: '$2b$04$V2BrnJds.QlkvQQaGgW1.u7xbP4RDKz729JXh/yxCdrI4fY/ROdfq',
   firstName: 'Jhonny',
   lastName: 'Michel',
+  hasVerifiedEmail: false,
 };
 
 jest.mock('../src/database', () => ({

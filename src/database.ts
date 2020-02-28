@@ -16,12 +16,14 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String },
   email: { type: String },
   password: { type: String },
+  hasVerifiedEmail: { type: Boolean, default: false },
 });
 export interface IUser extends Document {
   password: string;
   email: string;
   firstName: string;
   lastName: string;
+  hasVerifiedEmail?: boolean;
 }
 
 export const Users = mongoose.model<IUser>('Users', userSchema);
