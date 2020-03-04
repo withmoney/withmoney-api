@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
+import { sendVerifyEmail } from './email';
 import { Users } from './database';
 
 if (!process.env.SECRET_SALT) {
@@ -13,7 +15,6 @@ if (!process.env.SECRET_KEY) {
 }
 
 const { SECRET_SALT, SECRET_KEY } = process.env;
-
 
 interface IRegister {
   firstName: string;
@@ -44,11 +45,19 @@ export const resolvers = {
       }
 
       const newPassword = await bcrypt.hash(data.password, parseInt(SECRET_SALT, 10));
+      const hashToVerifyEmail = uuidv4();
 
       await Users.create({
         ...data,
         password: newPassword,
         hasVerifiedEmail: false,
+        hashToVerifyEmail,
+      });
+
+      await sendVerifyEmail({
+        firstName: data.firstName,
+        email: data.email,
+        hash: hashToVerifyEmail,
       });
 
       return 'OK';
@@ -68,13 +77,16 @@ export const resolvers = {
       }
 
       return {
-        token: jwt.sign({
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          hasVerifiedEmail: user.hasVerifiedEmail
-        }, SECRET_KEY),
+        token: jwt.sign(
+          {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            hasVerifiedEmail: user.hasVerifiedEmail,
+          },
+          SECRET_KEY,
+        ),
       };
     },
   },

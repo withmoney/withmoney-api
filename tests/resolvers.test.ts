@@ -20,6 +20,12 @@ jest.mock('../src/database', () => ({
   },
 }));
 
+jest.mock('nodemailer', () => ({
+  createTransport: () => ({
+    sendMail: jest.fn().mockResolvedValue(null),
+  }),
+}));
+
 it('Should return a OK on register mutation', async () => {
   Users.findOne = jest.fn().mockResolvedValue(null);
   Users.create = jest.fn().mockResolvedValue(entity);
@@ -29,7 +35,12 @@ it('Should return a OK on register mutation', async () => {
   const { mutate } = createTestClient(server);
 
   const REGISTER_USER = gql`
-    mutation Register($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
+    mutation Register(
+      $firstName: String!
+      $lastName: String!
+      $email: String!
+      $password: String!
+    ) {
       register(firstName: $firstName, lastName: $lastName, email: $email, password: $password)
     }
   `;
@@ -54,10 +65,7 @@ it('Should return a token on login mutation', async () => {
   const { mutate } = createTestClient(server);
 
   const LOGIN_USER = gql`
-    mutation Login(
-      $email: String!
-      $password: String!
-    ) {
+    mutation Login($email: String!, $password: String!) {
       login(email: $email, password: $password) {
         token
       }
@@ -75,7 +83,7 @@ it('Should return a token on login mutation', async () => {
   expect(res).toEqual({
     data: {
       login: {
-        token: expect.any(String)
+        token: expect.any(String),
       },
     },
     errors: undefined,
