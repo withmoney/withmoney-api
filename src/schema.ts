@@ -6,11 +6,21 @@ export const typeDefs = gql`
     firstName: String
     lastName: String
     email: String!
+    hasVerifiedEmail: String!
+  }
+
+  type AuthPayload {
+    token: String!
   }
 
   type Mutation {
-    register(email: String!, password: String!, firstName: String!, lastName: String!): User
-    login(email: String!, password: String!): User
+    register(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+    ): String
+    login(email: String!, password: String!): AuthPayload
   }
 
   type Query {
