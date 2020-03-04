@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
-import { sendVerifyEmail } from './email';
+import { sendVerifyEmail, sendWelcomeMessage } from './email';
 import { Users } from './database';
 
 if (!process.env.SECRET_SALT) {
@@ -26,6 +26,10 @@ interface IRegister {
 interface ILogin {
   email: string;
   password: string;
+}
+
+interface ICheckHashEmail {
+  hash: string;
 }
 
 export const resolvers = {
@@ -88,6 +92,27 @@ export const resolvers = {
           SECRET_KEY,
         ),
       };
+    },
+
+    checkHashEmail: async (root: any, { hash }: ICheckHashEmail) => {
+      const searchUser = await Users.findOne({
+        hashToVerifyEmail: hash,
+      });
+
+      if (!searchUser) {
+        throw new Error('Invalid Hash');
+      }
+
+      searchUser.hasVerifiedEmail = true;
+      searchUser.hashToVerifyEmail = '';
+      await searchUser.save();
+
+      await sendWelcomeMessage({
+        firstName: searchUser.firstName,
+        email: searchUser.email,
+      });
+
+      return 'OK';
     },
   },
 };

@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should return a OK on checkHashEmail mutation 1`] = `
+Object {
+  "data": Object {
+    "checkHashEmail": "OK",
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Should return a OK on register mutation 1`] = `
 Object {
   "data": Object {

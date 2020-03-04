@@ -91,3 +91,30 @@ it('Should return a token on login mutation', async () => {
     http: expect.any(Object),
   });
 });
+
+it('Should return a OK on checkHashEmail mutation', async () => {
+  Users.findOne = jest.fn().mockResolvedValue({
+    firstName: 'David',
+    email: 'davidcostadev@gmail.com',
+    save: () => Promise.resolve(),
+  });
+
+  const server = new ApolloServer({ typeDefs, resolvers });
+
+  const { mutate } = createTestClient(server);
+
+  const CHECK_HASH_EMAIL = gql`
+    mutation checkHashEmail($hash: String!) {
+      checkHashEmail(hash: $hash)
+    }
+  `;
+
+  const res = await mutate({
+    mutation: CHECK_HASH_EMAIL,
+    variables: {
+      hash: '12345',
+    },
+  });
+
+  expect(res).toMatchSnapshot();
+});

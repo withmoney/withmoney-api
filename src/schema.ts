@@ -14,13 +14,9 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    register(
-      email: String!
-      password: String!
-      firstName: String!
-      lastName: String!
-    ): String
+    register(email: String!, password: String!, firstName: String!, lastName: String!): String
     login(email: String!, password: String!): AuthPayload
+    checkHashEmail(hash: String!): String
   }
 
   type Query {

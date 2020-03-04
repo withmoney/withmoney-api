@@ -22,6 +22,11 @@ interface IVerifyEmail {
   hash: string;
 }
 
+interface IWelcomeMessage {
+  firstName: string;
+  email: string;
+}
+
 export const sendVerifyEmail = ({ firstName, email, hash }: IVerifyEmail) =>
   transport.sendMail({
     from: 'withmoney <no-replay@withmoney.com>',
@@ -30,9 +35,22 @@ export const sendVerifyEmail = ({ firstName, email, hash }: IVerifyEmail) =>
     text: `Hello ${firstName}\n
 Please you need to verify your email,
 using this link https://withmoney.com/verify?hash=${hash}
-\natt: withmoney`,
+\natt: withmoney team`,
     html: `<p>Hello ${firstName}</p>
 <p>Please you need to verify your email. <a href="https://withmoney.com/verify?hash=${hash}" target="_blank">Just click here.</a></p>
 <p>or using this link https://withmoney.com/verify?hash=${hash}</p>
-<p>att: withmoney</p>`,
+<p>att: withmoney team</p>`,
+  });
+
+export const sendWelcomeMessage = ({ firstName, email }: IWelcomeMessage) =>
+  transport.sendMail({
+    from: 'withmoney <no-replay@withmoney.com>',
+    to: email,
+    subject: 'Welcome to withmoney',
+    text: `Hello ${firstName}
+Thank you for complete your registration, We hope you like to use the withmoney project.
+Att: withmoney team`,
+    html: `<p>Hello ${firstName}</p>
+<p>Thank you for complete your registration, We hope you like to use the withmoney project.</p>
+<p>att: withmoney team</p>`,
   });

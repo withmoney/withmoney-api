@@ -3,8 +3,8 @@
 ## 2020-03-04
 
 - [x] Send an email on register to check the email
-- [ ] Add mutation to check the hasToVerifyEmail
-- [ ] Add tests on mutation to check hasToVerifyEmail
+- [x] Add mutation to check the hasToVerifyEmail
+- [x] Add tests on mutation to check hasToVerifyEmail
 - [ ] Add register integration with server
 - [ ] Add login integration with server
 - [ ] Add mutation reset password token temporary reset field
