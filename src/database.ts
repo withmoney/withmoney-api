@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   hasVerifiedEmail: { type: Boolean, default: false },
   hashToVerifyEmail: { type: String },
+  hashToChangePassword: { type: String },
 });
 
 export interface IUser extends Document {
@@ -27,6 +28,7 @@ export interface IUser extends Document {
   lastName: string;
   hasVerifiedEmail?: boolean;
   hashToVerifyEmail?: string;
+  hashToChangePassword?: string;
 }
 
 export const Users = mongoose.model<IUser>('Users', userSchema);

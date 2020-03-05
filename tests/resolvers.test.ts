@@ -118,3 +118,62 @@ it('Should return a OK on checkHashEmail mutation', async () => {
 
   expect(res).toMatchSnapshot();
 });
+
+it('Should return save be called on requestChangePassword', async () => {
+  const save = jest.fn().mockResolvedValue(null);
+  Users.findOne = jest.fn().mockResolvedValue({
+    firstName: 'David',
+    email: 'davidcostadev@gmail.com',
+    save,
+  });
+
+  const server = new ApolloServer({ typeDefs, resolvers });
+
+  const { mutate } = createTestClient(server);
+
+  const REQUEST_CHANGE_PASSWORD = gql`
+    mutation requestChangePassword($email: String!) {
+      requestChangePassword(email: $email)
+    }
+  `;
+
+  const res = await mutate({
+    mutation: REQUEST_CHANGE_PASSWORD,
+    variables: {
+      email: 'davidcostadev@gmail.com',
+    },
+  });
+
+  expect(save).toBeCalled();
+  expect(res).toMatchSnapshot();
+});
+
+it('Should return OK on changePassword', async () => {
+  const save = jest.fn().mockResolvedValue(null);
+  Users.findOne = jest.fn().mockResolvedValue({
+    firstName: 'David',
+    email: 'davidcostadev@gmail.com',
+    save,
+  });
+
+  const server = new ApolloServer({ typeDefs, resolvers });
+
+  const { mutate } = createTestClient(server);
+
+  const CHANGE_PASSWORD = gql`
+    mutation changePassword($hash: String!, $password: String!) {
+      changePassword(hash: $hash, password: $password)
+    }
+  `;
+
+  const res = await mutate({
+    mutation: CHANGE_PASSWORD,
+    variables: {
+      password: '123456',
+      hash: 'asdfg',
+    },
+  });
+
+  expect(save).toBeCalled();
+  expect(res).toMatchSnapshot();
+});

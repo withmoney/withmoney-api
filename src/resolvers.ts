@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
-import { sendVerifyEmail, sendWelcomeMessage } from './email';
+import { sendVerifyEmail, sendWelcomeMessage, sendChangePasswordRequest } from './email';
 import { Users } from './database';
 
 if (!process.env.SECRET_SALT) {
@@ -30,6 +30,15 @@ interface ILogin {
 
 interface ICheckHashEmail {
   hash: string;
+}
+
+interface IRequestChangePassword {
+  email: string;
+}
+
+interface IChangePassword {
+  hash: string;
+  password: string;
 }
 
 export const resolvers = {
@@ -76,7 +85,9 @@ export const resolvers = {
         throw new Error('Email or Password invalid');
       }
 
-      if (await !bcrypt.compare(data.password, user.password)) {
+      const checkPassword = await bcrypt.compare(data.password, user.password);
+
+      if (!checkPassword) {
         throw new Error('Email or Password invalid');
       }
 
@@ -111,6 +122,45 @@ export const resolvers = {
         firstName: searchUser.firstName,
         email: searchUser.email,
       });
+
+      return 'OK';
+    },
+
+    requestChangePassword: async (root: any, { email }: IRequestChangePassword) => {
+      const searchUser = await Users.findOne({
+        email,
+      });
+
+      if (!searchUser) return 'OK';
+
+      const hashToChangePassword = uuidv4();
+
+      searchUser.hashToChangePassword = hashToChangePassword;
+
+      await searchUser.save();
+
+      await sendChangePasswordRequest({
+        firstName: searchUser.firstName,
+        email: searchUser.email,
+        hash: hashToChangePassword,
+      });
+
+      return 'OK';
+    },
+    changePassword: async (root: any, { hash, password }: IChangePassword) => {
+      const searchUser = await Users.findOne({
+        hashToChangePassword: hash,
+      });
+
+      if (!searchUser) {
+        throw new Error('Invalid Hash');
+      }
+
+      const newPassword = await bcrypt.hash(password, parseInt(SECRET_SALT, 10));
+
+      searchUser.hashToChangePassword = '';
+      searchUser.password = newPassword;
+      await searchUser.save();
 
       return 'OK';
     },

@@ -5,11 +5,12 @@
 - [x] Send an email on register to check the email
 - [x] Add mutation to check the hasToVerifyEmail
 - [x] Add tests on mutation to check hasToVerifyEmail
+- [x] Fix bug on login mutation, the checkPassword was not working
+- [x] Add mutation to request change password
+- [x] Add mutation change password
+- [x] Send change password email
 - [ ] Add register integration with server
 - [ ] Add login integration with server
-- [ ] Add mutation reset password token temporary reset field
-- [ ] Send reset password email
-- [ ] Add mutation add new password
 
 ## 2020-02-27
 

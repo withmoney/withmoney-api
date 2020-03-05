@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should return OK on changePassword 1`] = `
+Object {
+  "data": Object {
+    "changePassword": "OK",
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Should return a OK on checkHashEmail mutation 1`] = `
 Object {
   "data": Object {
@@ -19,6 +34,21 @@ exports[`Should return a OK on register mutation 1`] = `
 Object {
   "data": Object {
     "register": "OK",
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Should return save be called on requestChangePassword 1`] = `
+Object {
+  "data": Object {
+    "requestChangePassword": "OK",
   },
   "errors": undefined,
   "extensions": undefined,
