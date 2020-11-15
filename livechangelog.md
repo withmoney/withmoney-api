@@ -1,5 +1,13 @@
 # Live changelog
 
+## Backlog
+
+- [ ] Add logic for only verified users can conclude the login
+
+## 2020-03-26
+
+- [x] Add user query with get user verification
+
 ## 2020-03-04
 
 - [x] Send an email on register to check the email
@@ -9,8 +17,6 @@
 - [x] Add mutation to request change password
 - [x] Add mutation change password
 - [x] Send change password email
-- [ ] Add register integration with server
-- [ ] Add login integration with server
 
 ## 2020-02-27
 

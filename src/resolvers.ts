@@ -41,10 +41,17 @@ interface IChangePassword {
   password: string;
 }
 
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  hasVerifiedEmail: boolean;
+}
+
 export const resolvers = {
   Query: {
-    users: () => {
-      return Users.find();
+    user: async (root: any, data: any, { user }: { user: IUser | null }) => {
+      return user;
     },
   },
   Mutation: {
