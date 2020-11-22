@@ -1,6 +1,13 @@
 import nodemailer from 'nodemailer';
 
-const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD } = process.env;
+const {
+  EMAIL_HOST,
+  EMAIL_PORT,
+  EMAIL_USER,
+  EMAIL_PASSWORD,
+  WEBSITE_DOMAIN = 'https://withmoney.me',
+  EMAIL_FROM = 'withmoney <support@withmoney.me>'
+} = process.env;
 
 if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_USER || !EMAIL_PASSWORD) {
   /* istanbul ignore next */
@@ -30,22 +37,22 @@ interface IWelcomeMessage {
 
 export const sendVerifyEmail = ({ firstName, email, hash }: IVerifyEmail) =>
   transport.sendMail({
-    from: 'withmoney <no-replay@withmoney.com>',
+    from: EMAIL_FROM,
     to: email,
     subject: '[withmoney] Please verify your email',
     text: `Hello ${firstName}\n
 Please you need to verify your email,
-using this link https://withmoney.com/verify?hash=${hash}
+using this link ${WEBSITE_DOMAIN}/verify?hash=${hash}
 \natt: withmoney team`,
     html: `<p>Hello ${firstName}</p>
-<p>Please you need to verify your email. <a href="https://withmoney.com/verify?hash=${hash}" target="_blank">Just click here.</a></p>
-<p>or using this link https://withmoney.com/verify?hash=${hash}</p>
+<p>Please you need to verify your email. <a href="${WEBSITE_DOMAIN}/verify?hash=${hash}" target="_blank">Just click here.</a></p>
+<p>or using this link ${WEBSITE_DOMAIN}/verify?hash=${hash}</p>
 <p>att: withmoney team</p>`,
   });
 
 export const sendWelcomeMessage = ({ firstName, email }: IWelcomeMessage) =>
   transport.sendMail({
-    from: 'withmoney <no-replay@withmoney.com>',
+    from: EMAIL_FROM,
     to: email,
     subject: 'Welcome to withmoney',
     text: `Hello ${firstName}
@@ -58,15 +65,15 @@ Att: withmoney team`,
 
 export const sendChangePasswordRequest = ({ firstName, email, hash }: IVerifyEmail) =>
   transport.sendMail({
-    from: 'withmoney <no-replay@withmoney.com>',
+    from: EMAIL_FROM,
     to: email,
     subject: '[withmoney] Change Password',
     text: `Hello ${firstName}\n
-We received a request to change your password. Please use this link https://withmoney.com/reset-password?hash=${hash} to create another password.
+We received a request to change your password. Please use this link ${WEBSITE_DOMAIN}/reset-password?hash=${hash} to create another password.
 If you don't made this request, please disregard this email.
 \natt: withmoney team`,
     html: `<p>Hello ${firstName}</p>
-<p>We received a request to change your password. Please <a href="https://withmoney.com/reset-password?hash=${hash}" target="_blank">click here.</a> or use this link https://withmoney.com/change-password?hash=${hash} to create another password.</p>
+<p>We received a request to change your password. Please <a href="${WEBSITE_DOMAIN}/reset-password?hash=${hash}" target="_blank">click here.</a> or use this link ${WEBSITE_DOMAIN}/change-password?hash=${hash} to create another password.</p>
 <p>If you don't made this request, please disregard this email.</p>
 <p>att: withmoney team</p>`,
   });
