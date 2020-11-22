@@ -62,11 +62,11 @@ export const sendChangePasswordRequest = ({ firstName, email, hash }: IVerifyEma
     to: email,
     subject: '[withmoney] Change Password',
     text: `Hello ${firstName}\n
-We received a request to change your password. Please use this link https://withmoney.com/change-password?hash=${hash} to create another password.
+We received a request to change your password. Please use this link https://withmoney.com/reset-password?hash=${hash} to create another password.
 If you don't made this request, please disregard this email.
 \natt: withmoney team`,
     html: `<p>Hello ${firstName}</p>
-<p>We received a request to change your password. Please <a href="https://withmoney.com/change-password?hash=${hash}" target="_blank">click here.</a> or use this link https://withmoney.com/change-password?hash=${hash} to create another password.</p>
+<p>We received a request to change your password. Please <a href="https://withmoney.com/reset-password?hash=${hash}" target="_blank">click here.</a> or use this link https://withmoney.com/change-password?hash=${hash} to create another password.</p>
 <p>If you don't made this request, please disregard this email.</p>
 <p>att: withmoney team</p>`,
   });
