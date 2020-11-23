@@ -5,9 +5,9 @@
   "main": "src/main.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development env-cmd ts-node-dev --no-notify --respawn --transpile-only src/main.ts",
-    "start": "env-cmd node dist/server",
+    "start": "node dist/server",
     "clean": "rm -rf dist",
-    "build": "npm -s run clean && cp .env.example .env && npm -s run generate && tsc",
+    "build": "npm -s run clean && cp .env.example prisma/.env && npm -s run generate && tsc",
     "heroku-postbuild": "NODE_ENV=production prisma migrate up --experimental && npm run build",
     "test": "jest",
     "generate": "env-cmd npm run generate:prisma && npm run generate:nexus",

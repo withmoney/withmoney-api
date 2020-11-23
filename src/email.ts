@@ -8,7 +8,7 @@ const {
   WEBSITE_DOMAIN = 'https://withmoney.me',
   EMAIL_FROM = 'withmoney <support@withmoney.me>'
 } = process.env;
-console.log({ EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD })
+console.log({ EMAIL_HOST })
 if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_USER || !EMAIL_PASSWORD) {
   /* istanbul ignore next */
   throw new Error('Email envs are not defined');
