@@ -8,23 +8,23 @@ export const AuthType = enumType({
   members: ['Email', 'Facebook', 'Google', 'Apple'],
 });
 
-enum GenderType {
-  Male = 'Male',
-  Female = 'Female',
-}
+// enum GenderType {
+//   Male = 'Male',
+//   Female = 'Female',
+// }
 
-export const Gender = scalarType({
-  name: 'Gender',
-  asNexusMethod: 'gender',
-  parseValue(value: GenderType): GenderType {
-    if (GenderType[value]) {
-      return value;
-    }
-  },
-  serialize(value) {
-    return value;
-  },
-});
+// export const Gender = scalarType({
+//   name: 'Gender',
+//   asNexusMethod: 'gender',
+//   parseValue(value: GenderType): GenderType {
+//     if (GenderType[value]) {
+//       return value;
+//     }
+//   },
+//   serialize(value) {
+//     return value;
+//   },
+// });
 
 export const Upload = GraphQLUpload;
 export const DateTime = GraphQLDate;

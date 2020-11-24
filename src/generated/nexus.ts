@@ -7,13 +7,11 @@
 import { core } from "@nexus/schema"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
-    gender<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "Gender";
     date<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "Date";
   }
 }
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
-    gender<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Gender";
     date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
   }
 }
@@ -40,7 +38,6 @@ export interface NexusGenInputs {
   UserUpdateInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
     email?: string | null; // String
-    gender?: NexusGenScalars['Gender'] | null; // Gender
     name?: string | null; // String
     nickname?: string | null; // String
     phone?: string | null; // String
@@ -61,7 +58,6 @@ export interface NexusGenScalars {
   ID: string
   Date: any
   DateTime: any
-  Gender: any
   Upload: any
 }
 
@@ -86,9 +82,7 @@ export interface NexusGenRootTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Mutation: {};
-  Query: {};
-  Subscription: {};
-  Transaction: { // root type
+  Operation: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
@@ -97,6 +91,8 @@ export interface NexusGenRootTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     value: number; // Float!
   }
+  Query: {};
+  Subscription: {};
   User: { // root type
     birthDay?: NexusGenScalars['DateTime'] | null; // DateTime
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -122,7 +118,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ID: NexusGenScalars['ID'];
   Date: NexusGenScalars['Date'];
   DateTime: NexusGenScalars['DateTime'];
-  Gender: NexusGenScalars['Gender'];
   Upload: NexusGenScalars['Upload'];
 }
 
@@ -153,22 +148,13 @@ export interface NexusGenFieldTypes {
     checkHashEmail: string | null; // String
     createAccount: NexusGenRootTypes['Account'] | null; // Account
     createCategory: NexusGenRootTypes['Category'] | null; // Category
-    createTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
+    createOperation: NexusGenRootTypes['Operation'] | null; // Operation
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     register: string | null; // String
     requestChangePassword: string | null; // String
     updateProfile: NexusGenRootTypes['User'] | null; // User
   }
-  Query: { // field return type
-    categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
-    me: NexusGenRootTypes['User'] | null; // User
-    transactions: Array<NexusGenRootTypes['Transaction'] | null> | null; // [Transaction]
-  }
-  Subscription: { // field return type
-    userSignedIn: NexusGenRootTypes['User'] | null; // User
-    userUpdated: NexusGenRootTypes['User'] | null; // User
-  }
-  Transaction: { // field return type
+  Operation: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
     category: NexusGenRootTypes['Category'] | null; // Category
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -179,6 +165,15 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
     value: number; // Float!
+  }
+  Query: { // field return type
+    categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    me: NexusGenRootTypes['User'] | null; // User
+    operations: Array<NexusGenRootTypes['Operation'] | null> | null; // [Operation]
+  }
+  Subscription: { // field return type
+    userSignedIn: NexusGenRootTypes['User'] | null; // User
+    userUpdated: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     accounts: NexusGenRootTypes['Account'][]; // [Account!]!
@@ -222,22 +217,13 @@ export interface NexusGenFieldTypeNames {
     checkHashEmail: 'String'
     createAccount: 'Account'
     createCategory: 'Category'
-    createTransaction: 'Transaction'
+    createOperation: 'Operation'
     login: 'AuthPayload'
     register: 'String'
     requestChangePassword: 'String'
     updateProfile: 'User'
   }
-  Query: { // field return type name
-    categories: 'Category'
-    me: 'User'
-    transactions: 'Transaction'
-  }
-  Subscription: { // field return type name
-    userSignedIn: 'User'
-    userUpdated: 'User'
-  }
-  Transaction: { // field return type name
+  Operation: { // field return type name
     account: 'Account'
     category: 'Category'
     createdAt: 'DateTime'
@@ -248,6 +234,15 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
     user: 'User'
     value: 'Float'
+  }
+  Query: { // field return type name
+    categories: 'Category'
+    me: 'User'
+    operations: 'Operation'
+  }
+  Subscription: { // field return type name
+    userSignedIn: 'User'
+    userUpdated: 'User'
   }
   User: { // field return type name
     accounts: 'Account'
@@ -280,7 +275,7 @@ export interface NexusGenArgTypes {
       name: string; // String!
       type: NexusGenEnums['TransactionType']; // TransactionType!
     }
-    createTransaction: { // args
+    createOperation: { // args
       accountId: string; // String!
       categoryId?: string | null; // String
       name: string; // String!
@@ -321,7 +316,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Account" | "AuthPayload" | "Category" | "Mutation" | "Query" | "Subscription" | "Transaction" | "User";
+export type NexusGenObjectNames = "Account" | "AuthPayload" | "Category" | "Mutation" | "Operation" | "Query" | "Subscription" | "User";
 
 export type NexusGenInputNames = "UserCreateInput" | "UserUpdateInput";
 
@@ -329,7 +324,7 @@ export type NexusGenEnumNames = "AuthType" | "TransactionType";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Date" | "DateTime" | "Float" | "Gender" | "ID" | "Int" | "String" | "Upload";
+export type NexusGenScalarNames = "Boolean" | "Date" | "DateTime" | "Float" | "ID" | "Int" | "String" | "Upload";
 
 export type NexusGenUnionNames = never;
 

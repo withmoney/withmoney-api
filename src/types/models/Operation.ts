@@ -1,7 +1,7 @@
 import { objectType } from '@nexus/schema';
 
-export const Transaction = objectType({
-  name: 'Transaction',
+export const Operation = objectType({
+  name: 'Operation',
   definition(t) {
     t.model.id();
     t.model.name();

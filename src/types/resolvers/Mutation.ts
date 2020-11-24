@@ -38,7 +38,7 @@ export const UserUpdateInputType = inputObjectType({
     t.date('birthday');
     t.string('phone');
     t.string('statusMessage');
-    t.gender('gender');
+    // t.gender('gender');
   },
 });
 
@@ -293,8 +293,8 @@ export const Mutation = mutationType({
       },
     });
 
-    t.field('createTransaction', {
-      type: 'Transaction',
+    t.field('createOperation', {
+      type: 'Operation',
       args: {
         accountId: stringArg({ nullable: false }),
         categoryId: stringArg(),
@@ -305,7 +305,7 @@ export const Mutation = mutationType({
       resolve: (parent, { accountId, name, value, type, categoryId }, ctx: Context) => {
         const userId = getUserId(ctx);
         console.log({ accountId });
-        return ctx.prisma.transaction.create({
+        return ctx.prisma.operation.create({
           data: {
             name,
             value,

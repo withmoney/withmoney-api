@@ -85,14 +85,14 @@ export const Query = queryType({
       },
     });
 
-    t.list.field('transactions', {
-      type: 'Transaction',
+    t.list.field('operations', {
+      type: 'Operation',
       nullable: true,
       // args: { id: intArg() },
       resolve: (parent, args, ctx) => {
         const userId = getUserId(ctx);
 
-        return ctx.prisma.transaction.findMany({
+        return ctx.prisma.operation.findMany({
           where: {
             userId,
           },
