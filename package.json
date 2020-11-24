@@ -11,7 +11,7 @@
     "build:only": "tsc",
     "heroku-postbuild": "NODE_ENV=production prisma migrate up --experimental && npm run build",
     "test": "jest",
-    "generate": "npm run generate:prisma && npm run generate:nexus",
+    "generate": "npm run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "migrate:save": "env-cmd prisma migrate save --experimental",
