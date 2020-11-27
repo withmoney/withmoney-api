@@ -1,18 +1,13 @@
 import nodemailer from 'nodemailer';
 
 const {
-  EMAIL_HOST,
-  EMAIL_PORT,
-  EMAIL_USER,
-  EMAIL_PASSWORD,
+  EMAIL_HOST = '',
+  EMAIL_PORT = '',
+  EMAIL_USER = '',
+  EMAIL_PASSWORD = '',
   WEBSITE_DOMAIN = 'https://withmoney.me',
-  EMAIL_FROM = 'withmoney <support@withmoney.me>'
+  EMAIL_FROM = 'withmoney <support@withmoney.me>',
 } = process.env;
-
-if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_USER || !EMAIL_PASSWORD) {
-  /* istanbul ignore next */
-  throw new Error('Email envs are not defined');
-}
 
 const transport = nodemailer.createTransport({
   // @ts-ignore
