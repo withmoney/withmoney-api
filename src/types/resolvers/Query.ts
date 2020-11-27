@@ -7,7 +7,7 @@ export const Query = queryType({
   definition(t) {
     t.field('me', {
       type: 'User',
-      nullable: true,
+      // nullable: true,
       resolve: (parent, args, ctx) => {
         const userId = getUserId(ctx);
 
@@ -67,7 +67,7 @@ export const Query = queryType({
     // });
     t.list.field('categories', {
       type: 'Category',
-      nullable: true,
+      // nullable: true,
       args: { name: stringArg() },
       resolve: (parent, { name }, ctx: Context) => {
         const userId = getUserId(ctx);
@@ -87,7 +87,7 @@ export const Query = queryType({
 
     t.list.field('transactions', {
       type: 'Transaction',
-      nullable: true,
+      // nullable: true,
       // args: { id: intArg() },
       resolve: (parent, args, ctx) => {
         const userId = getUserId(ctx);

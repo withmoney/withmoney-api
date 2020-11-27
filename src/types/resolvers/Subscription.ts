@@ -1,4 +1,4 @@
-import { stringArg, subscriptionField } from '@nexus/schema';
+import { stringArg, subscriptionField, nonNull } from '@nexus/schema';
 
 import { User } from '../models/User';
 import { getUserId } from '../../utils';
@@ -25,7 +25,7 @@ interface User {
 export const UserSignedIn = subscriptionField('userSignedIn', {
   type: 'User',
   args: {
-    userId: stringArg({ nullable: false }),
+    userId: nonNull(stringArg()),
   },
   subscribe: withFilter(
     (_, args, ctx) => {
@@ -44,7 +44,7 @@ export const UserSignedIn = subscriptionField('userSignedIn', {
 export const UserUpdated = subscriptionField('userUpdated', {
   type: 'User',
   args: {
-    userId: stringArg({ nullable: false }),
+    userId: nonNull(stringArg()),
   },
   subscribe: withFilter(
     (_, args, ctx) => {

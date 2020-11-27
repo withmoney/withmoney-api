@@ -1,7 +1,15 @@
 import { APP_SECRET, getUserId } from '../../utils';
 import { USER_SIGNED_IN, USER_UPDATED } from '../../types/resolvers/Subscription';
 import { compare, hash } from 'bcryptjs';
-import { inputObjectType, intArg, mutationType, stringArg, arg, floatArg } from '@nexus/schema';
+import {
+  inputObjectType,
+  intArg,
+  mutationType,
+  stringArg,
+  arg,
+  floatArg,
+  nonNull,
+} from '@nexus/schema';
 import { v4 as uuidv4 } from 'uuid';
 import { sendVerifyEmail, sendWelcomeMessage, sendChangePasswordRequest } from './../../email';
 
@@ -30,7 +38,6 @@ export const UserUpdateInputType = inputObjectType({
     t.date('birthday');
     t.string('phone');
     t.string('statusMessage');
-    // t.gender('gender');
   },
 });
 
@@ -39,7 +46,7 @@ export const Mutation = mutationType({
     t.field('register', {
       type: 'String',
       args: {
-        user: arg({ type: UserInputType, nullable: false }),
+        user: nonNull(arg({ type: UserInputType })),
       },
       resolve: async (_parent, { user }, ctx) => {
         const { firstName, lastName, email, password } = user;
@@ -70,7 +77,7 @@ export const Mutation = mutationType({
     t.field('checkHashEmail', {
       type: 'String',
       args: {
-        hash: stringArg({ nullable: false }),
+        hash: nonNull(stringArg()),
       },
       resolve: async (_parent, { hash }, ctx: Context) => {
         const searchUser = await ctx.prisma.user.findUnique({ where: { hashToVerifyEmail: hash } });
@@ -98,8 +105,8 @@ export const Mutation = mutationType({
     t.field('login', {
       type: 'AuthPayload',
       args: {
-        email: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        email: nonNull(stringArg()),
+        password: nonNull(stringArg()),
       },
       resolve: async (_parent, { email, password }, ctx) => {
         const { pubsub } = ctx;
@@ -127,7 +134,7 @@ export const Mutation = mutationType({
     t.field('requestChangePassword', {
       type: 'String',
       args: {
-        email: stringArg({ nullable: false }),
+        email: nonNull(stringArg()),
       },
       resolve: async (_parent, { email }, ctx: Context) => {
         const searchUser = await ctx.prisma.user.findUnique({ where: { email } });
@@ -158,8 +165,8 @@ export const Mutation = mutationType({
     t.field('changePassword', {
       type: 'String',
       args: {
-        hash: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        hash: nonNull(stringArg()),
+        password: nonNull(stringArg()),
       },
       resolve: async (_parent, { hash: hashToChangePassword, password }, ctx: Context) => {
         const searchUser = await ctx.prisma.user.findUnique({ where: { hashToChangePassword } });
@@ -201,57 +208,10 @@ export const Mutation = mutationType({
       },
     });
 
-    // t.field('createDraft', {
-    //   type: 'Post',
-    //   args: {
-    //     title: stringArg({ nullable: false }),
-    //     content: stringArg(),
-    //   },
-    //   resolve: (parent, { title, content }, ctx: Context) => {
-    //     const userId = getUserId(ctx);
-
-    //     return ctx.prisma.post.create({
-    //       data: {
-    //         title,
-    //         content,
-    //         published: false,
-    //         user: { connect: { id: userId } },
-    //       },
-    //     });
-    //   },
-    // });
-
-    // t.field('deletePost', {
-    //   type: 'Post',
-    //   nullable: true,
-    //   args: { id: intArg({ nullable: false }) },
-    //   resolve: (parent, { id }, ctx) => {
-    //     return ctx.prisma.post.delete({
-    //       where: {
-    //         id,
-    //       },
-    //     });
-    //   },
-    // });
-
-    // t.field('publish', {
-    //   type: 'Post',
-    //   nullable: true,
-    //   args: { id: intArg({ nullable: false }) },
-    //   resolve: (parent, { id }, ctx: Context) => {
-    //     return ctx.prisma.post.update({
-    //       where: { id },
-    //       data: { published: true },
-    //     });
-    //   },
-    // });
-
     t.field('createAccount', {
       type: 'Account',
       args: {
-        name: stringArg({ nullable: false }),
-        // type: stringArg({ nullable: false }),
-        // type: arg({ type: 'TransactionType', nullable: false }),
+        name: nonNull(stringArg()),
       },
       resolve: (parent, { name }, ctx: Context) => {
         const userId = getUserId(ctx);
@@ -268,9 +228,8 @@ export const Mutation = mutationType({
     t.field('createCategory', {
       type: 'Category',
       args: {
-        name: stringArg({ nullable: false }),
-        // type: stringArg({ nullable: false }),
-        type: arg({ type: 'TransactionType', nullable: false }),
+        name: nonNull(stringArg()),
+        type: nonNull(arg({ type: 'TransactionType' })),
       },
       resolve: (parent, { name, type }, ctx: Context) => {
         const userId = getUserId(ctx);
@@ -288,11 +247,11 @@ export const Mutation = mutationType({
     t.field('createTransaction', {
       type: 'Transaction',
       args: {
-        accountId: stringArg({ nullable: false }),
+        accountId: nonNull(stringArg()),
         categoryId: stringArg(),
-        name: stringArg({ nullable: false }),
-        type: arg({ type: 'TransactionType', nullable: false }),
-        value: floatArg({ nullable: false }),
+        name: nonNull(stringArg()),
+        type: nonNull(arg({ type: 'TransactionType' })),
+        value: nonNull(floatArg()),
       },
       resolve: (parent, { accountId, name, value, type, categoryId }, ctx: Context) => {
         const userId = getUserId(ctx);
