@@ -88,7 +88,9 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Mutation: {};
-  Operation: { // root type
+  Query: {};
+  Subscription: {};
+  Transaction: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
@@ -97,8 +99,6 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     value: number; // Float!
   }
-  Query: {};
-  Subscription: {};
   User: { // root type
     birthDay?: NexusGenScalars['DateTime'] | null; // DateTime
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -149,13 +149,22 @@ export interface NexusGenFieldTypes {
     checkHashEmail: string | null; // String
     createAccount: NexusGenRootTypes['Account'] | null; // Account
     createCategory: NexusGenRootTypes['Category'] | null; // Category
-    createOperation: NexusGenRootTypes['Operation'] | null; // Operation
+    createTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     register: string | null; // String
     requestChangePassword: string | null; // String
     updateProfile: NexusGenRootTypes['User'] | null; // User
   }
-  Operation: { // field return type
+  Query: { // field return type
+    categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    me: NexusGenRootTypes['User'] | null; // User
+    transactions: Array<NexusGenRootTypes['Transaction'] | null> | null; // [Transaction]
+  }
+  Subscription: { // field return type
+    userSignedIn: NexusGenRootTypes['User'] | null; // User
+    userUpdated: NexusGenRootTypes['User'] | null; // User
+  }
+  Transaction: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
     category: NexusGenRootTypes['Category'] | null; // Category
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -166,15 +175,6 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
     value: number; // Float!
-  }
-  Query: { // field return type
-    categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
-    me: NexusGenRootTypes['User'] | null; // User
-    operations: Array<NexusGenRootTypes['Operation'] | null> | null; // [Operation]
-  }
-  Subscription: { // field return type
-    userSignedIn: NexusGenRootTypes['User'] | null; // User
-    userUpdated: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     accounts: NexusGenRootTypes['Account'][]; // [Account!]!
@@ -218,13 +218,22 @@ export interface NexusGenFieldTypeNames {
     checkHashEmail: 'String'
     createAccount: 'Account'
     createCategory: 'Category'
-    createOperation: 'Operation'
+    createTransaction: 'Transaction'
     login: 'AuthPayload'
     register: 'String'
     requestChangePassword: 'String'
     updateProfile: 'User'
   }
-  Operation: { // field return type name
+  Query: { // field return type name
+    categories: 'Category'
+    me: 'User'
+    transactions: 'Transaction'
+  }
+  Subscription: { // field return type name
+    userSignedIn: 'User'
+    userUpdated: 'User'
+  }
+  Transaction: { // field return type name
     account: 'Account'
     category: 'Category'
     createdAt: 'DateTime'
@@ -235,15 +244,6 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
     user: 'User'
     value: 'Float'
-  }
-  Query: { // field return type name
-    categories: 'Category'
-    me: 'User'
-    operations: 'Operation'
-  }
-  Subscription: { // field return type name
-    userSignedIn: 'User'
-    userUpdated: 'User'
   }
   User: { // field return type name
     accounts: 'Account'
@@ -276,7 +276,7 @@ export interface NexusGenArgTypes {
       name: string; // String!
       type: NexusGenEnums['TransactionType']; // TransactionType!
     }
-    createOperation: { // args
+    createTransaction: { // args
       accountId: string; // String!
       categoryId?: string | null; // String
       name: string; // String!

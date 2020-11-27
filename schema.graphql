@@ -45,14 +45,25 @@ type Mutation {
   checkHashEmail(hash: String!): String
   createAccount(name: String!): Account
   createCategory(name: String!, type: TransactionType!): Category
-  createOperation(accountId: String!, categoryId: String, name: String!, type: TransactionType!, value: Float!): Operation
+  createTransaction(accountId: String!, categoryId: String, name: String!, type: TransactionType!, value: Float!): Transaction
   login(email: String!, password: String!): AuthPayload
   register(user: UserCreateInput!): String
   requestChangePassword(email: String!): String
   updateProfile(user: UserUpdateInput): User
 }
 
-type Operation {
+type Query {
+  categories(name: String): [Category]
+  me: User
+  transactions: [Transaction]
+}
+
+type Subscription {
+  userSignedIn(userId: String!): User
+  userUpdated(userId: String!): User
+}
+
+type Transaction {
   account: Account!
   category: Category
   createdAt: DateTime!
@@ -63,17 +74,6 @@ type Operation {
   updatedAt: DateTime!
   user: User!
   value: Float!
-}
-
-type Query {
-  categories(name: String): [Category]
-  me: User
-  operations: [Operation]
-}
-
-type Subscription {
-  userSignedIn(userId: String!): User
-  userUpdated(userId: String!): User
 }
 
 enum TransactionType {

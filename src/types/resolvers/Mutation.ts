@@ -285,8 +285,8 @@ export const Mutation = mutationType({
       },
     });
 
-    t.field('createOperation', {
-      type: 'Operation',
+    t.field('createTransaction', {
+      type: 'Transaction',
       args: {
         accountId: stringArg({ nullable: false }),
         categoryId: stringArg(),
@@ -297,7 +297,7 @@ export const Mutation = mutationType({
       resolve: (parent, { accountId, name, value, type, categoryId }, ctx: Context) => {
         const userId = getUserId(ctx);
         console.log({ accountId });
-        return ctx.prisma.operation.create({
+        return ctx.prisma.transaction.create({
           data: {
             name,
             value,
