@@ -81,7 +81,7 @@ export const Mutation = mutationType({
         hash: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { hash }, ctx: Context) => {
-        const searchUser = await ctx.prisma.user.findOne({ where: { hashToVerifyEmail: hash } });
+        const searchUser = await ctx.prisma.user.findUnique({ where: { hashToVerifyEmail: hash } });
 
         if (!searchUser) {
           throw new Error('Invalid Hash');
@@ -112,7 +112,7 @@ export const Mutation = mutationType({
       resolve: async (_parent, { email, password }, ctx) => {
         const { pubsub } = ctx;
 
-        const user = await ctx.prisma.user.findOne({
+        const user = await ctx.prisma.user.findUnique({
           where: {
             email,
           },
@@ -138,7 +138,7 @@ export const Mutation = mutationType({
         email: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { email }, ctx: Context) => {
-        const searchUser = await ctx.prisma.user.findOne({ where: { email } });
+        const searchUser = await ctx.prisma.user.findUnique({ where: { email } });
 
         if (!searchUser) {
           throw new Error('Email not found');
@@ -170,7 +170,7 @@ export const Mutation = mutationType({
         password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { hash: hashToChangePassword, password }, ctx: Context) => {
-        const searchUser = await ctx.prisma.user.findOne({ where: { hashToChangePassword } });
+        const searchUser = await ctx.prisma.user.findUnique({ where: { hashToChangePassword } });
 
         if (!searchUser) {
           throw new Error('Invalid Hash');
