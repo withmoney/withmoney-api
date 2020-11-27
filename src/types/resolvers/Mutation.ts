@@ -12,18 +12,10 @@ import { Context } from '../../context';
 export const UserInputType = inputObjectType({
   name: 'UserCreateInput',
   definition(t) {
-    t.string('email', {
-      required: true,
-    });
-    t.string('password', {
-      required: true,
-    });
-    t.string('firstName', {
-      required: true,
-    });
-    t.string('lastName', {
-      required: true,
-    });
+    t.nonNull.string('email');
+    t.nonNull.string('password');
+    t.nonNull.string('firstName');
+    t.nonNull.string('lastName');
     t.date('birthday');
     t.string('statusMessage');
   },
