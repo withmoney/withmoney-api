@@ -16,7 +16,7 @@ type CustomScalars = 'DateTime'
 interface PrismaModels {
   Account: Prisma.Account
   Category: Prisma.Category
-  Transaction: Prisma.Transaction
+  Operation: Prisma.Operation
   User: Prisma.User
 }
 
@@ -24,47 +24,47 @@ interface PrismaModels {
 interface NexusPrismaInputs {
   Query: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'transaction'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operation'
       ordering: 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     categories: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'transaction'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operation'
       ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
-    transactions: {
+    operations: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
       ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'transaction'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'operation'
       ordering: 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   },
   Account: {
-    transaction: {
+    operation: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
       ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   }
   Category: {
-    transaction: {
+    operation: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
       ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   }
-  Transaction: {
+  Operation: {
 
   }
   User: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'transaction'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operation'
       ordering: 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     categories: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'transaction'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operation'
       ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
-    transaction: {
+    operation: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
       ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
@@ -78,8 +78,8 @@ interface NexusPrismaOutputs {
     accounts: 'Account'
     category: 'Category'
     categories: 'Category'
-    transaction: 'Transaction'
-    transactions: 'Transaction'
+    operation: 'Operation'
+    operations: 'Operation'
     user: 'User'
     users: 'User'
   },
@@ -96,12 +96,12 @@ interface NexusPrismaOutputs {
     deleteOneCategory: 'Category'
     deleteManyCategory: 'BatchPayload'
     upsertOneCategory: 'Category'
-    createOneTransaction: 'Transaction'
-    updateOneTransaction: 'Transaction'
-    updateManyTransaction: 'BatchPayload'
-    deleteOneTransaction: 'Transaction'
-    deleteManyTransaction: 'BatchPayload'
-    upsertOneTransaction: 'Transaction'
+    createOneOperation: 'Operation'
+    updateOneOperation: 'Operation'
+    updateManyOperation: 'BatchPayload'
+    deleteOneOperation: 'Operation'
+    deleteManyOperation: 'BatchPayload'
+    upsertOneOperation: 'Operation'
     createOneUser: 'User'
     updateOneUser: 'User'
     updateManyUser: 'BatchPayload'
@@ -117,7 +117,7 @@ interface NexusPrismaOutputs {
     updatedAt: 'DateTime'
     deletedAt: 'DateTime'
     user: 'User'
-    transaction: 'Transaction'
+    operation: 'Operation'
   }
   Category: {
     id: 'String'
@@ -128,9 +128,9 @@ interface NexusPrismaOutputs {
     updatedAt: 'DateTime'
     deletedAt: 'DateTime'
     user: 'User'
-    transaction: 'Transaction'
+    operation: 'Operation'
   }
-  Transaction: {
+  Operation: {
     id: 'String'
     accountId: 'String'
     categoryId: 'String'
@@ -161,7 +161,7 @@ interface NexusPrismaOutputs {
     deletedAt: 'DateTime'
     accounts: 'Account'
     categories: 'Category'
-    transaction: 'Transaction'
+    operation: 'Operation'
   }
 }
 
@@ -169,7 +169,7 @@ interface NexusPrismaOutputs {
 interface NexusPrismaMethods {
   Account: Typegen.NexusPrismaFields<'Account'>
   Category: Typegen.NexusPrismaFields<'Category'>
-  Transaction: Typegen.NexusPrismaFields<'Transaction'>
+  Operation: Typegen.NexusPrismaFields<'Operation'>
   User: Typegen.NexusPrismaFields<'User'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>

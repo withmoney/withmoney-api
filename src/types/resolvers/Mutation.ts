@@ -1,15 +1,7 @@
 import { APP_SECRET, getUserId } from '../../utils';
 import { USER_SIGNED_IN, USER_UPDATED } from '../../types/resolvers/Subscription';
 import { compare, hash } from 'bcryptjs';
-import {
-  inputObjectType,
-  intArg,
-  mutationType,
-  stringArg,
-  arg,
-  floatArg,
-  nonNull,
-} from '@nexus/schema';
+import { inputObjectType, mutationType, stringArg, arg, floatArg, nonNull } from '@nexus/schema';
 import { v4 as uuidv4 } from 'uuid';
 import { sendVerifyEmail, sendWelcomeMessage, sendChangePasswordRequest } from './../../email';
 
@@ -244,8 +236,8 @@ export const Mutation = mutationType({
       },
     });
 
-    t.field('createTransaction', {
-      type: 'Transaction',
+    t.field('createOperation', {
+      type: 'Operation',
       args: {
         accountId: nonNull(stringArg()),
         categoryId: stringArg(),
