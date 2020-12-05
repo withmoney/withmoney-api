@@ -248,7 +248,7 @@ export const Mutation = mutationType({
       resolve: (parent, { accountId, name, value, type, categoryId }, ctx: Context) => {
         const userId = getUserId(ctx);
         console.log({ accountId });
-        return ctx.prisma.transaction.create({
+        return ctx.prisma.operation.create({
           data: {
             name,
             value,
