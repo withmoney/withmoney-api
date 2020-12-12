@@ -9,10 +9,11 @@ export const User = objectType({
     t.model.lastName();
     t.model.hasVerifiedEmail();
     t.model.birthDay();
+    t.model.accounts({ pagination: true, filtering: true, ordering: true });
+    t.model.categories({ pagination: true, filtering: true, ordering: true });
+    t.model.operations({ pagination: true, filtering: true, ordering: true });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();
-    t.model.accounts({ pagination: false });
-    t.model.categories({ pagination: false });
   },
 });

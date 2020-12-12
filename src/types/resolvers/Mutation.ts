@@ -17,7 +17,6 @@ export const UserInputType = inputObjectType({
     t.nonNull.string('firstName');
     t.nonNull.string('lastName');
     t.date('birthday');
-    t.string('statusMessage');
   },
 });
 
@@ -29,7 +28,6 @@ export const UserUpdateInputType = inputObjectType({
     t.string('nickname');
     t.date('birthday');
     t.string('phone');
-    t.string('statusMessage');
   },
 });
 
@@ -66,34 +64,6 @@ export const Mutation = mutationType({
       },
     });
 
-    t.field('checkHashEmail', {
-      type: 'String',
-      args: {
-        hash: nonNull(stringArg()),
-      },
-      resolve: async (_parent, { hash }, ctx: Context) => {
-        const searchUser = await ctx.prisma.user.findUnique({ where: { hashToVerifyEmail: hash } });
-
-        if (!searchUser) {
-          throw new Error('Invalid Hash');
-        }
-
-        await ctx.prisma.user.update({
-          where: {
-            id: searchUser.id,
-          },
-          data: { hasVerifiedEmail: true, hashToVerifyEmail: null },
-        });
-
-        await sendWelcomeMessage({
-          firstName: searchUser.firstName,
-          email: searchUser.email,
-        });
-
-        return 'OK';
-      },
-    });
-
     t.field('login', {
       type: 'AuthPayload',
       args: {
@@ -120,6 +90,34 @@ export const Mutation = mutationType({
           token: sign({ userId: user.id }, APP_SECRET),
           user,
         };
+      },
+    });
+
+    t.field('checkHashEmail', {
+      type: 'String',
+      args: {
+        hash: nonNull(stringArg()),
+      },
+      resolve: async (_parent, { hash }, ctx: Context) => {
+        const searchUser = await ctx.prisma.user.findUnique({ where: { hashToVerifyEmail: hash } });
+
+        if (!searchUser) {
+          throw new Error('Invalid Hash');
+        }
+
+        await ctx.prisma.user.update({
+          where: {
+            id: searchUser.id,
+          },
+          data: { hasVerifiedEmail: true, hashToVerifyEmail: null },
+        });
+
+        await sendWelcomeMessage({
+          firstName: searchUser.firstName,
+          email: searchUser.email,
+        });
+
+        return 'OK';
       },
     });
 
@@ -180,7 +178,7 @@ export const Mutation = mutationType({
       },
     });
 
-    t.field('updateProfile', {
+    t.field('updateUser', {
       type: 'User',
       args: {
         user: 'UserUpdateInput',

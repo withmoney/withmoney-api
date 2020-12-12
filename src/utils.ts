@@ -1,7 +1,7 @@
 import { AuthenticationError } from 'apollo-server';
+import { verify } from 'jsonwebtoken';
 
 import { Context } from './context';
-import { verify } from 'jsonwebtoken';
 
 const { SECRET_KEY } = process.env;
 export const APP_SECRET = SECRET_KEY || 'secret';
