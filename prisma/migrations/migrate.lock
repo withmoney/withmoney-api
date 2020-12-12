@@ -5,3 +5,4 @@
 20201124010126-rename-transaction-to-operation
 20201127213029-renaming-operation-table-to-transaction
 20201205213203-rename-transaction-to-operation
+20201212193033-use-uuid-instead-of-cuid
