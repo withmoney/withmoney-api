@@ -15,7 +15,7 @@
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "migrate:save": "env-cmd prisma migrate dev --preview-feature",
-    "migrate:up": "env-cmd prisma migrate dev --preview-feature",
+    "migrate:up": "env-cmd prisma db push --preview-feature",
     "migrate:down": "env-cmd prisma migrate down 1 --experimental",
     "studio": "env-cmd prisma studio --experimental"
   },
