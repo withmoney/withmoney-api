@@ -8,7 +8,8 @@
     "rootDir": ".",
     "strict": true,
     "target": "esnext",
-    "typeRoots": ["node_modules/@types", "types"]
+    "typeRoots": ["node_modules/@types", "types"],
+    "strictNullChecks": false
   },
   "include": ["**/*.ts", "**/*.tsx", ".", "types.d.ts"],
   "exclude": ["./node_modules", "./tests", "./dist"]

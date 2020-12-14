@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-
+import * as Context from "./../context"
 import { core } from "@nexus/schema"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -11,6 +11,10 @@ declare global {
      * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "Date";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    datetime<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
   }
 }
 declare global {
@@ -19,12 +23,16 @@ declare global {
      * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    datetime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
   }
 }
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
-    crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
+    crud: any
   }
 }
 
@@ -33,6 +41,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AccountCreateInput: { // input type
+    name: string; // String!
+  }
   AccountListRelationFilter: { // input type
     every?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
     none?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
@@ -45,6 +56,9 @@ export interface NexusGenInputs {
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  AccountUpdateInput: { // input type
+    name: string; // String!
   }
   AccountWhereInput: { // input type
     AND?: NexusGenInputs['AccountWhereInput'][] | null; // [AccountWhereInput!]
@@ -66,6 +80,10 @@ export interface NexusGenInputs {
     equals?: boolean | null; // Boolean
     not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
   }
+  CategoryCreateInput: { // input type
+    name: string; // String!
+    type: NexusGenEnums['TransactionType']; // TransactionType!
+  }
   CategoryListRelationFilter: { // input type
     every?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
     none?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
@@ -79,6 +97,10 @@ export interface NexusGenInputs {
     type?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  CategoryUpdateInput: { // input type
+    name: string; // String!
+    type: NexusGenEnums['TransactionType']; // TransactionType!
   }
   CategoryWhereInput: { // input type
     AND?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
@@ -199,6 +221,13 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  OperationCreateInput: { // input type
+    accountId: string; // String!
+    categoryId?: string | null; // String
+    name: string; // String!
+    type: NexusGenEnums['TransactionType']; // TransactionType!
+    value: number; // Float!
+  }
   OperationListRelationFilter: { // input type
     every?: NexusGenInputs['OperationWhereInput'] | null; // OperationWhereInput
     none?: NexusGenInputs['OperationWhereInput'] | null; // OperationWhereInput
@@ -216,6 +245,13 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     value?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  OperationUpdateInput: { // input type
+    accountId: string; // String!
+    categoryId?: string | null; // String
+    name: string; // String!
+    type: NexusGenEnums['TransactionType']; // TransactionType!
+    value: number; // Float!
   }
   OperationWhereInput: { // input type
     account?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
@@ -238,6 +274,13 @@ export interface NexusGenInputs {
   }
   OperationWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  RegisterInput: { // input type
+    birthday?: NexusGenScalars['Date'] | null; // Date
+    email: string; // String!
+    firstName: string; // String!
+    lastName: string; // String!
+    password: string; // String!
   }
   StringFilter: { // input type
     contains?: string | null; // String
@@ -266,13 +309,6 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
-  }
-  UserCreateInput: { // input type
-    birthday?: NexusGenScalars['Date'] | null; // Date
-    email: string; // String!
-    firstName: string; // String!
-    lastName: string; // String!
-    password: string; // String!
   }
   UserUpdateInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
@@ -327,6 +363,7 @@ export interface NexusGenObjects {
     id: string; // String!
     name: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    userId: string; // String!
   }
   AuthPayload: { // root type
     token?: string | null; // String
@@ -384,6 +421,7 @@ export interface NexusGenFieldTypes {
     operations: NexusGenRootTypes['Operation'][]; // [Operation!]!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
+    userId: string; // String!
   }
   AuthPayload: { // field return type
     token: string | null; // String
@@ -402,13 +440,16 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     changePassword: string | null; // String
     checkHashEmail: string | null; // String
-    createAccount: NexusGenRootTypes['Account'] | null; // Account
-    createCategory: NexusGenRootTypes['Category'] | null; // Category
-    createOperation: NexusGenRootTypes['Operation'] | null; // Operation
+    createOneAccount: NexusGenRootTypes['Account']; // Account!
+    createOneCategory: NexusGenRootTypes['Category']; // Category!
+    createOneOperation: NexusGenRootTypes['Operation']; // Operation!
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     register: string | null; // String
     requestChangePassword: string | null; // String
-    updateUser: NexusGenRootTypes['User'] | null; // User
+    updateOneAccount: NexusGenRootTypes['Account']; // Account!
+    updateOneCategory: NexusGenRootTypes['Category']; // Category!
+    updateOneOperation: NexusGenRootTypes['Operation']; // Operation!
+    updateOneUser: NexusGenRootTypes['User']; // User!
   }
   Operation: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
@@ -423,7 +464,7 @@ export interface NexusGenFieldTypes {
     value: number; // Float!
   }
   Query: { // field return type
-    account: NexusGenRootTypes['Account'] | null; // Account
+    findUniqueAccount: NexusGenRootTypes['Account'] | null; // Account
     me: NexusGenRootTypes['User'] | null; // User
   }
   Subscription: { // field return type
@@ -455,6 +496,7 @@ export interface NexusGenFieldTypeNames {
     operations: 'Operation'
     updatedAt: 'DateTime'
     user: 'User'
+    userId: 'String'
   }
   AuthPayload: { // field return type name
     token: 'String'
@@ -473,13 +515,16 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     changePassword: 'String'
     checkHashEmail: 'String'
-    createAccount: 'Account'
-    createCategory: 'Category'
-    createOperation: 'Operation'
+    createOneAccount: 'Account'
+    createOneCategory: 'Category'
+    createOneOperation: 'Operation'
     login: 'AuthPayload'
     register: 'String'
     requestChangePassword: 'String'
-    updateUser: 'User'
+    updateOneAccount: 'Account'
+    updateOneCategory: 'Category'
+    updateOneOperation: 'Operation'
+    updateOneUser: 'User'
   }
   Operation: { // field return type name
     account: 'Account'
@@ -494,7 +539,7 @@ export interface NexusGenFieldTypeNames {
     value: 'Float'
   }
   Query: { // field return type name
-    account: 'Account'
+    findUniqueAccount: 'Account'
     me: 'User'
   }
   Subscription: { // field return type name
@@ -546,37 +591,44 @@ export interface NexusGenArgTypes {
     checkHashEmail: { // args
       hash: string; // String!
     }
-    createAccount: { // args
-      name: string; // String!
+    createOneAccount: { // args
+      data: NexusGenInputs['AccountCreateInput']; // AccountCreateInput!
     }
-    createCategory: { // args
-      name: string; // String!
-      type: NexusGenEnums['TransactionType']; // TransactionType!
+    createOneCategory: { // args
+      data: NexusGenInputs['CategoryCreateInput']; // CategoryCreateInput!
     }
-    createOperation: { // args
-      accountId: string; // String!
-      categoryId?: string | null; // String
-      name: string; // String!
-      type: NexusGenEnums['TransactionType']; // TransactionType!
-      value: number; // Float!
+    createOneOperation: { // args
+      data: NexusGenInputs['OperationCreateInput']; // OperationCreateInput!
     }
     login: { // args
       email: string; // String!
       password: string; // String!
     }
     register: { // args
-      user: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+      user: NexusGenInputs['RegisterInput']; // RegisterInput!
     }
     requestChangePassword: { // args
       email: string; // String!
     }
-    updateUser: { // args
-      user?: NexusGenInputs['UserUpdateInput'] | null; // UserUpdateInput
+    updateOneAccount: { // args
+      data: NexusGenInputs['AccountUpdateInput']; // AccountUpdateInput!
+      where: NexusGenInputs['AccountWhereUniqueInput']; // AccountWhereUniqueInput!
+    }
+    updateOneCategory: { // args
+      data: NexusGenInputs['CategoryUpdateInput']; // CategoryUpdateInput!
+      where: NexusGenInputs['CategoryWhereUniqueInput']; // CategoryWhereUniqueInput!
+    }
+    updateOneOperation: { // args
+      data: NexusGenInputs['OperationUpdateInput']; // OperationUpdateInput!
+      where: NexusGenInputs['OperationWhereUniqueInput']; // OperationWhereUniqueInput!
+    }
+    updateOneUser: { // args
+      user: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
     }
   }
   Query: {
-    account: { // args
-      id: string; // String!
+    findUniqueAccount: { // args
+      where?: NexusGenInputs['AccountWhereUniqueInput'] | null; // AccountWhereUniqueInput
     }
   }
   Subscription: {
@@ -646,7 +698,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context.Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   argTypes: NexusGenArgTypes;

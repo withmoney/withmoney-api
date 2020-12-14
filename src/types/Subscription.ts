@@ -1,7 +1,5 @@
 import { stringArg, subscriptionField, nonNull } from '@nexus/schema';
 
-import { User } from '../models/User';
-import { getUserId } from '../../utils';
 import { withFilter } from 'apollo-server';
 
 export const USER_SIGNED_IN = 'USER_SIGNED_IN';

@@ -10,6 +10,11 @@ type Account {
   operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
   updatedAt: DateTime!
   user: User!
+  userId: String!
+}
+
+input AccountCreateInput {
+  name: String!
 }
 
 input AccountListRelationFilter {
@@ -25,6 +30,10 @@ input AccountOrderByInput {
   name: SortOrder
   updatedAt: SortOrder
   userId: SortOrder
+}
+
+input AccountUpdateInput {
+  name: String!
 }
 
 input AccountWhereInput {
@@ -66,6 +75,11 @@ type Category {
   user: User!
 }
 
+input CategoryCreateInput {
+  name: String!
+  type: TransactionType!
+}
+
 input CategoryListRelationFilter {
   every: CategoryWhereInput
   none: CategoryWhereInput
@@ -80,6 +94,11 @@ input CategoryOrderByInput {
   type: SortOrder
   updatedAt: SortOrder
   userId: SortOrder
+}
+
+input CategoryUpdateInput {
+  name: String!
+  type: TransactionType!
 }
 
 input CategoryWhereInput {
@@ -106,6 +125,9 @@ A date string, such as 2007-12-03, compliant with the `full-date` format outline
 """
 scalar Date
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
 scalar DateTime
 
 input DateTimeFilter {
@@ -151,13 +173,16 @@ input FloatFilter {
 type Mutation {
   changePassword(hash: String!, password: String!): String
   checkHashEmail(hash: String!): String
-  createAccount(name: String!): Account
-  createCategory(name: String!, type: TransactionType!): Category
-  createOperation(accountId: String!, categoryId: String, name: String!, type: TransactionType!, value: Float!): Operation
+  createOneAccount(data: AccountCreateInput!): Account!
+  createOneCategory(data: CategoryCreateInput!): Category!
+  createOneOperation(data: OperationCreateInput!): Operation!
   login(email: String!, password: String!): AuthPayload
-  register(user: UserCreateInput!): String
+  register(user: RegisterInput!): String
   requestChangePassword(email: String!): String
-  updateUser(user: UserUpdateInput): User
+  updateOneAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account!
+  updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
+  updateOneOperation(data: OperationUpdateInput!, where: OperationWhereUniqueInput!): Operation!
+  updateOneUser(user: UserUpdateInput!): User!
 }
 
 input NestedBoolFilter {
@@ -246,6 +271,14 @@ type Operation {
   value: Float!
 }
 
+input OperationCreateInput {
+  accountId: String!
+  categoryId: String
+  name: String!
+  type: TransactionType!
+  value: Float!
+}
+
 input OperationListRelationFilter {
   every: OperationWhereInput
   none: OperationWhereInput
@@ -264,6 +297,14 @@ input OperationOrderByInput {
   updatedAt: SortOrder
   userId: SortOrder
   value: SortOrder
+}
+
+input OperationUpdateInput {
+  accountId: String!
+  categoryId: String
+  name: String!
+  type: TransactionType!
+  value: Float!
 }
 
 input OperationWhereInput {
@@ -291,13 +332,21 @@ input OperationWhereUniqueInput {
 }
 
 type Query {
-  account(id: String!): Account
+  findUniqueAccount(where: AccountWhereUniqueInput): Account
   me: User
 }
 
 enum QueryMode {
   default
   insensitive
+}
+
+input RegisterInput {
+  birthday: Date
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
 }
 
 enum SortOrder {
@@ -363,14 +412,6 @@ type User {
   lastName: String!
   operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
   updatedAt: DateTime!
-}
-
-input UserCreateInput {
-  birthday: Date
-  email: String!
-  firstName: String!
-  lastName: String!
-  password: String!
 }
 
 input UserUpdateInput {

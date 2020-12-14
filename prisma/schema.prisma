@@ -12,22 +12,22 @@ model Account {
   name       String
   userId     String
   createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
   deletedAt  DateTime?
   user       User        @relation(fields: [userId], references: [id])
   operations Operation[]
 }
 
 model Category {
-  id         String          @id @default(uuid())
-  userId     String
-  name       String
-  type       TransactionType
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @default(now())
-  deletedAt  DateTime?
-  user       User            @relation(fields: [userId], references: [id])
-  operations Operation[]
+  id        String          @id @default(uuid())
+  userId    String
+  name      String
+  type      TransactionType
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now()) @updatedAt
+  deletedAt DateTime?
+  User      User            @relation(fields: [userId], references: [id])
+  Operation Operation[]
 }
 
 model Operation {
@@ -40,11 +40,11 @@ model Operation {
   isPaid     Boolean         @default(false)
   type       TransactionType
   createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @default(now())
+  updatedAt  DateTime        @default(now()) @updatedAt
   deletedAt  DateTime?
-  account    Account         @relation(fields: [accountId], references: [id])
-  category   Category?       @relation(fields: [categoryId], references: [id])
-  user       User            @relation(fields: [userId], references: [id])
+  Account    Account         @relation(fields: [accountId], references: [id])
+  Category   Category?       @relation(fields: [categoryId], references: [id])
+  User       User            @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -58,11 +58,11 @@ model User {
   hashToChangePassword String?     @unique
   birthDay             DateTime?
   createdAt            DateTime    @default(now())
-  updatedAt            DateTime    @default(now())
+  updatedAt            DateTime    @default(now()) @updatedAt
   deletedAt            DateTime?
   accounts             Account[]
   categories           Category[]
-  operations           Operation[]
+  Operation            Operation[]
 }
 
 enum TransactionType {

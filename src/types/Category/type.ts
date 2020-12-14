@@ -1,14 +1,15 @@
 import { objectType } from '@nexus/schema';
 
-export const Account = objectType({
-  name: 'Account',
+export const Category = objectType({
+  name: 'Category',
   definition(t) {
     t.model.id();
     t.model.name();
-    t.model.user();
-    t.model.operations({ pagination: true, filtering: true, ordering: true });
+    t.model.type();
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();
+    t.model.user();
+    t.model.operations({ pagination: true, filtering: true, ordering: true });
   },
 });
