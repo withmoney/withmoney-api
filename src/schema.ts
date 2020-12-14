@@ -19,7 +19,12 @@ export const schema = makeSchema({
     //   doNotUseFieldUpdateOperationsInput: true,
     // }),
     // nexusPrisma(),
-    nexusSchemaPrisma(),
+    nexusSchemaPrisma({
+      shouldGenerateArtifacts: true,
+      outputs: {
+        typegen: __dirname + '/generated/typegen-nexus-plugin-prisma.d.ts',
+      },
+    }),
   ],
   // plugins: [
   //   nexusSchemaPrisma({
