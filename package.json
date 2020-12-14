@@ -9,7 +9,7 @@
     "clean": "rm -rf dist",
     "build": "npm -s run clean && cp .env.example prisma/.env && npm -s run generate && tsc",
     "build:only": "tsc",
-    "heroku-postbuild": "prisma migrate dev --preview-feature && npm run build",
+    "heroku-postbuild": "prisma migrate deploy --preview-feature && npm run build",
     "test": "jest",
     "generate": "npm run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
