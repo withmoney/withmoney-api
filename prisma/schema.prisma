@@ -19,15 +19,15 @@ model Account {
 }
 
 model Category {
-  id        String          @id @default(uuid())
-  userId    String
-  name      String
-  type      TransactionType
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now()) @updatedAt
-  deletedAt DateTime?
-  User      User            @relation(fields: [userId], references: [id])
-  Operation Operation[]
+  id         String          @id @default(uuid())
+  userId     String
+  name       String
+  type       TransactionType
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @default(now()) @updatedAt
+  deletedAt  DateTime?
+  user       User            @relation(fields: [userId], references: [id])
+  operations Operation[]
 }
 
 model Operation {
@@ -42,9 +42,9 @@ model Operation {
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @default(now()) @updatedAt
   deletedAt  DateTime?
-  Account    Account         @relation(fields: [accountId], references: [id])
-  Category   Category?       @relation(fields: [categoryId], references: [id])
-  User       User            @relation(fields: [userId], references: [id])
+  account    Account         @relation(fields: [accountId], references: [id])
+  category   Category?       @relation(fields: [categoryId], references: [id])
+  user       User            @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -62,7 +62,7 @@ model User {
   deletedAt            DateTime?
   accounts             Account[]
   categories           Category[]
-  Operation            Operation[]
+  operations           Operation[]
 }
 
 enum TransactionType {
