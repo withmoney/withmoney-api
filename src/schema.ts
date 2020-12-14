@@ -4,7 +4,6 @@ import * as types from './types';
 import { makeSchema, inputObjectType } from '@nexus/schema';
 import { nexusSchemaPrisma } from 'nexus-plugin-prisma/schema';
 import { nexusPrisma } from 'nexus-plugin-prisma';
-import { paljs } from '@paljs/nexus';
 
 // export const AccountUpdateInput = inputObjectType({
 //   name: 'AccountUpdateInput',
