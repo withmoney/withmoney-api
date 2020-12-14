@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development env-cmd ts-node-dev --no-notify --respawn --transpile-only src/main.ts",
     "start": "node dist/src/main",
     "clean": "rm -rf dist",
-    "build": "npm -s run clean && cp .env.example prisma/.env && npm -s run generate && tsc",
+    "build": "npm -s run clean && cp .env.example prisma/.env && tsc",
     "build:only": "tsc",
     "heroku-postbuild": "prisma generate && prisma db push --preview-feature && npm run build",
     "test": "jest",
