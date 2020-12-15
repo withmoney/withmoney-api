@@ -177,6 +177,7 @@ type Mutation {
   createOneCategory(data: CategoryCreateInput!): Category!
   createOneOperation(data: OperationCreateInput!): Operation!
   deleteOneAccount(where: AccountWhereUniqueInput!): Account
+  deleteOneCategory(where: CategoryWhereUniqueInput!): Category
   deleteOneOperation(where: OperationWhereUniqueInput!): Operation
   login(email: String!, password: String!): AuthPayload
   register(user: RegisterInput!): String
