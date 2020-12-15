@@ -31,6 +31,9 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
       throw new ForbiddenError('action no allowed');
     }
 
+    if (operation.deletedAt !== null) {
+      throw new ForbiddenError('please restore this entity before');
+    }
 
     return ctx.prisma.operation.update({
       where,
