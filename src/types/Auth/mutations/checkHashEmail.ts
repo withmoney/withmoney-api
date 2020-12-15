@@ -1,10 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { compare, hash } from 'bcryptjs';
+import { ValidationError } from 'apollo-server-express';
 import { mutationField, nonNull, arg, stringArg } from '@nexus/schema';
-import { sign } from 'jsonwebtoken';
-
-import { USER_SIGNED_IN, USER_UPDATED } from '../../Subscription';
-import { APP_SECRET, getUserId } from '../../../utils';
 import { sendWelcomeMessage } from './../../../email';
 
 export const CheckHashEmail = mutationField('checkHashEmail', {
@@ -13,10 +8,12 @@ export const CheckHashEmail = mutationField('checkHashEmail', {
     hash: nonNull(stringArg()),
   },
   resolve: async (_parent, { hash }, ctx) => {
-    const searchUser = await ctx.prisma.user.findUnique({ where: { hashToVerifyEmail: hash } });
+    const searchUser = await ctx.prisma.user.findUnique({
+      where: { hashToVerifyEmail: hash },
+    });
 
     if (!searchUser) {
-      throw new Error('Invalid Hash');
+      throw new ValidationError('Invalid Hash');
     }
 
     await ctx.prisma.user.update({
