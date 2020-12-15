@@ -25,7 +25,7 @@ export const OperationRestoreOneMutation = mutationField('restoreOneOperation', 
     if (operation.userId !== userId) {
       throw new ForbiddenError('action no allowed');
     }
-    console.log('oi');
+
     return ctx.prisma.operation.update({
       where,
       data: {
