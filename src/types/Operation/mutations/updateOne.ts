@@ -31,7 +31,9 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
       throw new ForbiddenError('action no allowed');
     }
 
-    return ctx.prisma.operation.create({
+
+    return ctx.prisma.operation.update({
+      where,
       data: {
         name,
         value,
