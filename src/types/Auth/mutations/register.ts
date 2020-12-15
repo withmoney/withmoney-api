@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { compare, hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
+import { ValidationError } from 'apollo-server-express';
 import { mutationField, nonNull, arg } from '@nexus/schema';
 import { sendVerifyEmail } from './../../../email';
 
@@ -13,14 +14,24 @@ export const Register = mutationField('register', {
     const hashedPassword = await hash(password, 10);
     const hashToVerifyEmail = uuidv4();
 
-    const created = await ctx.prisma.user.create({
+    const foundEmail = await ctx.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (foundEmail) {
+      throw new ValidationError('Email has been found');
+    }
+
+    await ctx.prisma.user.create({
       data: {
         firstName,
         lastName,
         email,
+        hashToVerifyEmail,
         password: hashedPassword,
         hasVerifiedEmail: false,
-        hashToVerifyEmail,
       },
     });
 
