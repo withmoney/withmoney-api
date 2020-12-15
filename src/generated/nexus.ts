@@ -449,6 +449,7 @@ export interface NexusGenFieldTypes {
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     register: string | null; // String
     requestChangePassword: string | null; // String
+    restoreOneAccount: NexusGenRootTypes['Account'] | null; // Account
     restoreOneCategory: NexusGenRootTypes['Category'] | null; // Category
     restoreOneOperation: NexusGenRootTypes['Operation'] | null; // Operation
     updateOneAccount: NexusGenRootTypes['Account']; // Account!
@@ -529,6 +530,7 @@ export interface NexusGenFieldTypeNames {
     login: 'AuthPayload'
     register: 'String'
     requestChangePassword: 'String'
+    restoreOneAccount: 'Account'
     restoreOneCategory: 'Category'
     restoreOneOperation: 'Operation'
     updateOneAccount: 'Account'
@@ -628,6 +630,9 @@ export interface NexusGenArgTypes {
     }
     requestChangePassword: { // args
       email: string; // String!
+    }
+    restoreOneAccount: { // args
+      where: NexusGenInputs['AccountWhereUniqueInput']; // AccountWhereUniqueInput!
     }
     restoreOneCategory: { // args
       where: NexusGenInputs['CategoryWhereUniqueInput']; // CategoryWhereUniqueInput!

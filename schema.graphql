@@ -182,6 +182,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   register(user: RegisterInput!): String
   requestChangePassword(email: String!): String
+  restoreOneAccount(where: AccountWhereUniqueInput!): Account
   restoreOneCategory(where: CategoryWhereUniqueInput!): Category
   restoreOneOperation(where: OperationWhereUniqueInput!): Operation
   updateOneAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account!

@@ -1,22 +1,17 @@
 import { ForbiddenError, ApolloError } from 'apollo-server';
-import { mutationField, nonNull, arg } from '@nexus/schema';
+import { mutationField, arg, nonNull } from '@nexus/schema';
 import { getUserId } from '../../../utils';
 
-export const AccountUpdateOneMutation = mutationField('updateOneAccount', {
-  type: nonNull('Account'),
+export const AccountRestoreOneMutation = mutationField('restoreOneAccount', {
+  type: 'Account',
   args: {
     where: nonNull(
       arg({
         type: 'AccountWhereUniqueInput',
       }),
     ),
-    data: nonNull(
-      arg({
-        type: 'AccountUpdateInput',
-      }),
-    ),
   },
-  resolve: async (parent, { where, data }, ctx) => {
+  resolve: async (_parent, { where }, ctx) => {
     const userId = getUserId(ctx);
 
     const account = await ctx.prisma.account.findFirst({
@@ -31,14 +26,11 @@ export const AccountUpdateOneMutation = mutationField('updateOneAccount', {
       throw new ForbiddenError('action no allowed');
     }
 
-    if (account.deletedAt !== null) {
-      throw new ForbiddenError('please restore this entity before');
-    }
-
-    const updated = await ctx.prisma.account.update({
+    return ctx.prisma.account.update({
       where,
-      data,
+      data: {
+        deletedAt: null,
+      },
     });
-    return updated;
   },
 });
