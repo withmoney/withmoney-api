@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
+import { ApolloError, ValidationError } from 'apollo-server';
 import { mutationField, nonNull, arg, stringArg } from '@nexus/schema';
 import { sign } from 'jsonwebtoken';
 
@@ -21,13 +21,20 @@ export const Login = mutationField('login', {
         email,
       },
     });
+
     if (!user) {
-      throw new Error(`Email not found`);
+      throw new ValidationError(`Email not found`);
     }
+
     const passwordValid = await compare(password, user.password);
     if (!passwordValid) {
-      throw new Error('Invalid password');
+      throw new ValidationError('Invalid password');
     }
+
+    if (!user.hasVerifiedEmail) {
+      throw new ValidationError('Email has not been confirmed');
+    }
+
     pubsub.publish(USER_SIGNED_IN, user);
     return {
       token: sign({ userId: user.id }, APP_SECRET),
