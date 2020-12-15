@@ -443,6 +443,7 @@ export interface NexusGenFieldTypes {
     createOneAccount: NexusGenRootTypes['Account']; // Account!
     createOneCategory: NexusGenRootTypes['Category']; // Category!
     createOneOperation: NexusGenRootTypes['Operation']; // Operation!
+    deleteOneAccount: NexusGenRootTypes['Account'] | null; // Account
     deleteOneOperation: NexusGenRootTypes['Operation'] | null; // Operation
     login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
     register: string | null; // String
@@ -520,6 +521,7 @@ export interface NexusGenFieldTypeNames {
     createOneAccount: 'Account'
     createOneCategory: 'Category'
     createOneOperation: 'Operation'
+    deleteOneAccount: 'Account'
     deleteOneOperation: 'Operation'
     login: 'AuthPayload'
     register: 'String'
@@ -603,6 +605,9 @@ export interface NexusGenArgTypes {
     }
     createOneOperation: { // args
       data: NexusGenInputs['OperationCreateInput']; // OperationCreateInput!
+    }
+    deleteOneAccount: { // args
+      where: NexusGenInputs['AccountWhereUniqueInput']; // AccountWhereUniqueInput!
     }
     deleteOneOperation: { // args
       where: NexusGenInputs['OperationWhereUniqueInput']; // OperationWhereUniqueInput!
