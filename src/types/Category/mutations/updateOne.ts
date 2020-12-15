@@ -31,6 +31,10 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
       throw new ForbiddenError('action no allowed');
     }
 
+    if (category.deletedAt !== null) {
+      throw new ForbiddenError('please restore this entity before');
+    }
+
     const updated = await ctx.prisma.category.update({
       where,
       data,
