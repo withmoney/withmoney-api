@@ -224,6 +224,7 @@ export interface NexusGenInputs {
   OperationCreateInput: { // input type
     accountId: string; // String!
     categoryId?: string | null; // String
+    isPaid: boolean; // Boolean!
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
@@ -249,6 +250,7 @@ export interface NexusGenInputs {
   OperationUpdateInput: { // input type
     accountId: string; // String!
     categoryId?: string | null; // String
+    isPaid: boolean; // Boolean!
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
@@ -382,6 +384,7 @@ export interface NexusGenObjects {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
+    isPaid: boolean; // Boolean!
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -463,6 +466,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
+    isPaid: boolean; // Boolean!
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -544,6 +548,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     deletedAt: 'DateTime'
     id: 'String'
+    isPaid: 'Boolean'
     name: 'String'
     type: 'TransactionType'
     updatedAt: 'DateTime'

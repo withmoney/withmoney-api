@@ -270,6 +270,7 @@ type Operation {
   createdAt: DateTime!
   deletedAt: DateTime
   id: String!
+  isPaid: Boolean!
   name: String!
   type: TransactionType!
   updatedAt: DateTime!
@@ -280,6 +281,7 @@ type Operation {
 input OperationCreateInput {
   accountId: String!
   categoryId: String
+  isPaid: Boolean!
   name: String!
   type: TransactionType!
   value: Float!
@@ -308,6 +310,7 @@ input OperationOrderByInput {
 input OperationUpdateInput {
   accountId: String!
   categoryId: String
+  isPaid: Boolean!
   name: String!
   type: TransactionType!
   value: Float!

@@ -16,7 +16,11 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
       }),
     ),
   },
-  resolve: async (parent, { data: { accountId, name, value, type, categoryId }, where }, ctx) => {
+  resolve: async (
+    parent,
+    { data: { accountId, name, value, type, isPaid, categoryId }, where },
+    ctx,
+  ) => {
     const userId = getUserId(ctx);
 
     const operation = await ctx.prisma.operation.findFirst({
@@ -41,6 +45,7 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
         name,
         value,
         type,
+        isPaid,
         account: { connect: { id: accountId } },
         user: { connect: { id: userId } },
         ...(!!categoryId && {

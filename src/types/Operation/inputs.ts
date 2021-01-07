@@ -6,6 +6,7 @@ export const OperationCreateInput = inputObjectType({
     t.nonNull.string('name');
     t.nonNull.field('type', { type: 'TransactionType' });
     t.nonNull.float('value');
+    t.nonNull.boolean('isPaid');
     t.string('categoryId');
     t.nonNull.string('accountId');
   },
@@ -17,6 +18,7 @@ export const OperationUpdateInput = inputObjectType({
     t.nonNull.string('name');
     t.nonNull.field('type', { type: 'TransactionType' });
     t.nonNull.float('value');
+    t.nonNull.boolean('isPaid');
     t.string('categoryId');
     t.nonNull.string('accountId');
   },
