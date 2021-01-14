@@ -5,7 +5,8 @@
   "main": "src/main.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development env-cmd ts-node-dev --no-notify --respawn --transpile-only src/main.ts",
-    "start": "NODE_ENV=production node dist/src/main",
+    "start": "node dist/src/main",
+    "start:prod": "cross-env NODE_ENV=production npm start",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && cp .env.example prisma/.env && npm -s run generate && tsc",
     "build:only": "tsc",
