@@ -21,7 +21,7 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
     { data: { accountId, name, value, type, isPaid, categoryId }, where },
     ctx,
   ) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const operation = await ctx.prisma.operation.findFirst({
       where,

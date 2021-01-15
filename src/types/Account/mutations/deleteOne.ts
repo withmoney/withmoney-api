@@ -12,7 +12,7 @@ export const AccountDeleteOneMutation = mutationField('deleteOneAccount', {
     ),
   },
   resolve: async (_parent, { where }, ctx) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const account = await ctx.prisma.account.findFirst({
       where,

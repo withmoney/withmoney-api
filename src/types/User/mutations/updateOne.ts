@@ -12,7 +12,7 @@ export const UserUpdateOneMutation = mutationField('updateOneUser', {
   resolve: async (_parent, { user }, ctx) => {
     const { pubsub } = ctx;
 
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const updated = await ctx.prisma.user.update({
       where: { id: userId },

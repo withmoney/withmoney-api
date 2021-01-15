@@ -17,7 +17,7 @@ export const AccountUpdateOneMutation = mutationField('updateOneAccount', {
     ),
   },
   resolve: async (parent, { where, data }, ctx) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const account = await ctx.prisma.account.findFirst({
       where,

@@ -17,7 +17,7 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
     ),
   },
   resolve: async (parent, { where, data }, ctx) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
       where,

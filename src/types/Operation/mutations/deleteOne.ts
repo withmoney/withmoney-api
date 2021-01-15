@@ -12,7 +12,7 @@ export const OperationDeleteOneMutation = mutationField('deleteOneOperation', {
     ),
   },
   resolve: async (_parent, { where }, ctx) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const operation = await ctx.prisma.operation.findFirst({
       where,

@@ -10,8 +10,8 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
       }),
     ),
   },
-  resolve: (parent, { data: { accountId, name, value, type, isPaid, categoryId } }, ctx) => {
-    const userId = getUserId(ctx);
+  resolve: async (parent, { data: { accountId, name, value, type, isPaid, categoryId } }, ctx) => {
+    const userId = await getUserId(ctx);
 
     return ctx.prisma.operation.create({
       data: {

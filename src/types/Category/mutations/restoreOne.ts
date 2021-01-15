@@ -12,7 +12,7 @@ export const CategoryRestoreOneMutation = mutationField('restoreOneCategory', {
     ),
   },
   resolve: async (_parent, { where }, ctx) => {
-    const userId = getUserId(ctx);
+    const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
       where,

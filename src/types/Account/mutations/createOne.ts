@@ -10,8 +10,8 @@ export const AccountCreateOneMutation = mutationField('createOneAccount', {
       }),
     ),
   },
-  resolve: (parent, { data }, ctx) => {
-    const userId = getUserId(ctx);
+  resolve: async (parent, { data }, ctx) => {
+    const userId = await getUserId(ctx);
 
     return ctx.prisma.account.create({
       data: {
