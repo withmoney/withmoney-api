@@ -8,7 +8,7 @@
     "start": "node dist/src/main",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "clean": "rm -rf dist",
-    "build": "npm -s run clean && cp .env.example prisma/.env && npm -s run generate && tsc",
+    "build": "npm -s run clean && cp .env.example prisma/.env && tsc",
     "build:only": "tsc",
     "heroku-postbuild": "npm -s run generate && prisma db push --preview-feature --force && npm run build",
     "test": "jest",
