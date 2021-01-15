@@ -14,6 +14,7 @@
     "test": "jest",
     "generate": "npm run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
+    "prisma": "env-cmd prisma",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "migrate:save": "env-cmd prisma migrate dev --preview-feature",
     "migrate:up": "env-cmd prisma db push --preview-feature",

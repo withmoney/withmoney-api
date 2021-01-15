@@ -39,6 +39,7 @@ model Operation {
   value      Float
   isPaid     Boolean         @default(false)
   type       TransactionType
+  paidAt     DateTime?       @default(now())
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @default(now()) @updatedAt
   deletedAt  DateTime?
