@@ -1,4 +1,4 @@
-import { ForbiddenError, ApolloError } from 'apollo-server';
+import { ForbiddenError, ApolloError, ValidationError } from 'apollo-server';
 import { mutationField, nonNull, arg, stringArg, floatArg } from '@nexus/schema';
 import { getUserId } from '../../../utils';
 
@@ -37,6 +37,14 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
 
     if (operation.deletedAt !== null) {
       throw new ForbiddenError('please restore this entity before');
+    }
+
+    if (categoryId && !(await ctx.prisma.category.findUnique({ where: { id: categoryId } }))) {
+      throw new ValidationError('categoryId not found');
+    }
+
+    if (!(await ctx.prisma.account.findUnique({ where: { id: accountId } }))) {
+      throw new ValidationError('accountId not found');
     }
 
     return ctx.prisma.operation.update({
