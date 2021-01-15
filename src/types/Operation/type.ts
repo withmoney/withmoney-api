@@ -8,6 +8,7 @@ export const Operation = objectType({
     t.model.value();
     t.model.type();
     t.model.isPaid();
+    t.model.paidAt();
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

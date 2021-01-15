@@ -27,6 +27,11 @@ server, we suggest use the https://mailtrap.io
 
 ## database migration
 
+## generating new migration
+
+yarn migrate:save
+yarn migrate:up // to apply
+
 ### first time
 
 1. `yarn migrate:up`
@@ -34,5 +39,3 @@ server, we suggest use the https://mailtrap.io
 ## Using the queries
 
 https://www.notion.so/withmoney-server-4141ff4995d94d5ebb6f1350be727723
-
-

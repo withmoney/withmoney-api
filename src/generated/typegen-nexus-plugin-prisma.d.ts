@@ -3,10 +3,10 @@ import * as Prisma from '@prisma/client';
 
 // Pagination type
 type Pagination = {
-  first?: boolean
-  last?: boolean
-  before?: boolean
-  after?: boolean
+    first?: boolean
+    last?: boolean
+    before?: boolean
+    after?: boolean
 }
 
 // Prisma custom scalar names
@@ -32,8 +32,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     users: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'operations'
@@ -42,14 +42,14 @@ interface NexusPrismaInputs {
   },
   Account: {
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   }
   Category: {
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   }
   Operation: {
@@ -65,8 +65,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   }
 }
@@ -139,6 +139,7 @@ interface NexusPrismaOutputs {
     value: 'Float'
     isPaid: 'Boolean'
     type: 'TransactionType'
+    paidAt: 'DateTime'
     createdAt: 'DateTime'
     updatedAt: 'DateTime'
     deletedAt: 'DateTime'

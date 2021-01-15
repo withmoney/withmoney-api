@@ -226,6 +226,7 @@ export interface NexusGenInputs {
     categoryId?: string | null; // String
     isPaid: boolean; // Boolean!
     name: string; // String!
+    paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
   }
@@ -242,6 +243,7 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     isPaid?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    paidAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     type?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -252,6 +254,7 @@ export interface NexusGenInputs {
     categoryId?: string | null; // String
     isPaid: boolean; // Boolean!
     name: string; // String!
+    paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
   }
@@ -268,6 +271,7 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['OperationWhereInput'][] | null; // [OperationWhereInput!]
     OR?: NexusGenInputs['OperationWhereInput'][] | null; // [OperationWhereInput!]
+    paidAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     type?: NexusGenInputs['EnumTransactionTypeFilter'] | null; // EnumTransactionTypeFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -386,6 +390,7 @@ export interface NexusGenObjects {
     id: string; // String!
     isPaid: boolean; // Boolean!
     name: string; // String!
+    paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     value: number; // Float!
@@ -468,6 +473,7 @@ export interface NexusGenFieldTypes {
     id: string; // String!
     isPaid: boolean; // Boolean!
     name: string; // String!
+    paidAt: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
@@ -550,6 +556,7 @@ export interface NexusGenFieldTypeNames {
     id: 'String'
     isPaid: 'Boolean'
     name: 'String'
+    paidAt: 'DateTime'
     type: 'TransactionType'
     updatedAt: 'DateTime'
     user: 'User'

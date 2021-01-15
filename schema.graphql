@@ -272,6 +272,7 @@ type Operation {
   id: String!
   isPaid: Boolean!
   name: String!
+  paidAt: DateTime
   type: TransactionType!
   updatedAt: DateTime!
   user: User!
@@ -283,6 +284,7 @@ input OperationCreateInput {
   categoryId: String
   isPaid: Boolean!
   name: String!
+  paidAt: DateTime
   type: TransactionType!
   value: Float!
 }
@@ -301,6 +303,7 @@ input OperationOrderByInput {
   id: SortOrder
   isPaid: SortOrder
   name: SortOrder
+  paidAt: SortOrder
   type: SortOrder
   updatedAt: SortOrder
   userId: SortOrder
@@ -312,6 +315,7 @@ input OperationUpdateInput {
   categoryId: String
   isPaid: Boolean!
   name: String!
+  paidAt: DateTime
   type: TransactionType!
   value: Float!
 }
@@ -329,6 +333,7 @@ input OperationWhereInput {
   name: StringFilter
   NOT: [OperationWhereInput!]
   OR: [OperationWhereInput!]
+  paidAt: DateTimeNullableFilter
   type: EnumTransactionTypeFilter
   updatedAt: DateTimeFilter
   user: UserWhereInput
