@@ -1,5 +1,5 @@
 import { ForbiddenError, ApolloError, ValidationError } from 'apollo-server';
-import { mutationField, nonNull, arg, stringArg, floatArg } from '@nexus/schema';
+import { mutationField, nonNull, arg, stringArg, floatArg } from 'nexus';
 import { getUserId } from '../../../utils';
 
 export const OperationUpdateOneMutation = mutationField('updateOneOperation', {

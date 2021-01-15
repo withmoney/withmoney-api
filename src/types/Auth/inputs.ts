@@ -1,4 +1,4 @@
-import { inputObjectType, mutationType, stringArg, arg, floatArg, nonNull } from '@nexus/schema';
+import { inputObjectType, mutationType, stringArg, arg, floatArg, nonNull } from 'nexus';
 
 export const RegisterInput = inputObjectType({
   name: 'RegisterInput',

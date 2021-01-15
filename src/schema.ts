@@ -1,7 +1,8 @@
 import * as path from 'path';
 import * as types from './types';
+import { join } from 'path';
 
-import { makeSchema, inputObjectType } from '@nexus/schema';
+import { makeSchema, inputObjectType } from 'nexus';
 import { nexusSchemaPrisma } from 'nexus-plugin-prisma/schema';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 
@@ -40,13 +41,19 @@ export const schema = makeSchema({
     schema: path.join(__dirname, './../schema.graphql'),
     typegen: path.join(__dirname, './generated/nexus.ts'),
   },
-  typegenAutoConfig: {
-    sources: [
-      {
-        source: require.resolve('./context'),
-        alias: 'Context',
-      },
-    ],
-    contextType: 'Context.Context',
+  contextType: {
+    module: path.join(__dirname, './context.ts'),
+    alias: 'Context',
+    export: 'Context',
   },
+  // formatTypegen
+  // typegenAutoConfig: {
+  //   sources: [
+  //     {
+  //       source: require.resolve('./context'),
+  //       alias: 'Context',
+  //     },
+  //   ],
+  //   contextType: 'Context.Context',
+  // },
 });

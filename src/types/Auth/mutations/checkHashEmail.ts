@@ -1,5 +1,5 @@
 import { ValidationError } from 'apollo-server-express';
-import { mutationField, nonNull, arg, stringArg } from '@nexus/schema';
+import { mutationField, nonNull, arg, stringArg } from 'nexus';
 import { sendWelcomeMessage } from './../../../email';
 
 export const CheckHashEmail = mutationField('checkHashEmail', {

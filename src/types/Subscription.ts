@@ -1,4 +1,4 @@
-import { stringArg, subscriptionField, nonNull } from '@nexus/schema';
+import { stringArg, subscriptionField, nonNull } from 'nexus';
 
 import { withFilter } from 'apollo-server';
 

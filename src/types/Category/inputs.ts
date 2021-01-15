@@ -1,4 +1,4 @@
-import { inputObjectType } from '@nexus/schema';
+import { inputObjectType } from 'nexus';
 
 export const CategoryCreateInput = inputObjectType({
   name: 'CategoryCreateInput',

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { compare, hash } from 'bcryptjs';
-import { mutationField, nonNull, arg, stringArg } from '@nexus/schema';
+import { mutationField, nonNull, arg, stringArg } from 'nexus';
 import { sign } from 'jsonwebtoken';
 
 import { USER_SIGNED_IN, USER_UPDATED } from '../../Subscription';

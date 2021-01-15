@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { hash } from 'bcryptjs';
 import { ValidationError } from 'apollo-server-express';
-import { mutationField, nonNull, arg } from '@nexus/schema';
+import { mutationField, nonNull, arg } from 'nexus';
 import { sendVerifyEmail } from './../../../email';
 
 export const Register = mutationField('register', {

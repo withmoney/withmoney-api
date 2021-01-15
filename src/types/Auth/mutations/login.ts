@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import { ApolloError, ValidationError } from 'apollo-server';
-import { mutationField, nonNull, arg, stringArg } from '@nexus/schema';
+import { mutationField, nonNull, arg, stringArg } from 'nexus';
 import { sign } from 'jsonwebtoken';
 
 import { USER_SIGNED_IN, USER_UPDATED } from '../../Subscription';

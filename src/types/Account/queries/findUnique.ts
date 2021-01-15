@@ -1,4 +1,4 @@
-import { queryField, arg, nonNull } from '@nexus/schema';
+import { queryField, arg, nonNull } from 'nexus';
 
 export const AccountFindUniqueQuery = queryField('findUniqueAccount', {
   type: 'Account',

@@ -1,4 +1,4 @@
-import { mutationField, nonNull, arg } from '@nexus/schema';
+import { mutationField, nonNull, arg } from 'nexus';
 import { getUserId } from '../../../utils';
 
 export const AccountCreateOneMutation = mutationField('createOneAccount', {
