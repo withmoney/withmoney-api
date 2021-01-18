@@ -18,7 +18,7 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
   },
   resolve: async (
     parent,
-    { data: { accountId, name, value, type, isPaid, categoryId }, where },
+    { data: { accountId, name, value, type, isPaid, paidAt, categoryId }, where },
     ctx,
   ) => {
     const userId = await getUserId(ctx);
@@ -54,6 +54,7 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
         value,
         type,
         isPaid,
+        paidAt,
         account: { connect: { id: accountId } },
         user: { connect: { id: userId } },
         ...(!!categoryId && {

@@ -11,7 +11,11 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
       }),
     ),
   },
-  resolve: async (parent, { data: { accountId, name, value, type, isPaid, categoryId } }, ctx) => {
+  resolve: async (
+    parent,
+    { data: { accountId, name, value, type, isPaid, paidAt, categoryId } },
+    ctx,
+  ) => {
     const userId = await getUserId(ctx);
 
     if (categoryId && !(await ctx.prisma.category.findUnique({ where: { id: categoryId } }))) {
@@ -28,6 +32,7 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
         value,
         type,
         isPaid,
+        paidAt,
         account: { connect: { id: accountId } },
         user: { connect: { id: userId } },
         ...(!!categoryId && {
