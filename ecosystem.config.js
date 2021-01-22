@@ -34,8 +34,8 @@ module.exports = {
       'post-deploy': [
         'yarn',
         'npm -s run generate',
-        'yarn prisma db push --preview-feature',
-        'yarn build:only',
+        'yarn migrate:up',
+        'yarn env-cmd build:only',
         `pm2 reload ecosystem.config.js --env production --name ${process.env.DEPLOY_NAME}`,
       ].join(' && '),
     },
