@@ -10,6 +10,7 @@
     "clean": "rm -rf dist",
     "build": "npm -s run clean && cp .env.example prisma/.env && tsc",
     "build:only": "tsc",
+    "build:prod": "env-cmd tsc",
     "heroku-postbuild": "npm -s run generate && prisma db push --preview-feature --force && npm run build",
     "test": "jest",
     "generate": "npm run generate:prisma && npm -s run generate:nexus",
