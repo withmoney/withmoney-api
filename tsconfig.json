@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "outDir": "./dist",
+    "plugins": [{ "name": "nexus/typescript-language-service" }],
+    "rootDir": ".",
+    "strict": true,
+    "target": "esnext",
+    "typeRoots": ["node_modules/@types", "types"],
+    "strictNullChecks": false
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".", "types.d.ts"],
+  "exclude": ["./node_modules", "./tests", "./dist"]
+}

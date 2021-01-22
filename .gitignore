@@ -1,7 +1,5 @@
 node_modules
-coverage
 dist
+coverage
+.vscode
 .env
-database.json
-package-lock.json
-.DS_Store

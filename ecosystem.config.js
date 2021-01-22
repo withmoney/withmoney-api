@@ -10,7 +10,7 @@ module.exports = {
   apps: [
     {
       name: process.env.DEPLOY_NAME,
-      script: 'dist/server.js',
+      script: 'npm run start',
       env: {
         COMMON_VARIABLE: 'true',
       },
@@ -29,14 +29,13 @@ module.exports = {
       user: process.env.DEPLOY_USER,
       host: process.env.DEPLOY_HOST,
       ref: 'origin/master',
-      repo: 'https://github.com/davidcostadev/api-withmoney.git',
+      repo: 'git@github.com:withmoney/withmoney-api.git',
       path: process.env.DEPLOY_PATH,
       'post-deploy': [
-        'npm install',
-        'npm run pretest',
-        'npm run jest',
-        'npm run pre-build',
-        'npm run build',
+        'yarn',
+        'npm -s run generate',
+        'yarn prisma db push --preview-feature',
+        'yarn build:only',
         `pm2 reload ecosystem.config.js --env production --name ${process.env.DEPLOY_NAME}`,
       ].join(' && '),
     },

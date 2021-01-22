@@ -1,46 +1,41 @@
-# WithMoney API
+# withmoney - api
 
-It is a project of money control
+## Requirements
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/fd2c888e3a8f375c2976/maintainability)](https://codeclimate.com/github/withmoney/withmoney-api/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b045a34c8cb425bf67f1/test_coverage)](https://codeclimate.com/github/withmoney/withmoney-api/test_coverage)
-[![Build Status](https://travis-ci.org/withmoney/withmoney-api.svg?branch=master)](https://travis-ci.org/withmoney/withmoney-api)
-[![codecov](https://codecov.io/gh/withmoney/withmoney-api/branch/master/graph/badge.svg)](https://codecov.io/gh/withmoney/withmoney-api)
+1. `yarn`
+2. `node@12`
+3. `docker`
+4. `docker-compose`
 
 ## Installation
 
-1. `cp config/database.json.example config/database.json`
+1. `yarn`
 2. `cp .env.example .env`
-3. `yarn`
-4. `yarn run sequelize db:create`(for mysql) to create a database
-5. `yarn run sequelize db:migrate`
 
+## Using for development
 
-## Development
+`yarn dev`
 
-`yarn run sequelize db:seed:all` in development
+## Using docker-compose
 
-run `yarn run dev` to start the server.
+`docker-compose up -d`
 
-## Tests
+## Using email
 
-`yarn run test:createdb` - To create a database of test.
-`yarn run pretest` - Apply the migration.
-`yarn run jest`
+If you got this error `Email envs are not defined` that's mean that you need to use some smtp
+server, we suggest use the https://mailtrap.io
 
-## Production
+## database migration
 
-`yarn run deploy setup # first time`
+## generating new migration
 
-`yarn run deploy`
+yarn migrate:save
+yarn migrate:up // to apply
 
+### first time
 
-## Using Database docker
+1. `yarn migrate:up`
 
-**PostgreSQL**
+## Using the queries
 
-`docker run --name withmoney-postgres -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres -p`
-
-**MySQL**
-
-`docker run --name withmoney-mysql -e MYSQL_ROOT_PASSWORD=123 -p 3306:3306 -d mysql:5`
+https://www.notion.so/withmoney-server-4141ff4995d94d5ebb6f1350be727723
