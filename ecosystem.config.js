@@ -35,7 +35,7 @@ module.exports = {
         'yarn',
         'npm -s run generate',
         'yarn migrate:up',
-        'yarn env-cmd build:only',
+        'yarn build:prod',
         `pm2 reload ecosystem.config.js --env production --name ${process.env.DEPLOY_NAME}`,
       ].join(' && '),
     },
