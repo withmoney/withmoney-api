@@ -10,7 +10,7 @@ export const Register = mutationField('register', {
     user: nonNull(arg({ type: 'RegisterInput' })),
   },
   resolve: async (_parent, { user }, ctx) => {
-    const { firstName, lastName, email, password } = user;
+    const { firstName, lastName, email, password, language } = user;
     const hashedPassword = await hash(password, 10);
     const hashToVerifyEmail = uuidv4();
 
@@ -29,6 +29,7 @@ export const Register = mutationField('register', {
         firstName,
         lastName,
         email,
+        language,
         hashToVerifyEmail,
         password: hashedPassword,
         hasVerifiedEmail: false,
