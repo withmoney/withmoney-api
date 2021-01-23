@@ -11,6 +11,7 @@ model Account {
   id         String      @id @default(uuid())
   name       String
   userId     String
+  currency   Currency    @default(USD)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @default(now()) @updatedAt
   deletedAt  DateTime?
@@ -54,6 +55,7 @@ model User {
   password             String
   firstName            String
   lastName             String
+  language             Locale      @default(enUS)
   hasVerifiedEmail     Boolean     @default(false)
   hashToVerifyEmail    String?     @unique
   hashToChangePassword String?     @unique
@@ -71,4 +73,16 @@ enum TransactionType {
   Deposit
   FixedExpense
   VariableExpense
+}
+
+enum Locale {
+  ptBR
+  enUS
+}
+
+enum Currency {
+  USD
+  EUR
+  BRL
+  GBP
 }
