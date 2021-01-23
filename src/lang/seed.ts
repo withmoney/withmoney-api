@@ -1,0 +1,71 @@
+import { TransactionType } from '../types/Enum';
+
+export const accountsSeed = {
+  ptBR: ['Pessoal', 'Empresa'],
+  enUS: ['Individual', 'Corporate'],
+};
+
+type categoriesSeedType = {
+  [key: string]: [string, TransactionType][];
+};
+
+export const categoriesSeed: categoriesSeedType = {
+  ptBR: [
+    ['Salário', 'Deposit'],
+    ['Freelance', 'Deposit'],
+    ['Emprestimo', 'Deposit'],
+    ['FGTS', 'Deposit'],
+    ['Ifood', 'CreditCard'],
+    ['Compras', 'CreditCard'],
+    ['Movéis', 'CreditCard'],
+    ['Serviços de Internet', 'CreditCard'],
+    ['Eletrônicos', 'CreditCard'],
+    ['Companhia de Luz', 'FixedExpense'],
+    ['Companhia de Água', 'FixedExpense'],
+    ['Companhia de Gás', 'FixedExpense'],
+    ['Companhia de Internet', 'FixedExpense'],
+    ['Companhia de Telefone', 'FixedExpense'],
+    ['Recarga de celular', 'FixedExpense'],
+    ['Gasolina', 'FixedExpense'],
+    ['Seguro do Carro', 'FixedExpense'],
+    ['Seguro da Moto', 'FixedExpense'],
+    ['Alimentação', 'VariableExpense'],
+    ['Gastos', 'VariableExpense'],
+    ['Lanchonete', 'VariableExpense'],
+    ['Desconhecido', 'VariableExpense'],
+    ['Produto', 'Deposit'],
+    ['Serviço', 'Deposit'],
+    ['Imposto DAS', 'FixedExpense'],
+    ['Imposto GPS', 'FixedExpense'],
+    ['Imposto IRRS', 'FixedExpense'],
+    ['Folha de pagamentos', 'FixedExpense'],
+  ],
+  enUS: [
+    ['Salary', 'Deposit'],
+    ['Freelance', 'Deposit'],
+    ['Loan', 'Deposit'],
+    ['Shopping', 'CreditCard'],
+    ['Furniture', 'CreditCard'],
+    ['Internet services', 'CreditCard'],
+    ['Electronics', 'CreditCard'],
+    ['Light Company', 'FixedExpense'],
+    ['Water Company', 'FixedExpense'],
+    ['Gas Company', 'FixedExpense'],
+    ['Internet Company', 'FixedExpense'],
+    ['Telephone Company', 'FixedExpense'],
+    ['Cell phone recharge', 'FixedExpense'],
+    ['Gasoline', 'FixedExpense'],
+    ['Car Insurance', 'FixedExpense'],
+    ['Motorcycle Insurance', 'FixedExpense'],
+    ['Food', 'CreditCard'],
+    ['Spending', 'VariableExpense'],
+    ['Snack bar', 'VariableExpense'],
+    ['Unknown', 'VariableExpense'],
+    ['Product', 'Deposit'],
+    ['Service', 'Deposit'],
+    ['Acquisition of assets', 'CreditCard'],
+    ['Telephone Company', 'FixedExpense'],
+    ['Tax', 'FixedExpense'],
+    ['Payroll', 'FixedExpense'],
+  ],
+};
