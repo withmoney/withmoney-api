@@ -10,3 +10,21 @@ services:
       POSTGRES_PASSWORD: 123
     ports:
       - 5432:5432
+    networks:
+      - postgres-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'root@email.com'
+      PGADMIN_DEFAULT_PASSWORD: '1234'
+    ports:
+      - '16543:80'
+    depends_on:
+      - db
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge

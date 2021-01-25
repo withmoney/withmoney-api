@@ -43,6 +43,7 @@ declare global {
 
 export interface NexusGenInputs {
   AccountCreateInput: { // input type
+    currency?: NexusGenEnums['Currency'] | null; // Currency
     name: string; // String!
   }
   AccountListRelationFilter: { // input type
@@ -52,6 +53,7 @@ export interface NexusGenInputs {
   }
   AccountOrderByInput: { // input type
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    currency?: NexusGenEnums['SortOrder'] | null; // SortOrder
     deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -59,11 +61,13 @@ export interface NexusGenInputs {
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   AccountUpdateInput: { // input type
+    currency?: NexusGenEnums['Currency'] | null; // Currency
     name: string; // String!
   }
   AccountWhereInput: { // input type
     AND?: NexusGenInputs['AccountWhereInput'][] | null; // [AccountWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    currency?: NexusGenInputs['EnumCurrencyFilter'] | null; // EnumCurrencyFilter
     deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -140,6 +144,18 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
   }
+  EnumCurrencyFilter: { // input type
+    equals?: NexusGenEnums['Currency'] | null; // Currency
+    in?: NexusGenEnums['Currency'][] | null; // [Currency!]
+    not?: NexusGenInputs['NestedEnumCurrencyFilter'] | null; // NestedEnumCurrencyFilter
+    notIn?: NexusGenEnums['Currency'][] | null; // [Currency!]
+  }
+  EnumLocaleFilter: { // input type
+    equals?: NexusGenEnums['Locale'] | null; // Locale
+    in?: NexusGenEnums['Locale'][] | null; // [Locale!]
+    not?: NexusGenInputs['NestedEnumLocaleFilter'] | null; // NestedEnumLocaleFilter
+    notIn?: NexusGenEnums['Locale'][] | null; // [Locale!]
+  }
   EnumTransactionTypeFilter: { // input type
     equals?: NexusGenEnums['TransactionType'] | null; // TransactionType
     in?: NexusGenEnums['TransactionType'][] | null; // [TransactionType!]
@@ -179,6 +195,18 @@ export interface NexusGenInputs {
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  NestedEnumCurrencyFilter: { // input type
+    equals?: NexusGenEnums['Currency'] | null; // Currency
+    in?: NexusGenEnums['Currency'][] | null; // [Currency!]
+    not?: NexusGenInputs['NestedEnumCurrencyFilter'] | null; // NestedEnumCurrencyFilter
+    notIn?: NexusGenEnums['Currency'][] | null; // [Currency!]
+  }
+  NestedEnumLocaleFilter: { // input type
+    equals?: NexusGenEnums['Locale'] | null; // Locale
+    in?: NexusGenEnums['Locale'][] | null; // [Locale!]
+    not?: NexusGenInputs['NestedEnumLocaleFilter'] | null; // NestedEnumLocaleFilter
+    notIn?: NexusGenEnums['Locale'][] | null; // [Locale!]
   }
   NestedEnumTransactionTypeFilter: { // input type
     equals?: NexusGenEnums['TransactionType'] | null; // TransactionType
@@ -284,8 +312,10 @@ export interface NexusGenInputs {
   }
   RegisterInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
+    currency?: NexusGenEnums['Currency'] | null; // Currency
     email: string; // String!
     firstName: string; // String!
+    language?: NexusGenEnums['Locale'] | null; // Locale
     lastName: string; // String!
     password: string; // String!
   }
@@ -320,6 +350,7 @@ export interface NexusGenInputs {
   UserUpdateInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
     email?: string | null; // String
+    language?: NexusGenEnums['Locale'] | null; // Locale
     name?: string | null; // String
     nickname?: string | null; // String
     phone?: string | null; // String
@@ -337,6 +368,7 @@ export interface NexusGenInputs {
     hashToVerifyEmail?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     hasVerifiedEmail?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    language?: NexusGenInputs['EnumLocaleFilter'] | null; // EnumLocaleFilter
     lastName?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     operations?: NexusGenInputs['OperationListRelationFilter'] | null; // OperationListRelationFilter
@@ -347,6 +379,8 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  Currency: "BRL" | "EUR" | "GBP" | "USD"
+  Locale: "enUS" | "ptBR"
   QueryMode: "default" | "insensitive"
   SortOrder: "asc" | "desc"
   TransactionType: "CreditCard" | "Deposit" | "FixedExpense" | "VariableExpense"
@@ -366,6 +400,7 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Account: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    currency: NexusGenEnums['Currency']; // Currency!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
     name: string; // String!
@@ -406,6 +441,7 @@ export interface NexusGenObjects {
     firstName: string; // String!
     hasVerifiedEmail: boolean; // Boolean!
     id: string; // String!
+    language: NexusGenEnums['Locale']; // Locale!
     lastName: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -424,6 +460,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 export interface NexusGenFieldTypes {
   Account: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    currency: NexusGenEnums['Currency']; // Currency!
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
     name: string; // String!
@@ -498,6 +535,7 @@ export interface NexusGenFieldTypes {
     firstName: string; // String!
     hasVerifiedEmail: boolean; // Boolean!
     id: string; // String!
+    language: NexusGenEnums['Locale']; // Locale!
     lastName: string; // String!
     operations: NexusGenRootTypes['Operation'][]; // [Operation!]!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -507,6 +545,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Account: { // field return type name
     createdAt: 'DateTime'
+    currency: 'Currency'
     deletedAt: 'DateTime'
     id: 'String'
     name: 'String'
@@ -581,6 +620,7 @@ export interface NexusGenFieldTypeNames {
     firstName: 'String'
     hasVerifiedEmail: 'Boolean'
     id: 'String'
+    language: 'Locale'
     lastName: 'String'
     operations: 'Operation'
     updatedAt: 'DateTime'

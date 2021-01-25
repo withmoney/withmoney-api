@@ -4,6 +4,7 @@
 
 type Account {
   createdAt: DateTime!
+  currency: Currency!
   deletedAt: DateTime
   id: String!
   name: String!
@@ -14,6 +15,7 @@ type Account {
 }
 
 input AccountCreateInput {
+  currency: Currency
   name: String!
 }
 
@@ -25,6 +27,7 @@ input AccountListRelationFilter {
 
 input AccountOrderByInput {
   createdAt: SortOrder
+  currency: SortOrder
   deletedAt: SortOrder
   id: SortOrder
   name: SortOrder
@@ -33,12 +36,14 @@ input AccountOrderByInput {
 }
 
 input AccountUpdateInput {
+  currency: Currency
   name: String!
 }
 
 input AccountWhereInput {
   AND: [AccountWhereInput!]
   createdAt: DateTimeFilter
+  currency: EnumCurrencyFilter
   deletedAt: DateTimeNullableFilter
   id: StringFilter
   name: StringFilter
@@ -120,6 +125,13 @@ input CategoryWhereUniqueInput {
   id: String
 }
 
+enum Currency {
+  BRL
+  EUR
+  GBP
+  USD
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -152,6 +164,20 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+input EnumCurrencyFilter {
+  equals: Currency
+  in: [Currency!]
+  not: NestedEnumCurrencyFilter
+  notIn: [Currency!]
+}
+
+input EnumLocaleFilter {
+  equals: Locale
+  in: [Locale!]
+  not: NestedEnumLocaleFilter
+  notIn: [Locale!]
+}
+
 input EnumTransactionTypeFilter {
   equals: TransactionType
   in: [TransactionType!]
@@ -168,6 +194,11 @@ input FloatFilter {
   lte: Float
   not: NestedFloatFilter
   notIn: [Float!]
+}
+
+enum Locale {
+  enUS
+  ptBR
 }
 
 type Mutation {
@@ -216,6 +247,20 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
+}
+
+input NestedEnumCurrencyFilter {
+  equals: Currency
+  in: [Currency!]
+  not: NestedEnumCurrencyFilter
+  notIn: [Currency!]
+}
+
+input NestedEnumLocaleFilter {
+  equals: Locale
+  in: [Locale!]
+  not: NestedEnumLocaleFilter
+  notIn: [Locale!]
 }
 
 input NestedEnumTransactionTypeFilter {
@@ -357,8 +402,10 @@ enum QueryMode {
 
 input RegisterInput {
   birthday: Date
+  currency: Currency
   email: String!
   firstName: String!
+  language: Locale
   lastName: String!
   password: String!
 }
@@ -423,6 +470,7 @@ type User {
   firstName: String!
   hasVerifiedEmail: Boolean!
   id: String!
+  language: Locale!
   lastName: String!
   operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
   updatedAt: DateTime!
@@ -431,6 +479,7 @@ type User {
 input UserUpdateInput {
   birthday: Date
   email: String
+  language: Locale
   name: String
   nickname: String
   phone: String
@@ -449,6 +498,7 @@ input UserWhereInput {
   hashToVerifyEmail: StringNullableFilter
   hasVerifiedEmail: BoolFilter
   id: StringFilter
+  language: EnumLocaleFilter
   lastName: StringFilter
   NOT: [UserWhereInput!]
   operations: OperationListRelationFilter

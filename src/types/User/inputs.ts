@@ -8,5 +8,6 @@ export const UserUpdateInputType = inputObjectType({
     t.string('nickname');
     t.date('birthday');
     t.string('phone');
+    t.field('language', { type: 'Locale' });
   },
 });

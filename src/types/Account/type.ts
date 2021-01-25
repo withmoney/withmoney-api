@@ -9,6 +9,7 @@ export const Account = objectType({
   definition(t) {
     t.model.id();
     t.model.name();
+    t.model.currency();
     t.model.userId();
     t.model.createdAt();
     t.model.updatedAt();

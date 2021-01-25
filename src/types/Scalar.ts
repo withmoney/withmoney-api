@@ -12,3 +12,13 @@ export const TransactionType = enumType({
   name: 'TransactionType',
   members: ['CreditCard', 'Deposit', 'FixedExpense', 'VariableExpense'],
 });
+
+export const Locale = enumType({
+  name: 'Locale',
+  members: ['ptBR', 'enUS'],
+});
+
+export const Currency = enumType({
+  name: 'Currency',
+  members: ['USD', 'EUR', 'BRL', 'GBP'],
+});

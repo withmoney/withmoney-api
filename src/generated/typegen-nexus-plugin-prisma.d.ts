@@ -24,8 +24,8 @@ interface PrismaModels {
 interface NexusPrismaInputs {
   Query: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
+      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     categories: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
@@ -36,8 +36,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'operations'
-      ordering: 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'language' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'operations'
+      ordering: 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'language' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   },
   Account: {
@@ -57,8 +57,8 @@ interface NexusPrismaInputs {
   }
   User: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'name' | 'userId' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
+      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
     categories: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
@@ -113,6 +113,7 @@ interface NexusPrismaOutputs {
     id: 'String'
     name: 'String'
     userId: 'String'
+    currency: 'Currency'
     createdAt: 'DateTime'
     updatedAt: 'DateTime'
     deletedAt: 'DateTime'
@@ -153,6 +154,7 @@ interface NexusPrismaOutputs {
     password: 'String'
     firstName: 'String'
     lastName: 'String'
+    language: 'Locale'
     hasVerifiedEmail: 'Boolean'
     hashToVerifyEmail: 'String'
     hashToChangePassword: 'String'
