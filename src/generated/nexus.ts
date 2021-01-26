@@ -518,7 +518,11 @@ export interface NexusGenFieldTypes {
     value: number; // Float!
   }
   Query: { // field return type
+    findManyAccount: NexusGenRootTypes['Account'][]; // [Account!]!
+    findManyCategory: NexusGenRootTypes['Category'][]; // [Category!]!
+    findManyOperation: NexusGenRootTypes['Operation'][]; // [Operation!]!
     findUniqueAccount: NexusGenRootTypes['Account'] | null; // Account
+    findUniqueCategory: NexusGenRootTypes['Category'] | null; // Category
     me: NexusGenRootTypes['User'] | null; // User
   }
   Subscription: { // field return type
@@ -603,7 +607,11 @@ export interface NexusGenFieldTypeNames {
     value: 'Float'
   }
   Query: { // field return type name
+    findManyAccount: 'Account'
+    findManyCategory: 'Category'
+    findManyOperation: 'Operation'
     findUniqueAccount: 'Account'
+    findUniqueCategory: 'Category'
     me: 'User'
   }
   Subscription: { // field return type name
@@ -710,8 +718,32 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    findManyAccount: { // args
+      cursor?: NexusGenInputs['AccountWhereUniqueInput'] | null; // AccountWhereUniqueInput
+      orderBy?: Array<NexusGenInputs['AccountOrderByInput'] | null> | null; // [AccountOrderByInput]
+      skip?: number | null; // Int
+      take?: number | null; // Int
+      where?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
+    }
+    findManyCategory: { // args
+      cursor?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      orderBy?: Array<NexusGenInputs['CategoryOrderByInput'] | null> | null; // [CategoryOrderByInput]
+      skip?: number | null; // Int
+      take?: number | null; // Int
+      where?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
+    }
+    findManyOperation: { // args
+      cursor?: NexusGenInputs['OperationWhereUniqueInput'] | null; // OperationWhereUniqueInput
+      orderBy?: Array<NexusGenInputs['OperationOrderByInput'] | null> | null; // [OperationOrderByInput]
+      skip?: number | null; // Int
+      take?: number | null; // Int
+      where?: NexusGenInputs['OperationWhereInput'] | null; // OperationWhereInput
+    }
     findUniqueAccount: { // args
       where?: NexusGenInputs['AccountWhereUniqueInput'] | null; // AccountWhereUniqueInput
+    }
+    findUniqueCategory: { // args
+      where?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
     }
   }
   Subscription: {

@@ -391,7 +391,11 @@ input OperationWhereUniqueInput {
 }
 
 type Query {
+  findManyAccount(cursor: AccountWhereUniqueInput, orderBy: [AccountOrderByInput], skip: Int, take: Int, where: AccountWhereInput): [Account!]!
+  findManyCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByInput], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
+  findManyOperation(cursor: OperationWhereUniqueInput, orderBy: [OperationOrderByInput], skip: Int, take: Int, where: OperationWhereInput): [Operation!]!
   findUniqueAccount(where: AccountWhereUniqueInput): Account
+  findUniqueCategory(where: CategoryWhereUniqueInput): Category
   me: User
 }
 

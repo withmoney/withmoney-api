@@ -2,17 +2,17 @@ import { queryField, arg } from 'nexus';
 import { ForbiddenError } from 'apollo-server';
 import { getUserId } from '../../../utils';
 
-export const AccountFindUniqueQuery = queryField('findUniqueAccount', {
-  type: 'Account',
+export const CategoryFindUniqueQuery = queryField('findUniqueCategory', {
+  type: 'Category',
   args: {
     where: arg({
-      type: 'AccountWhereUniqueInput',
+      type: 'CategoryWhereUniqueInput',
     }),
   },
   resolve: async (_parent, { where }, ctx) => {
     const userId = await getUserId(ctx);
 
-    const entity = await ctx.prisma.account.findUnique({
+    const entity = await ctx.prisma.category.findUnique({
       where,
     });
 
