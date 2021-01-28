@@ -13,7 +13,10 @@ export const Operation = objectType({
     t.model.updatedAt();
     t.model.deletedAt();
     t.model.account();
+    t.model.accountId();
     t.model.user();
+    t.model.userId();
     t.model.category();
+    t.model.categoryId();
   },
 });

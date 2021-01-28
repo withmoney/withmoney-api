@@ -421,6 +421,8 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Operation: { // root type
+    accountId: string; // String!
+    categoryId?: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
@@ -429,6 +431,7 @@ export interface NexusGenObjects {
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    userId: string; // String!
     value: number; // Float!
   }
   Query: {};
@@ -505,7 +508,9 @@ export interface NexusGenFieldTypes {
   }
   Operation: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
+    accountId: string; // String!
     category: NexusGenRootTypes['Category'] | null; // Category
+    categoryId: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
@@ -515,6 +520,7 @@ export interface NexusGenFieldTypes {
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
+    userId: string; // String!
     value: number; // Float!
   }
   Query: { // field return type
@@ -594,7 +600,9 @@ export interface NexusGenFieldTypeNames {
   }
   Operation: { // field return type name
     account: 'Account'
+    accountId: 'String'
     category: 'Category'
+    categoryId: 'String'
     createdAt: 'DateTime'
     deletedAt: 'DateTime'
     id: 'String'
@@ -604,6 +612,7 @@ export interface NexusGenFieldTypeNames {
     type: 'TransactionType'
     updatedAt: 'DateTime'
     user: 'User'
+    userId: 'String'
     value: 'Float'
   }
   Query: { // field return type name

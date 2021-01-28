@@ -311,7 +311,9 @@ input NestedStringNullableFilter {
 
 type Operation {
   account: Account!
+  accountId: String!
   category: Category
+  categoryId: String
   createdAt: DateTime!
   deletedAt: DateTime
   id: String!
@@ -321,6 +323,7 @@ type Operation {
   type: TransactionType!
   updatedAt: DateTime!
   user: User!
+  userId: String!
   value: Float!
 }
 
