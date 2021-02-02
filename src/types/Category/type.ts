@@ -13,3 +13,11 @@ export const Category = objectType({
     t.model.operations({ pagination: true, filtering: true, ordering: true });
   },
 });
+
+export const CategoriesResult = objectType({
+  name: 'CategoriesResult',
+  definition(t) {
+    t.list.field('data', { type: 'Category' });
+    t.field('pagination', { type: 'Pagination' });
+  },
+});

@@ -411,6 +411,10 @@ export interface NexusGenObjects {
     token?: string | null; // String
     user?: NexusGenRootTypes['User'] | null; // User
   }
+  CategoriesResult: { // root type
+    data?: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    pagination?: NexusGenRootTypes['Pagination'] | null; // Pagination
+  }
   Category: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -433,6 +437,9 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     userId: string; // String!
     value: number; // Float!
+  }
+  Pagination: { // root type
+    totalItems?: number | null; // Int
   }
   Query: {};
   Subscription: {};
@@ -475,6 +482,10 @@ export interface NexusGenFieldTypes {
   AuthPayload: { // field return type
     token: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
+  }
+  CategoriesResult: { // field return type
+    data: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    pagination: NexusGenRootTypes['Pagination'] | null; // Pagination
   }
   Category: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -523,9 +534,12 @@ export interface NexusGenFieldTypes {
     userId: string; // String!
     value: number; // Float!
   }
+  Pagination: { // field return type
+    totalItems: number | null; // Int
+  }
   Query: { // field return type
     findManyAccount: NexusGenRootTypes['Account'][]; // [Account!]!
-    findManyCategory: NexusGenRootTypes['Category'][]; // [Category!]!
+    findManyCategory: NexusGenRootTypes['CategoriesResult']; // CategoriesResult!
     findManyOperation: NexusGenRootTypes['Operation'][]; // [Operation!]!
     findUniqueAccount: NexusGenRootTypes['Account'] | null; // Account
     findUniqueCategory: NexusGenRootTypes['Category'] | null; // Category
@@ -567,6 +581,10 @@ export interface NexusGenFieldTypeNames {
   AuthPayload: { // field return type name
     token: 'String'
     user: 'User'
+  }
+  CategoriesResult: { // field return type name
+    data: 'Category'
+    pagination: 'Pagination'
   }
   Category: { // field return type name
     createdAt: 'DateTime'
@@ -615,9 +633,12 @@ export interface NexusGenFieldTypeNames {
     userId: 'String'
     value: 'Float'
   }
+  Pagination: { // field return type name
+    totalItems: 'Int'
+  }
   Query: { // field return type name
     findManyAccount: 'Account'
-    findManyCategory: 'Category'
+    findManyCategory: 'CategoriesResult'
     findManyOperation: 'Operation'
     findUniqueAccount: 'Account'
     findUniqueCategory: 'Category'

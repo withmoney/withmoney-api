@@ -1,4 +1,4 @@
-import { asNexusMethod, enumType } from 'nexus';
+import { asNexusMethod, enumType, objectType } from 'nexus';
 
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
 import { GraphQLUpload } from 'graphql-upload';
@@ -21,4 +21,11 @@ export const Locale = enumType({
 export const Currency = enumType({
   name: 'Currency',
   members: ['USD', 'EUR', 'BRL', 'GBP'],
+});
+
+export const Pagination = objectType({
+  name: 'Pagination',
+  definition(t) {
+    t.int('totalItems');
+  },
 });
