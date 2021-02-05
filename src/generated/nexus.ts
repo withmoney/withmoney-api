@@ -58,6 +58,7 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    user?: NexusGenInputs['UserOrderByInput'] | null; // UserOrderByInput
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   AccountUpdateInput: { // input type
@@ -101,6 +102,7 @@ export interface NexusGenInputs {
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     type?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    user?: NexusGenInputs['UserOrderByInput'] | null; // UserOrderByInput
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   CategoryUpdateInput: { // input type
@@ -124,6 +126,37 @@ export interface NexusGenInputs {
   CategoryWhereUniqueInput: { // input type
     id?: string | null; // String
   }
+  CreditCardListRelationFilter: { // input type
+    every?: NexusGenInputs['CreditCardWhereInput'] | null; // CreditCardWhereInput
+    none?: NexusGenInputs['CreditCardWhereInput'] | null; // CreditCardWhereInput
+    some?: NexusGenInputs['CreditCardWhereInput'] | null; // CreditCardWhereInput
+  }
+  CreditCardOrderByInput: { // input type
+    brand?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    limit?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    user?: NexusGenInputs['UserOrderByInput'] | null; // UserOrderByInput
+    userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  CreditCardWhereInput: { // input type
+    AND?: NexusGenInputs['CreditCardWhereInput'][] | null; // [CreditCardWhereInput!]
+    brand?: NexusGenInputs['EnumCreditCardBrandFilter'] | null; // EnumCreditCardBrandFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    limit?: NexusGenInputs['FloatFilter'] | null; // FloatFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['CreditCardWhereInput'][] | null; // [CreditCardWhereInput!]
+    operations?: NexusGenInputs['OperationListRelationFilter'] | null; // OperationListRelationFilter
+    OR?: NexusGenInputs['CreditCardWhereInput'][] | null; // [CreditCardWhereInput!]
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    userId?: NexusGenInputs['StringFilter'] | null; // StringFilter
+  }
   DateTimeFilter: { // input type
     equals?: NexusGenScalars['DateTime'] | null; // DateTime
     gt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -143,6 +176,12 @@ export interface NexusGenInputs {
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  EnumCreditCardBrandFilter: { // input type
+    equals?: NexusGenEnums['CreditCardBrand'] | null; // CreditCardBrand
+    in?: NexusGenEnums['CreditCardBrand'][] | null; // [CreditCardBrand!]
+    not?: NexusGenInputs['NestedEnumCreditCardBrandFilter'] | null; // NestedEnumCreditCardBrandFilter
+    notIn?: NexusGenEnums['CreditCardBrand'][] | null; // [CreditCardBrand!]
   }
   EnumCurrencyFilter: { // input type
     equals?: NexusGenEnums['Currency'] | null; // Currency
@@ -195,6 +234,12 @@ export interface NexusGenInputs {
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  NestedEnumCreditCardBrandFilter: { // input type
+    equals?: NexusGenEnums['CreditCardBrand'] | null; // CreditCardBrand
+    in?: NexusGenEnums['CreditCardBrand'][] | null; // [CreditCardBrand!]
+    not?: NexusGenInputs['NestedEnumCreditCardBrandFilter'] | null; // NestedEnumCreditCardBrandFilter
+    notIn?: NexusGenEnums['CreditCardBrand'][] | null; // [CreditCardBrand!]
   }
   NestedEnumCurrencyFilter: { // input type
     equals?: NexusGenEnums['Currency'] | null; // Currency
@@ -265,9 +310,13 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['OperationWhereInput'] | null; // OperationWhereInput
   }
   OperationOrderByInput: { // input type
+    account?: NexusGenInputs['AccountOrderByInput'] | null; // AccountOrderByInput
     accountId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    category?: NexusGenInputs['CategoryOrderByInput'] | null; // CategoryOrderByInput
     categoryId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    creditCard?: NexusGenInputs['CreditCardOrderByInput'] | null; // CreditCardOrderByInput
+    creditCardId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     isPaid?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -275,6 +324,7 @@ export interface NexusGenInputs {
     paidAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     type?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    user?: NexusGenInputs['UserOrderByInput'] | null; // UserOrderByInput
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     value?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
@@ -294,6 +344,8 @@ export interface NexusGenInputs {
     category?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
     categoryId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    creditCard?: NexusGenInputs['CreditCardWhereInput'] | null; // CreditCardWhereInput
+    creditCardId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     isPaid?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
@@ -347,6 +399,21 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  UserOrderByInput: { // input type
+    birthDay?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    email?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    firstName?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    hashToChangePassword?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    hashToVerifyEmail?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    hasVerifiedEmail?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    language?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    lastName?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    password?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
   UserUpdateInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
     email?: string | null; // String
@@ -361,6 +428,7 @@ export interface NexusGenInputs {
     birthDay?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     categories?: NexusGenInputs['CategoryListRelationFilter'] | null; // CategoryListRelationFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    creditCards?: NexusGenInputs['CreditCardListRelationFilter'] | null; // CreditCardListRelationFilter
     deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     firstName?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -379,6 +447,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  CreditCardBrand: "AmericanExpress" | "BNDES" | "Dinners" | "ELO" | "HiperCard" | "MasterCard" | "Other" | "SoroCard" | "Visa"
   Currency: "BRL" | "EUR" | "GBP" | "USD"
   Locale: "enUS" | "ptBR"
   QueryMode: "default" | "insensitive"

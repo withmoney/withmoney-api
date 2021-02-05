@@ -32,6 +32,7 @@ input AccountOrderByInput {
   id: SortOrder
   name: SortOrder
   updatedAt: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -103,6 +104,7 @@ input CategoryOrderByInput {
   name: SortOrder
   type: SortOrder
   updatedAt: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
 }
 
@@ -128,6 +130,52 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: String
+}
+
+enum CreditCardBrand {
+  AmericanExpress
+  BNDES
+  Dinners
+  ELO
+  HiperCard
+  MasterCard
+  Other
+  SoroCard
+  Visa
+}
+
+input CreditCardListRelationFilter {
+  every: CreditCardWhereInput
+  none: CreditCardWhereInput
+  some: CreditCardWhereInput
+}
+
+input CreditCardOrderByInput {
+  brand: SortOrder
+  createdAt: SortOrder
+  deletedAt: SortOrder
+  id: SortOrder
+  limit: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+  user: UserOrderByInput
+  userId: SortOrder
+}
+
+input CreditCardWhereInput {
+  AND: [CreditCardWhereInput!]
+  brand: EnumCreditCardBrandFilter
+  createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
+  id: StringFilter
+  limit: FloatFilter
+  name: StringFilter
+  NOT: [CreditCardWhereInput!]
+  operations: OperationListRelationFilter
+  OR: [CreditCardWhereInput!]
+  updatedAt: DateTimeFilter
+  user: UserWhereInput
+  userId: StringFilter
 }
 
 enum Currency {
@@ -167,6 +215,13 @@ input DateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
+}
+
+input EnumCreditCardBrandFilter {
+  equals: CreditCardBrand
+  in: [CreditCardBrand!]
+  not: NestedEnumCreditCardBrandFilter
+  notIn: [CreditCardBrand!]
 }
 
 input EnumCurrencyFilter {
@@ -252,6 +307,13 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
+}
+
+input NestedEnumCreditCardBrandFilter {
+  equals: CreditCardBrand
+  in: [CreditCardBrand!]
+  not: NestedEnumCreditCardBrandFilter
+  notIn: [CreditCardBrand!]
 }
 
 input NestedEnumCurrencyFilter {
@@ -349,9 +411,13 @@ input OperationListRelationFilter {
 }
 
 input OperationOrderByInput {
+  account: AccountOrderByInput
   accountId: SortOrder
+  category: CategoryOrderByInput
   categoryId: SortOrder
   createdAt: SortOrder
+  creditCard: CreditCardOrderByInput
+  creditCardId: SortOrder
   deletedAt: SortOrder
   id: SortOrder
   isPaid: SortOrder
@@ -359,6 +425,7 @@ input OperationOrderByInput {
   paidAt: SortOrder
   type: SortOrder
   updatedAt: SortOrder
+  user: UserOrderByInput
   userId: SortOrder
   value: SortOrder
 }
@@ -380,6 +447,8 @@ input OperationWhereInput {
   category: CategoryWhereInput
   categoryId: StringNullableFilter
   createdAt: DateTimeFilter
+  creditCard: CreditCardWhereInput
+  creditCardId: StringNullableFilter
   deletedAt: DateTimeNullableFilter
   id: StringFilter
   isPaid: BoolFilter
@@ -492,6 +561,22 @@ type User {
   updatedAt: DateTime!
 }
 
+input UserOrderByInput {
+  birthDay: SortOrder
+  createdAt: SortOrder
+  deletedAt: SortOrder
+  email: SortOrder
+  firstName: SortOrder
+  hashToChangePassword: SortOrder
+  hashToVerifyEmail: SortOrder
+  hasVerifiedEmail: SortOrder
+  id: SortOrder
+  language: SortOrder
+  lastName: SortOrder
+  password: SortOrder
+  updatedAt: SortOrder
+}
+
 input UserUpdateInput {
   birthday: Date
   email: String
@@ -507,6 +592,7 @@ input UserWhereInput {
   birthDay: DateTimeNullableFilter
   categories: CategoryListRelationFilter
   createdAt: DateTimeFilter
+  creditCards: CreditCardListRelationFilter
   deletedAt: DateTimeNullableFilter
   email: StringFilter
   firstName: StringFilter

@@ -31,41 +31,76 @@ model Category {
   operations Operation[]
 }
 
-model Operation {
+model CreditCard {
   id         String          @id @default(uuid())
-  accountId  String
-  categoryId String?
   userId     String
   name       String
-  value      Float
-  isPaid     Boolean         @default(false)
-  type       TransactionType
-  paidAt     DateTime?       @default(now())
+  brand      CreditCardBrand
+  limit      Float
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @default(now()) @updatedAt
   deletedAt  DateTime?
-  account    Account         @relation(fields: [accountId], references: [id])
-  category   Category?       @relation(fields: [categoryId], references: [id])
   user       User            @relation(fields: [userId], references: [id])
+  operations Operation[]
+}
+
+model Operation {
+  id           String          @id @default(uuid())
+  accountId    String
+  categoryId   String?
+  userId       String
+  creditCardId String?
+  name         String
+  value        Float
+  isPaid       Boolean         @default(false)
+  type         TransactionType
+  paidAt       DateTime?       @default(now())
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt
+  deletedAt    DateTime?
+  account      Account         @relation(fields: [accountId], references: [id])
+  category     Category?       @relation(fields: [categoryId], references: [id])
+  creditCard   CreditCard?     @relation(fields: [creditCardId], references: [id])
+  user         User            @relation(fields: [userId], references: [id])
 }
 
 model User {
-  id                   String      @id @default(uuid())
-  email                String      @unique
+  id                   String       @id @default(uuid())
+  email                String       @unique
   password             String
   firstName            String
   lastName             String
-  language             Locale      @default(enUS)
-  hasVerifiedEmail     Boolean     @default(false)
-  hashToVerifyEmail    String?     @unique
-  hashToChangePassword String?     @unique
+  language             Locale       @default(enUS)
+  hasVerifiedEmail     Boolean      @default(false)
+  hashToVerifyEmail    String?      @unique
+  hashToChangePassword String?      @unique
   birthDay             DateTime?
-  createdAt            DateTime    @default(now())
-  updatedAt            DateTime    @default(now()) @updatedAt
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @default(now()) @updatedAt
   deletedAt            DateTime?
   accounts             Account[]
   categories           Category[]
+  creditCards          CreditCard[]
   operations           Operation[]
+}
+
+enum Currency {
+  USD
+  EUR
+  BRL
+  GBP
+}
+
+enum CreditCardBrand {
+  AmericanExpress
+  BNDES
+  Dinners
+  ELO
+  HiperCard
+  MasterCard
+  Other
+  SoroCard
+  Visa
 }
 
 enum TransactionType {
@@ -78,11 +113,4 @@ enum TransactionType {
 enum Locale {
   ptBR
   enUS
-}
-
-enum Currency {
-  USD
-  EUR
-  BRL
-  GBP
 }
