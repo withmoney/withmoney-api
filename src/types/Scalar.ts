@@ -13,6 +13,21 @@ export const TransactionType = enumType({
   members: ['CreditCard', 'Deposit', 'FixedExpense', 'VariableExpense'],
 });
 
+export const CreditCardBrand = enumType({
+  name: 'CreditCardBrand',
+  members: [
+    'AmericanExpress',
+    'BNDES',
+    'Dinners',
+    'ELO',
+    'HiperCard',
+    'MasterCard',
+    'Other',
+    'SoroCard',
+    'Visa',
+  ],
+});
+
 export const Locale = enumType({
   name: 'Locale',
   members: ['ptBR', 'enUS'],

@@ -132,6 +132,18 @@ input CategoryWhereUniqueInput {
   id: String
 }
 
+type CreditCard {
+  brand: CreditCardBrand!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  limit: Float!
+  name: String!
+  operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
+  updatedAt: DateTime!
+  user: User!
+}
+
 enum CreditCardBrand {
   AmericanExpress
   BNDES
@@ -142,6 +154,12 @@ enum CreditCardBrand {
   Other
   SoroCard
   Visa
+}
+
+input CreditCardCreateInput {
+  brand: CreditCardBrand!
+  limit: Float!
+  name: String!
 }
 
 input CreditCardListRelationFilter {
@@ -162,6 +180,17 @@ input CreditCardOrderByInput {
   userId: SortOrder
 }
 
+type CreditCardsResult {
+  data: [CreditCard]
+  pagination: Pagination
+}
+
+input CreditCardUpdateInput {
+  brand: CreditCardBrand!
+  limit: Float!
+  name: String!
+}
+
 input CreditCardWhereInput {
   AND: [CreditCardWhereInput!]
   brand: EnumCreditCardBrandFilter
@@ -176,6 +205,10 @@ input CreditCardWhereInput {
   updatedAt: DateTimeFilter
   user: UserWhereInput
   userId: StringFilter
+}
+
+input CreditCardWhereUniqueInput {
+  id: String
 }
 
 enum Currency {
@@ -266,18 +299,22 @@ type Mutation {
   checkHashEmail(hash: String!): String
   createOneAccount(data: AccountCreateInput!): Account!
   createOneCategory(data: CategoryCreateInput!): Category!
+  createOneCreditCard(data: CreditCardCreateInput!): CreditCard!
   createOneOperation(data: OperationCreateInput!): Operation!
   deleteOneAccount(where: AccountWhereUniqueInput!): Account
   deleteOneCategory(where: CategoryWhereUniqueInput!): Category
+  deleteOneCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteOneOperation(where: OperationWhereUniqueInput!): Operation
   login(email: String!, password: String!): AuthPayload
   register(user: RegisterInput!): String
   requestChangePassword(email: String!): String
   restoreOneAccount(where: AccountWhereUniqueInput!): Account
   restoreOneCategory(where: CategoryWhereUniqueInput!): Category
+  restoreOneCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   restoreOneOperation(where: OperationWhereUniqueInput!): Operation
   updateOneAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account!
   updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
+  updateOneCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard!
   updateOneOperation(data: OperationUpdateInput!, where: OperationWhereUniqueInput!): Operation!
   updateOneUser(user: UserUpdateInput!): User!
 }
@@ -474,9 +511,11 @@ type Pagination {
 type Query {
   findManyAccount(cursor: AccountWhereUniqueInput, orderBy: [AccountOrderByInput], skip: Int, take: Int, where: AccountWhereInput): [Account!]!
   findManyCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByInput], skip: Int, take: Int, where: CategoryWhereInput): CategoriesResult!
+  findManyCreditCard(cursor: CreditCardWhereUniqueInput, orderBy: [CreditCardOrderByInput], skip: Int, take: Int, where: CreditCardWhereInput): CreditCardsResult!
   findManyOperation(cursor: OperationWhereUniqueInput, orderBy: [OperationOrderByInput], skip: Int, take: Int, where: OperationWhereInput): [Operation!]!
   findUniqueAccount(where: AccountWhereUniqueInput): Account
   findUniqueCategory(where: CategoryWhereUniqueInput): Category
+  findUniqueCreditCard(where: CreditCardWhereUniqueInput): CreditCard
   me: User
 }
 
@@ -550,6 +589,7 @@ type User {
   birthDay: DateTime
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int, orderBy: [CategoryOrderByInput!], where: CategoryWhereInput): [Category!]!
   createdAt: DateTime!
+  creditCards(after: CreditCardWhereUniqueInput, before: CreditCardWhereUniqueInput, first: Int, last: Int, orderBy: [CreditCardOrderByInput!], where: CreditCardWhereInput): [CreditCard!]!
   deletedAt: DateTime
   email: String!
   firstName: String!
