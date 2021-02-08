@@ -429,6 +429,8 @@ type Operation {
   category: Category
   categoryId: String
   createdAt: DateTime!
+  creditCard: CreditCard
+  creditCardId: String
   deletedAt: DateTime
   id: String!
   isPaid: Boolean!
@@ -444,6 +446,7 @@ type Operation {
 input OperationCreateInput {
   accountId: String!
   categoryId: String
+  creditCardId: String
   isPaid: Boolean!
   name: String!
   paidAt: DateTime
@@ -480,6 +483,7 @@ input OperationOrderByInput {
 input OperationUpdateInput {
   accountId: String!
   categoryId: String
+  creditCardId: String
   isPaid: Boolean!
   name: String!
   paidAt: DateTime

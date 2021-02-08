@@ -16,6 +16,8 @@ export const Operation = objectType({
     t.model.accountId();
     t.model.user();
     t.model.userId();
+    t.model.creditCard();
+    t.model.creditCardId();
     t.model.category();
     t.model.categoryId();
   },

@@ -9,6 +9,7 @@ export const OperationCreateInput = inputObjectType({
     t.nonNull.boolean('isPaid');
     t.datetime('paidAt');
     t.string('categoryId');
+    t.string('creditCardId');
     t.nonNull.string('accountId');
   },
 });
@@ -22,6 +23,7 @@ export const OperationUpdateInput = inputObjectType({
     t.nonNull.boolean('isPaid');
     t.datetime('paidAt');
     t.string('categoryId');
+    t.string('creditCardId');
     t.nonNull.string('accountId');
   },
 });

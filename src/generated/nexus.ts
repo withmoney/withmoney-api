@@ -318,6 +318,7 @@ export interface NexusGenInputs {
   OperationCreateInput: { // input type
     accountId: string; // String!
     categoryId?: string | null; // String
+    creditCardId?: string | null; // String
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -351,6 +352,7 @@ export interface NexusGenInputs {
   OperationUpdateInput: { // input type
     accountId: string; // String!
     categoryId?: string | null; // String
+    creditCardId?: string | null; // String
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -532,6 +534,7 @@ export interface NexusGenObjects {
     accountId: string; // String!
     categoryId?: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    creditCardId?: string | null; // String
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
     isPaid: boolean; // Boolean!
@@ -649,6 +652,8 @@ export interface NexusGenFieldTypes {
     category: NexusGenRootTypes['Category'] | null; // Category
     categoryId: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    creditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
+    creditCardId: string | null; // String
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // String!
     isPaid: boolean; // Boolean!
@@ -773,6 +778,8 @@ export interface NexusGenFieldTypeNames {
     category: 'Category'
     categoryId: 'String'
     createdAt: 'DateTime'
+    creditCard: 'CreditCard'
+    creditCardId: 'String'
     deletedAt: 'DateTime'
     id: 'String'
     isPaid: 'Boolean'
