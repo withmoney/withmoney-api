@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Account {
-  id         String      @id @default(uuid())
-  name       String
-  userId     String
-  currency   Currency    @default(USD)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @default(now()) @updatedAt
-  deletedAt  DateTime?
-  user       User        @relation(fields: [userId], references: [id])
-  operations Operation[]
+  id          String       @id @default(uuid())
+  name        String
+  userId      String
+  currency    Currency     @default(USD)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  deletedAt   DateTime?
+  user        User         @relation(fields: [userId], references: [id])
+  operations  Operation[]
+  creditCards CreditCard[]
 }
 
 model Category {
@@ -33,6 +34,7 @@ model Category {
 
 model CreditCard {
   id         String          @id @default(uuid())
+  accountId  String
   userId     String
   name       String
   brand      CreditCardBrand
@@ -41,6 +43,7 @@ model CreditCard {
   updatedAt  DateTime        @default(now()) @updatedAt
   deletedAt  DateTime?
   user       User            @relation(fields: [userId], references: [id])
+  account    Account         @relation(fields: [accountId], references: [id])
   operations Operation[]
 }
 
