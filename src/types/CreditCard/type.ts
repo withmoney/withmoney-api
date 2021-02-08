@@ -11,6 +11,9 @@ export const CreditCard = objectType({
     t.model.updatedAt();
     t.model.deletedAt();
     t.model.user();
+    t.model.userId();
+    t.model.account();
+    t.model.accountId();
     t.model.operations({ pagination: true, filtering: true, ordering: true });
   },
 });

@@ -1,4 +1,4 @@
-import { ForbiddenError, ApolloError } from 'apollo-server';
+import { ForbiddenError, ApolloError, ValidationError } from 'apollo-server';
 import { mutationField, nonNull, arg } from 'nexus';
 import { getUserId } from '../../../utils';
 
@@ -16,7 +16,7 @@ export const CreditCardUpdateOneMutation = mutationField('updateOneCreditCard', 
       }),
     ),
   },
-  resolve: async (parent, { where, data }, ctx) => {
+  resolve: async (parent, { where, data: { accountId, ...data } }, ctx) => {
     const userId = await getUserId(ctx);
 
     const creditCard = await ctx.prisma.creditCard.findFirst({
@@ -35,9 +35,16 @@ export const CreditCardUpdateOneMutation = mutationField('updateOneCreditCard', 
       throw new ForbiddenError('please restore this entity before');
     }
 
+    if (!(await ctx.prisma.account.findUnique({ where: { id: accountId } }))) {
+      throw new ValidationError('accountId not found');
+    }
+
     const updated = await ctx.prisma.creditCard.update({
       where,
-      data,
+      data: {
+        ...data,
+        account: { connect: { id: accountId } },
+      },
     });
     return updated;
   },

@@ -68,6 +68,7 @@ export interface NexusGenInputs {
   AccountWhereInput: { // input type
     AND?: NexusGenInputs['AccountWhereInput'][] | null; // [AccountWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    creditCards?: NexusGenInputs['CreditCardListRelationFilter'] | null; // CreditCardListRelationFilter
     currency?: NexusGenInputs['EnumCurrencyFilter'] | null; // EnumCurrencyFilter
     deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -127,6 +128,7 @@ export interface NexusGenInputs {
     id?: string | null; // String
   }
   CreditCardCreateInput: { // input type
+    accountId: string; // String!
     brand: NexusGenEnums['CreditCardBrand']; // CreditCardBrand!
     limit: number; // Float!
     name: string; // String!
@@ -137,6 +139,8 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['CreditCardWhereInput'] | null; // CreditCardWhereInput
   }
   CreditCardOrderByInput: { // input type
+    account?: NexusGenInputs['AccountOrderByInput'] | null; // AccountOrderByInput
+    accountId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     brand?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -148,11 +152,14 @@ export interface NexusGenInputs {
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   CreditCardUpdateInput: { // input type
+    accountId: string; // String!
     brand: NexusGenEnums['CreditCardBrand']; // CreditCardBrand!
     limit: number; // Float!
     name: string; // String!
   }
   CreditCardWhereInput: { // input type
+    account?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
+    accountId?: NexusGenInputs['StringFilter'] | null; // StringFilter
     AND?: NexusGenInputs['CreditCardWhereInput'][] | null; // [CreditCardWhereInput!]
     brand?: NexusGenInputs['EnumCreditCardBrandFilter'] | null; // EnumCreditCardBrandFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -506,6 +513,7 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   CreditCard: { // root type
+    accountId: string; // String!
     brand: NexusGenEnums['CreditCardBrand']; // CreditCardBrand!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -513,6 +521,7 @@ export interface NexusGenObjects {
     limit: number; // Float!
     name: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    userId: string; // String!
   }
   CreditCardsResult: { // root type
     data?: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -593,6 +602,8 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   CreditCard: { // field return type
+    account: NexusGenRootTypes['Account']; // Account!
+    accountId: string; // String!
     brand: NexusGenEnums['CreditCardBrand']; // CreditCardBrand!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -602,6 +613,7 @@ export interface NexusGenFieldTypes {
     operations: NexusGenRootTypes['Operation'][]; // [Operation!]!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
+    userId: string; // String!
   }
   CreditCardsResult: { // field return type
     data: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -714,6 +726,8 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   CreditCard: { // field return type name
+    account: 'Account'
+    accountId: 'String'
     brand: 'CreditCardBrand'
     createdAt: 'DateTime'
     deletedAt: 'DateTime'
@@ -723,6 +737,7 @@ export interface NexusGenFieldTypeNames {
     operations: 'Operation'
     updatedAt: 'DateTime'
     user: 'User'
+    userId: 'String'
   }
   CreditCardsResult: { // field return type name
     data: 'CreditCard'
