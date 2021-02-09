@@ -66,9 +66,9 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
         user: { connect: { id: userId } },
         ...(!!categoryId && {
           category: { connect: { id: categoryId } },
-          ...(!!creditCardId && {
-            creditCard: { connect: { id: creditCardId } },
-          }),
+        }),
+        ...(!!creditCardId && {
+          creditCard: { connect: { id: creditCardId } },
         }),
       },
     });
