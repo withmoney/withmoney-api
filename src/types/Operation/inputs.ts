@@ -1,4 +1,4 @@
-import { inputObjectType } from 'nexus';
+import { inputObjectType, objectType } from 'nexus';
 
 export const OperationCreateInput = inputObjectType({
   name: 'OperationCreateInput',
@@ -25,5 +25,19 @@ export const OperationUpdateInput = inputObjectType({
     t.string('categoryId');
     t.string('creditCardId');
     t.nonNull.string('accountId');
+  },
+});
+
+export const CountPreviousBalancePaidAtInput = inputObjectType({
+  name: 'CountPreviousBalancePaidAtInput',
+  definition(t) {
+    t.datetime('lt');
+  },
+});
+
+export const CountPreviousBalanceWhereInput = inputObjectType({
+  name: 'CountPreviousBalanceWhereInput',
+  definition(t) {
+    t.field('paidAt', { type: CountPreviousBalancePaidAtInput });
   },
 });
