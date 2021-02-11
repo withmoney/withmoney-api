@@ -1,4 +1,4 @@
-import { asNexusMethod, enumType } from 'nexus';
+import { asNexusMethod, enumType, objectType } from 'nexus';
 
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
 import { GraphQLUpload } from 'graphql-upload';
@@ -13,6 +13,21 @@ export const TransactionType = enumType({
   members: ['CreditCard', 'Deposit', 'FixedExpense', 'VariableExpense'],
 });
 
+export const CreditCardBrand = enumType({
+  name: 'CreditCardBrand',
+  members: [
+    'AmericanExpress',
+    'BNDES',
+    'Dinners',
+    'ELO',
+    'HiperCard',
+    'MasterCard',
+    'Other',
+    'SoroCard',
+    'Visa',
+  ],
+});
+
 export const Locale = enumType({
   name: 'Locale',
   members: ['ptBR', 'enUS'],
@@ -21,4 +36,11 @@ export const Locale = enumType({
 export const Currency = enumType({
   name: 'Currency',
   members: ['USD', 'EUR', 'BRL', 'GBP'],
+});
+
+export const Pagination = objectType({
+  name: 'Pagination',
+  definition(t) {
+    t.int('totalItems');
+  },
 });

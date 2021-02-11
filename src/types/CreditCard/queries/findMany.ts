@@ -1,19 +1,19 @@
 import { queryField, arg, nonNull, list } from '@nexus/schema';
 import { getUserId } from '../../../utils';
 
-export const CategoryFindManyQuery = queryField('findManyCategory', {
-  type: nonNull('CategoriesResult'),
+export const CreditCardFindManyQuery = queryField('findManyCreditCard', {
+  type: nonNull('CreditCardsResult'),
   args: {
-    where: 'CategoryWhereInput',
-    orderBy: list(arg({ type: 'CategoryOrderByInput' })),
-    cursor: 'CategoryWhereUniqueInput',
+    where: 'CreditCardWhereInput',
+    orderBy: list(arg({ type: 'CreditCardOrderByInput' })),
+    cursor: 'CreditCardWhereUniqueInput',
     skip: 'Int',
     take: 'Int',
   },
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
-    const data = await ctx.prisma.category.findMany({
+    const data = await ctx.prisma.creditCard.findMany({
       ...args,
       where: {
         ...args.where,
@@ -22,7 +22,7 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
     });
 
     const pagination = {
-      totalItems: await ctx.prisma.category.count({
+      totalItems: await ctx.prisma.creditCard.count({
         where: {
           ...args.where,
           userId,

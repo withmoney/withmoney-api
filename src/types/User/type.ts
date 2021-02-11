@@ -13,6 +13,7 @@ export const User = objectType({
     t.model.accounts({ pagination: true, filtering: true, ordering: true });
     t.model.categories({ pagination: true, filtering: true, ordering: true });
     t.model.operations({ pagination: true, filtering: true, ordering: true });
+    t.model.creditCards({ pagination: true, filtering: true, ordering: true });
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();

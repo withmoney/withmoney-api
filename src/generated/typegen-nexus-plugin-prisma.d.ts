@@ -16,6 +16,7 @@ type CustomScalars = 'DateTime'
 interface PrismaModels {
   Account: Prisma.Account
   Category: Prisma.Category
+  CreditCard: Prisma.CreditCard
   Operation: Prisma.Operation
   User: Prisma.User
 }
@@ -24,32 +25,46 @@ interface PrismaModels {
 interface NexusPrismaInputs {
   Query: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations' | 'creditCards'
+      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user'
     }
     categories: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user'
+    }
+    creditCards: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account' | 'operations'
+      ordering: 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account'
     }
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
     }
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'language' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'operations'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'language' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'accounts' | 'categories' | 'creditCards' | 'operations'
       ordering: 'id' | 'email' | 'password' | 'firstName' | 'lastName' | 'language' | 'hasVerifiedEmail' | 'hashToVerifyEmail' | 'hashToChangePassword' | 'birthDay' | 'createdAt' | 'updatedAt' | 'deletedAt'
     }
   },
   Account: {
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+    }
+    creditCards: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account' | 'operations'
+      ordering: 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account'
     }
   }
   Category: {
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+    }
+  }
+  CreditCard: {
+    operations: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
     }
   }
   Operation: {
@@ -57,16 +72,20 @@ interface NexusPrismaInputs {
   }
   User: {
     accounts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations' | 'creditCards'
+      ordering: 'id' | 'name' | 'userId' | 'currency' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user'
     }
     categories: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'operations'
-      ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      ordering: 'id' | 'userId' | 'name' | 'type' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user'
+    }
+    creditCards: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account' | 'operations'
+      ordering: 'id' | 'accountId' | 'userId' | 'name' | 'brand' | 'limit' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'user' | 'account'
     }
     operations: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'user'
-      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
+      ordering: 'id' | 'accountId' | 'categoryId' | 'userId' | 'creditCardId' | 'name' | 'value' | 'isPaid' | 'type' | 'paidAt' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'account' | 'category' | 'creditCard' | 'user'
     }
   }
 }
@@ -78,6 +97,8 @@ interface NexusPrismaOutputs {
     accounts: 'Account'
     category: 'Category'
     categories: 'Category'
+    creditCard: 'CreditCard'
+    creditCards: 'CreditCard'
     operation: 'Operation'
     operations: 'Operation'
     user: 'User'
@@ -86,27 +107,33 @@ interface NexusPrismaOutputs {
   Mutation: {
     createOneAccount: 'Account'
     updateOneAccount: 'Account'
-    updateManyAccount: 'BatchPayload'
+    updateManyAccount: 'AffectedRowsOutput'
     deleteOneAccount: 'Account'
-    deleteManyAccount: 'BatchPayload'
+    deleteManyAccount: 'AffectedRowsOutput'
     upsertOneAccount: 'Account'
     createOneCategory: 'Category'
     updateOneCategory: 'Category'
-    updateManyCategory: 'BatchPayload'
+    updateManyCategory: 'AffectedRowsOutput'
     deleteOneCategory: 'Category'
-    deleteManyCategory: 'BatchPayload'
+    deleteManyCategory: 'AffectedRowsOutput'
     upsertOneCategory: 'Category'
+    createOneCreditCard: 'CreditCard'
+    updateOneCreditCard: 'CreditCard'
+    updateManyCreditCard: 'AffectedRowsOutput'
+    deleteOneCreditCard: 'CreditCard'
+    deleteManyCreditCard: 'AffectedRowsOutput'
+    upsertOneCreditCard: 'CreditCard'
     createOneOperation: 'Operation'
     updateOneOperation: 'Operation'
-    updateManyOperation: 'BatchPayload'
+    updateManyOperation: 'AffectedRowsOutput'
     deleteOneOperation: 'Operation'
-    deleteManyOperation: 'BatchPayload'
+    deleteManyOperation: 'AffectedRowsOutput'
     upsertOneOperation: 'Operation'
     createOneUser: 'User'
     updateOneUser: 'User'
-    updateManyUser: 'BatchPayload'
+    updateManyUser: 'AffectedRowsOutput'
     deleteOneUser: 'User'
-    deleteManyUser: 'BatchPayload'
+    deleteManyUser: 'AffectedRowsOutput'
     upsertOneUser: 'User'
   },
   Account: {
@@ -119,6 +146,7 @@ interface NexusPrismaOutputs {
     deletedAt: 'DateTime'
     user: 'User'
     operations: 'Operation'
+    creditCards: 'CreditCard'
   }
   Category: {
     id: 'String'
@@ -131,11 +159,26 @@ interface NexusPrismaOutputs {
     user: 'User'
     operations: 'Operation'
   }
+  CreditCard: {
+    id: 'String'
+    accountId: 'String'
+    userId: 'String'
+    name: 'String'
+    brand: 'CreditCardBrand'
+    limit: 'Float'
+    createdAt: 'DateTime'
+    updatedAt: 'DateTime'
+    deletedAt: 'DateTime'
+    user: 'User'
+    account: 'Account'
+    operations: 'Operation'
+  }
   Operation: {
     id: 'String'
     accountId: 'String'
     categoryId: 'String'
     userId: 'String'
+    creditCardId: 'String'
     name: 'String'
     value: 'Float'
     isPaid: 'Boolean'
@@ -146,6 +189,7 @@ interface NexusPrismaOutputs {
     deletedAt: 'DateTime'
     account: 'Account'
     category: 'Category'
+    creditCard: 'CreditCard'
     user: 'User'
   }
   User: {
@@ -164,6 +208,7 @@ interface NexusPrismaOutputs {
     deletedAt: 'DateTime'
     accounts: 'Account'
     categories: 'Category'
+    creditCards: 'CreditCard'
     operations: 'Operation'
   }
 }
@@ -172,6 +217,7 @@ interface NexusPrismaOutputs {
 interface NexusPrismaMethods {
   Account: Typegen.NexusPrismaFields<'Account'>
   Category: Typegen.NexusPrismaFields<'Category'>
+  CreditCard: Typegen.NexusPrismaFields<'CreditCard'>
   Operation: Typegen.NexusPrismaFields<'Operation'>
   User: Typegen.NexusPrismaFields<'User'>
   Query: Typegen.NexusPrismaFields<'Query'>

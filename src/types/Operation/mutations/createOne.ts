@@ -13,7 +13,7 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
   },
   resolve: async (
     parent,
-    { data: { accountId, name, value, type, isPaid, paidAt, categoryId } },
+    { data: { accountId, name, value, type, isPaid, paidAt, categoryId, creditCardId } },
     ctx,
   ) => {
     const userId = await getUserId(ctx);
@@ -24,6 +24,13 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
 
     if (!(await ctx.prisma.account.findUnique({ where: { id: accountId } }))) {
       throw new ValidationError('accountId not found');
+    }
+
+    if (
+      creditCardId &&
+      !(await ctx.prisma.creditCard.findUnique({ where: { id: creditCardId } }))
+    ) {
+      throw new ValidationError('creditCardId not found');
     }
 
     return ctx.prisma.operation.create({
@@ -37,6 +44,9 @@ export const OperationCreateOneMutation = mutationField('createOneOperation', {
         user: { connect: { id: userId } },
         ...(!!categoryId && {
           category: { connect: { id: categoryId } },
+        }),
+        ...(!!creditCardId && {
+          creditCard: { connect: { id: creditCardId } },
         }),
       },
     });
