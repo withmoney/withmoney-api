@@ -24,6 +24,7 @@ export const CountPreviousBalanceQuery = queryField('countPreviousBalance', {
       where: {
         ...args.where,
         isPaid: true,
+        deletedAt: null,
         userId,
       },
     });
