@@ -87,6 +87,9 @@ export interface NexusGenInputs {
     equals?: boolean | null; // Boolean
     not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
   }
+  CalcCreditCardWhereUniqueInput: { // input type
+    id: string; // String!
+  }
   CategoryCreateInput: { // input type
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
@@ -508,6 +511,11 @@ export interface NexusGenObjects {
     token?: string | null; // String
     user?: NexusGenRootTypes['User'] | null; // User
   }
+  CalcCreditCardsLimitResults: { // root type
+    creditCard?: NexusGenRootTypes['CreditCard'] | null; // CreditCard
+    currentLimit?: number | null; // Float
+    limit?: number | null; // Float
+  }
   CategoriesResult: { // root type
     data?: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     pagination?: NexusGenRootTypes['Pagination'] | null; // Pagination
@@ -533,6 +541,10 @@ export interface NexusGenObjects {
     name: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     userId: string; // String!
+  }
+  CreditCardLimitResult: { // root type
+    currentLimit?: number | null; // Float
+    limit?: number | null; // Float
   }
   CreditCardsResult: { // root type
     data?: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -599,6 +611,11 @@ export interface NexusGenFieldTypes {
     token: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
   }
+  CalcCreditCardsLimitResults: { // field return type
+    creditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
+    currentLimit: number | null; // Float
+    limit: number | null; // Float
+  }
   CategoriesResult: { // field return type
     data: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     pagination: NexusGenRootTypes['Pagination'] | null; // Pagination
@@ -629,6 +646,10 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
     userId: string; // String!
+  }
+  CreditCardLimitResult: { // field return type
+    currentLimit: number | null; // Float
+    limit: number | null; // Float
   }
   CreditCardsResult: { // field return type
     data: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -681,6 +702,8 @@ export interface NexusGenFieldTypes {
     totalItems: number | null; // Int
   }
   Query: { // field return type
+    calcManyCreditCardLimit: NexusGenRootTypes['CalcCreditCardsLimitResults'][]; // [CalcCreditCardsLimitResults!]!
+    calcUniqueCreditCardLimit: NexusGenRootTypes['CreditCardLimitResult']; // CreditCardLimitResult!
     countPreviousBalance: NexusGenRootTypes['CountPreviousBalanceResult']; // CountPreviousBalanceResult!
     findManyAccount: NexusGenRootTypes['Account'][]; // [Account!]!
     findManyCategory: NexusGenRootTypes['CategoriesResult']; // CategoriesResult!
@@ -729,6 +752,11 @@ export interface NexusGenFieldTypeNames {
     token: 'String'
     user: 'User'
   }
+  CalcCreditCardsLimitResults: { // field return type name
+    creditCard: 'CreditCard'
+    currentLimit: 'Float'
+    limit: 'Float'
+  }
   CategoriesResult: { // field return type name
     data: 'Category'
     pagination: 'Pagination'
@@ -759,6 +787,10 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
     user: 'User'
     userId: 'String'
+  }
+  CreditCardLimitResult: { // field return type name
+    currentLimit: 'Float'
+    limit: 'Float'
   }
   CreditCardsResult: { // field return type name
     data: 'CreditCard'
@@ -811,6 +843,8 @@ export interface NexusGenFieldTypeNames {
     totalItems: 'Int'
   }
   Query: { // field return type name
+    calcManyCreditCardLimit: 'CalcCreditCardsLimitResults'
+    calcUniqueCreditCardLimit: 'CreditCardLimitResult'
     countPreviousBalance: 'CountPreviousBalanceResult'
     findManyAccount: 'Account'
     findManyCategory: 'CategoriesResult'
@@ -949,6 +983,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    calcUniqueCreditCardLimit: { // args
+      where: NexusGenInputs['CalcCreditCardWhereUniqueInput']; // CalcCreditCardWhereUniqueInput!
+    }
     countPreviousBalance: { // args
       where: NexusGenInputs['CountPreviousBalanceWhereInput']; // CountPreviousBalanceWhereInput!
     }
