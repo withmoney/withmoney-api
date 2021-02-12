@@ -81,6 +81,18 @@ input CalcCreditCardWhereUniqueInput {
   id: String!
 }
 
+input CalcPreviousBalancePaidAtInput {
+  lt: DateTime
+}
+
+type CalcPreviousBalanceResult {
+  amount: Float
+}
+
+input CalcPreviousBalanceWhereInput {
+  paidAt: CalcPreviousBalancePaidAtInput
+}
+
 type CategoriesResult {
   data: [Category]
   pagination: Pagination
@@ -141,18 +153,6 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: String
-}
-
-input CountPreviousBalancePaidAtInput {
-  lt: DateTime
-}
-
-type CountPreviousBalanceResult {
-  amount: Float
-}
-
-input CountPreviousBalanceWhereInput {
-  paidAt: CountPreviousBalancePaidAtInput
 }
 
 type CreditCard {
@@ -551,8 +551,8 @@ type Pagination {
 
 type Query {
   calcManyCreditCardLimit: [CalcCreditCardsLimitResults!]!
+  calcPreviousBalance(where: CalcPreviousBalanceWhereInput!): CalcPreviousBalanceResult!
   calcUniqueCreditCardLimit(where: CalcCreditCardWhereUniqueInput!): CreditCardLimitResult!
-  countPreviousBalance(where: CountPreviousBalanceWhereInput!): CountPreviousBalanceResult!
   findManyAccount(cursor: AccountWhereUniqueInput, orderBy: [AccountOrderByInput], skip: Int, take: Int, where: AccountWhereInput): [Account!]!
   findManyCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByInput], skip: Int, take: Int, where: CategoryWhereInput): CategoriesResult!
   findManyCreditCard(cursor: CreditCardWhereUniqueInput, orderBy: [CreditCardOrderByInput], skip: Int, take: Int, where: CreditCardWhereInput): CreditCardsResult!

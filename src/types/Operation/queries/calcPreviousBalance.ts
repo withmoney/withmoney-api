@@ -1,17 +1,17 @@
 import { queryField, arg, nonNull, list, objectType } from '@nexus/schema';
 import { getUserId } from '../../../utils';
 
-export const CountPreviousBalanceResult = objectType({
-  name: 'CountPreviousBalanceResult',
+export const CalcPreviousBalanceResult = objectType({
+  name: 'CalcPreviousBalanceResult',
   definition(t) {
     t.float('amount');
   },
 });
 
-export const CountPreviousBalanceQuery = queryField('countPreviousBalance', {
-  type: nonNull('CountPreviousBalanceResult'),
+export const CalcPreviousBalanceQuery = queryField('calcPreviousBalance', {
+  type: nonNull('CalcPreviousBalanceResult'),
   args: {
-    where: nonNull(arg({ type: 'CountPreviousBalanceWhereInput' })),
+    where: nonNull(arg({ type: 'CalcPreviousBalanceWhereInput' })),
   },
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);

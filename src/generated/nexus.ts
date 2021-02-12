@@ -90,6 +90,12 @@ export interface NexusGenInputs {
   CalcCreditCardWhereUniqueInput: { // input type
     id: string; // String!
   }
+  CalcPreviousBalancePaidAtInput: { // input type
+    lt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  CalcPreviousBalanceWhereInput: { // input type
+    paidAt?: NexusGenInputs['CalcPreviousBalancePaidAtInput'] | null; // CalcPreviousBalancePaidAtInput
+  }
   CategoryCreateInput: { // input type
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
@@ -129,12 +135,6 @@ export interface NexusGenInputs {
   }
   CategoryWhereUniqueInput: { // input type
     id?: string | null; // String
-  }
-  CountPreviousBalancePaidAtInput: { // input type
-    lt?: NexusGenScalars['DateTime'] | null; // DateTime
-  }
-  CountPreviousBalanceWhereInput: { // input type
-    paidAt?: NexusGenInputs['CountPreviousBalancePaidAtInput'] | null; // CountPreviousBalancePaidAtInput
   }
   CreditCardCreateInput: { // input type
     accountId: string; // String!
@@ -516,6 +516,9 @@ export interface NexusGenObjects {
     currentLimit?: number | null; // Float
     limit?: number | null; // Float
   }
+  CalcPreviousBalanceResult: { // root type
+    amount?: number | null; // Float
+  }
   CategoriesResult: { // root type
     data?: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     pagination?: NexusGenRootTypes['Pagination'] | null; // Pagination
@@ -527,9 +530,6 @@ export interface NexusGenObjects {
     name: string; // String!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
-  }
-  CountPreviousBalanceResult: { // root type
-    amount?: number | null; // Float
   }
   CreditCard: { // root type
     accountId: string; // String!
@@ -616,6 +616,9 @@ export interface NexusGenFieldTypes {
     currentLimit: number | null; // Float
     limit: number | null; // Float
   }
+  CalcPreviousBalanceResult: { // field return type
+    amount: number | null; // Float
+  }
   CategoriesResult: { // field return type
     data: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     pagination: NexusGenRootTypes['Pagination'] | null; // Pagination
@@ -629,9 +632,6 @@ export interface NexusGenFieldTypes {
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
-  }
-  CountPreviousBalanceResult: { // field return type
-    amount: number | null; // Float
   }
   CreditCard: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
@@ -703,8 +703,8 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     calcManyCreditCardLimit: NexusGenRootTypes['CalcCreditCardsLimitResults'][]; // [CalcCreditCardsLimitResults!]!
+    calcPreviousBalance: NexusGenRootTypes['CalcPreviousBalanceResult']; // CalcPreviousBalanceResult!
     calcUniqueCreditCardLimit: NexusGenRootTypes['CreditCardLimitResult']; // CreditCardLimitResult!
-    countPreviousBalance: NexusGenRootTypes['CountPreviousBalanceResult']; // CountPreviousBalanceResult!
     findManyAccount: NexusGenRootTypes['Account'][]; // [Account!]!
     findManyCategory: NexusGenRootTypes['CategoriesResult']; // CategoriesResult!
     findManyCreditCard: NexusGenRootTypes['CreditCardsResult']; // CreditCardsResult!
@@ -757,6 +757,9 @@ export interface NexusGenFieldTypeNames {
     currentLimit: 'Float'
     limit: 'Float'
   }
+  CalcPreviousBalanceResult: { // field return type name
+    amount: 'Float'
+  }
   CategoriesResult: { // field return type name
     data: 'Category'
     pagination: 'Pagination'
@@ -770,9 +773,6 @@ export interface NexusGenFieldTypeNames {
     type: 'TransactionType'
     updatedAt: 'DateTime'
     user: 'User'
-  }
-  CountPreviousBalanceResult: { // field return type name
-    amount: 'Float'
   }
   CreditCard: { // field return type name
     account: 'Account'
@@ -844,8 +844,8 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     calcManyCreditCardLimit: 'CalcCreditCardsLimitResults'
+    calcPreviousBalance: 'CalcPreviousBalanceResult'
     calcUniqueCreditCardLimit: 'CreditCardLimitResult'
-    countPreviousBalance: 'CountPreviousBalanceResult'
     findManyAccount: 'Account'
     findManyCategory: 'CategoriesResult'
     findManyCreditCard: 'CreditCardsResult'
@@ -983,11 +983,11 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    calcPreviousBalance: { // args
+      where: NexusGenInputs['CalcPreviousBalanceWhereInput']; // CalcPreviousBalanceWhereInput!
+    }
     calcUniqueCreditCardLimit: { // args
       where: NexusGenInputs['CalcCreditCardWhereUniqueInput']; // CalcCreditCardWhereUniqueInput!
-    }
-    countPreviousBalance: { // args
-      where: NexusGenInputs['CountPreviousBalanceWhereInput']; // CountPreviousBalanceWhereInput!
     }
     findManyAccount: { // args
       cursor?: NexusGenInputs['AccountWhereUniqueInput'] | null; // AccountWhereUniqueInput

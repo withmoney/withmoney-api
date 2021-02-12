@@ -1,4 +1,4 @@
 export * from './calcManyCreditCardLimit';
 export * from './calcUniqueCreditCardLimit';
-export * from './countPreviousBalance';
+export * from './calcPreviousBalance';
 export * from './findMany';

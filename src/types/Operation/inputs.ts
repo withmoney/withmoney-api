@@ -28,16 +28,16 @@ export const OperationUpdateInput = inputObjectType({
   },
 });
 
-export const CountPreviousBalancePaidAtInput = inputObjectType({
-  name: 'CountPreviousBalancePaidAtInput',
+export const CalcPreviousBalancePaidAtInput = inputObjectType({
+  name: 'CalcPreviousBalancePaidAtInput',
   definition(t) {
     t.datetime('lt');
   },
 });
 
-export const CountPreviousBalanceWhereInput = inputObjectType({
-  name: 'CountPreviousBalanceWhereInput',
+export const CalcPreviousBalanceWhereInput = inputObjectType({
+  name: 'CalcPreviousBalanceWhereInput',
   definition(t) {
-    t.field('paidAt', { type: CountPreviousBalancePaidAtInput });
+    t.field('paidAt', { type: CalcPreviousBalancePaidAtInput });
   },
 });
