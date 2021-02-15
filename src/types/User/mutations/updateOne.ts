@@ -9,14 +9,14 @@ export const UserUpdateOneMutation = mutationField('updateOneUser', {
   args: {
     data: nonNull('UserUpdateInput'),
   },
-  resolve: async (_parent, { user }, ctx) => {
+  resolve: async (_parent, { data }, ctx) => {
     const { pubsub } = ctx;
 
     const userId = await getUserId(ctx);
 
     const updated = await ctx.prisma.user.update({
       where: { id: userId },
-      data: user,
+      data,
     });
 
     pubsub.publish(USER_UPDATED, updated);
