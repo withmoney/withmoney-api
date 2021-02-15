@@ -353,7 +353,7 @@ type Mutation {
   updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   updateOneCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard!
   updateOneOperation(data: OperationUpdateInput!, where: OperationWhereUniqueInput!): Operation!
-  updateOneUser(user: UserUpdateInput!): User!
+  updateOneUser(data: UserUpdateInput!): User!
 }
 
 input NestedBoolFilter {
@@ -664,10 +664,9 @@ input UserOrderByInput {
 input UserUpdateInput {
   birthday: Date
   email: String
+  firstName: String
   language: Locale
-  name: String
-  nickname: String
-  phone: String
+  lastName: String
 }
 
 input UserWhereInput {

@@ -4,10 +4,9 @@ export const UserUpdateInputType = inputObjectType({
   name: 'UserUpdateInput',
   definition(t) {
     t.string('email');
-    t.string('name');
-    t.string('nickname');
+    t.string('firstName');
+    t.string('lastName');
     t.date('birthday');
-    t.string('phone');
     t.field('language', { type: 'Locale' });
   },
 });

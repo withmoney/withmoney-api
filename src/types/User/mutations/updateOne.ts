@@ -7,7 +7,7 @@ import { USER_UPDATED } from '../../Subscription';
 export const UserUpdateOneMutation = mutationField('updateOneUser', {
   type: nonNull('User'),
   args: {
-    user: nonNull('UserUpdateInput'),
+    data: nonNull('UserUpdateInput'),
   },
   resolve: async (_parent, { user }, ctx) => {
     const { pubsub } = ctx;

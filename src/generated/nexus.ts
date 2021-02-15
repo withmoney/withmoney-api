@@ -448,10 +448,9 @@ export interface NexusGenInputs {
   UserUpdateInput: { // input type
     birthday?: NexusGenScalars['Date'] | null; // Date
     email?: string | null; // String
+    firstName?: string | null; // String
     language?: NexusGenEnums['Locale'] | null; // Locale
-    name?: string | null; // String
-    nickname?: string | null; // String
-    phone?: string | null; // String
+    lastName?: string | null; // String
   }
   UserWhereInput: { // input type
     accounts?: NexusGenInputs['AccountListRelationFilter'] | null; // AccountListRelationFilter
@@ -979,7 +978,7 @@ export interface NexusGenArgTypes {
       where: NexusGenInputs['OperationWhereUniqueInput']; // OperationWhereUniqueInput!
     }
     updateOneUser: { // args
-      user: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
+      data: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
     }
   }
   Query: {
