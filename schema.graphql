@@ -71,6 +71,28 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+type CalcCreditCardsLimitResults {
+  creditCard: CreditCard
+  currentLimit: Float
+  limit: Float
+}
+
+input CalcCreditCardWhereUniqueInput {
+  id: String!
+}
+
+input CalcPreviousBalancePaidAtInput {
+  lt: DateTime
+}
+
+type CalcPreviousBalanceResult {
+  amount: Float
+}
+
+input CalcPreviousBalanceWhereInput {
+  paidAt: CalcPreviousBalancePaidAtInput
+}
+
 type CategoriesResult {
   data: [Category]
   pagination: Pagination
@@ -165,6 +187,11 @@ input CreditCardCreateInput {
   brand: CreditCardBrand!
   limit: Float!
   name: String!
+}
+
+type CreditCardLimitResult {
+  currentLimit: Float
+  limit: Float
 }
 
 input CreditCardListRelationFilter {
@@ -326,7 +353,7 @@ type Mutation {
   updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   updateOneCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard!
   updateOneOperation(data: OperationUpdateInput!, where: OperationWhereUniqueInput!): Operation!
-  updateOneUser(user: UserUpdateInput!): User!
+  updateOneUser(data: UserUpdateInput!): User!
 }
 
 input NestedBoolFilter {
@@ -523,6 +550,9 @@ type Pagination {
 }
 
 type Query {
+  calcManyCreditCardLimit: [CalcCreditCardsLimitResults!]!
+  calcPreviousBalance(where: CalcPreviousBalanceWhereInput!): CalcPreviousBalanceResult!
+  calcUniqueCreditCardLimit(where: CalcCreditCardWhereUniqueInput!): CreditCardLimitResult!
   findManyAccount(cursor: AccountWhereUniqueInput, orderBy: [AccountOrderByInput], skip: Int, take: Int, where: AccountWhereInput): [Account!]!
   findManyCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByInput], skip: Int, take: Int, where: CategoryWhereInput): CategoriesResult!
   findManyCreditCard(cursor: CreditCardWhereUniqueInput, orderBy: [CreditCardOrderByInput], skip: Int, take: Int, where: CreditCardWhereInput): CreditCardsResult!
@@ -634,10 +664,9 @@ input UserOrderByInput {
 input UserUpdateInput {
   birthday: Date
   email: String
+  firstName: String
   language: Locale
-  name: String
-  nickname: String
-  phone: String
+  lastName: String
 }
 
 input UserWhereInput {

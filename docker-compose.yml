@@ -12,6 +12,8 @@ services:
       - 5432:5432
     networks:
       - postgres-network
+    volumes:
+      - ./data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
