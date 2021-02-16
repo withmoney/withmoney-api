@@ -656,6 +656,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     changePassword: string | null; // String
+    changeUserPassword: string | null; // String
     checkHashEmail: string | null; // String
     createOneAccount: NexusGenRootTypes['Account']; // Account!
     createOneCategory: NexusGenRootTypes['Category']; // Category!
@@ -797,6 +798,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     changePassword: 'String'
+    changeUserPassword: 'String'
     checkHashEmail: 'String'
     createOneAccount: 'Account'
     createOneCategory: 'Category'
@@ -911,6 +913,10 @@ export interface NexusGenArgTypes {
     changePassword: { // args
       hash: string; // String!
       password: string; // String!
+    }
+    changeUserPassword: { // args
+      newPassword: string; // String!
+      oldPassword: string; // String!
     }
     checkHashEmail: { // args
       hash: string; // String!

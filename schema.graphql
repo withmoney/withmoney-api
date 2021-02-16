@@ -333,6 +333,7 @@ enum Locale {
 
 type Mutation {
   changePassword(hash: String!, password: String!): String
+  changeUserPassword(newPassword: String!, oldPassword: String!): String
   checkHashEmail(hash: String!): String
   createOneAccount(data: AccountCreateInput!): Account!
   createOneCategory(data: CategoryCreateInput!): Category!
