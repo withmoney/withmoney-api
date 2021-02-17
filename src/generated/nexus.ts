@@ -512,8 +512,9 @@ export interface NexusGenObjects {
   }
   CalcCreditCardsLimitResults: { // root type
     creditCard?: NexusGenRootTypes['CreditCard'] | null; // CreditCard
-    currentLimit?: number | null; // Float
     limit?: number | null; // Float
+    limitBlocked?: number | null; // Float
+    limitFree?: number | null; // Float
   }
   CalcPreviousBalanceResult: { // root type
     amount?: number | null; // Float
@@ -542,8 +543,9 @@ export interface NexusGenObjects {
     userId: string; // String!
   }
   CreditCardLimitResult: { // root type
-    currentLimit?: number | null; // Float
     limit?: number | null; // Float
+    limitBlocked?: number | null; // Float
+    limitFree?: number | null; // Float
   }
   CreditCardsResult: { // root type
     data?: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -612,8 +614,9 @@ export interface NexusGenFieldTypes {
   }
   CalcCreditCardsLimitResults: { // field return type
     creditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
-    currentLimit: number | null; // Float
     limit: number | null; // Float
+    limitBlocked: number | null; // Float
+    limitFree: number | null; // Float
   }
   CalcPreviousBalanceResult: { // field return type
     amount: number | null; // Float
@@ -647,8 +650,9 @@ export interface NexusGenFieldTypes {
     userId: string; // String!
   }
   CreditCardLimitResult: { // field return type
-    currentLimit: number | null; // Float
     limit: number | null; // Float
+    limitBlocked: number | null; // Float
+    limitFree: number | null; // Float
   }
   CreditCardsResult: { // field return type
     data: Array<NexusGenRootTypes['CreditCard'] | null> | null; // [CreditCard]
@@ -754,8 +758,9 @@ export interface NexusGenFieldTypeNames {
   }
   CalcCreditCardsLimitResults: { // field return type name
     creditCard: 'CreditCard'
-    currentLimit: 'Float'
     limit: 'Float'
+    limitBlocked: 'Float'
+    limitFree: 'Float'
   }
   CalcPreviousBalanceResult: { // field return type name
     amount: 'Float'
@@ -789,8 +794,9 @@ export interface NexusGenFieldTypeNames {
     userId: 'String'
   }
   CreditCardLimitResult: { // field return type name
-    currentLimit: 'Float'
     limit: 'Float'
+    limitBlocked: 'Float'
+    limitFree: 'Float'
   }
   CreditCardsResult: { // field return type name
     data: 'CreditCard'

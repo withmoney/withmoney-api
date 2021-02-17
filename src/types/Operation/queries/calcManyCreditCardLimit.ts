@@ -5,7 +5,8 @@ export const CalcCreditCardsLimitResults = objectType({
   name: 'CalcCreditCardsLimitResults',
   definition(t) {
     t.float('limit');
-    t.float('currentLimit');
+    t.float('limitFree');
+    t.float('limitBlocked');
     t.field('creditCard', { type: 'CreditCard' });
   },
 });
@@ -34,20 +35,19 @@ export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit'
           creditCardId: creditCard.id,
           deletedAt: null,
           userId,
+          isPaid: false,
         },
       });
 
-      const currentLimit = operations.reduce((acc, operation) => {
-        if (operation.isPaid) {
-          return acc + operation.value;
-        } else {
-          return acc - operation.value;
-        }
-      }, creditCard.limit);
+      const limitBlocked = operations.reduce(
+        (acc, operation) => acc - operation.value,
+        creditCard.limit,
+      );
 
       results.push({
         limit: creditCard.limit,
-        currentLimit,
+        limitFree: creditCard.limit - limitBlocked,
+        limitBlocked,
         creditCard,
       });
     }

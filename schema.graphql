@@ -73,8 +73,9 @@ input BoolFilter {
 
 type CalcCreditCardsLimitResults {
   creditCard: CreditCard
-  currentLimit: Float
   limit: Float
+  limitBlocked: Float
+  limitFree: Float
 }
 
 input CalcCreditCardWhereUniqueInput {
@@ -190,8 +191,9 @@ input CreditCardCreateInput {
 }
 
 type CreditCardLimitResult {
-  currentLimit: Float
   limit: Float
+  limitBlocked: Float
+  limitFree: Float
 }
 
 input CreditCardListRelationFilter {
