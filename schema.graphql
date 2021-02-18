@@ -95,6 +95,7 @@ type CalcPreviousBalanceResult {
 }
 
 input CalcPreviousBalanceWhereInput {
+  accountId: String!
   paidAt: CalcPreviousBalancePaidAtInput
 }
 
