@@ -41,3 +41,10 @@ export const CalcPreviousBalanceWhereInput = inputObjectType({
     t.field('paidAt', { type: CalcPreviousBalancePaidAtInput });
   },
 });
+
+export const CalcCreditCardsLimitWhereInput = inputObjectType({
+  name: 'CalcCreditCardsLimitWhereInput',
+  definition(t) {
+    t.nonNull.string('accountId');
+  },
+});

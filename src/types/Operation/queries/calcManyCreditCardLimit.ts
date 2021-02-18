@@ -5,20 +5,25 @@ export const CalcCreditCardsLimitResults = objectType({
   name: 'CalcCreditCardsLimitResults',
   definition(t) {
     t.float('limit');
-    t.float('currentLimit');
+    t.float('limitFree');
+    t.float('limitBlocked');
     t.field('creditCard', { type: 'CreditCard' });
   },
 });
 
 export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit', {
   type: nonNull(list(nonNull('CalcCreditCardsLimitResults'))),
-  resolve: async (_parent, args, ctx) => {
+  args: {
+    where: nonNull(arg({ type: 'CalcCreditCardsLimitWhereInput' })),
+  },
+  resolve: async (_parent, { where }, ctx) => {
     const userId = await getUserId(ctx);
 
     const results = [];
 
     const creditCards = await ctx.prisma.creditCard.findMany({
       where: {
+        ...where,
         userId,
         deletedAt: null,
       },
@@ -31,23 +36,23 @@ export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit'
           value: true,
         },
         where: {
+          ...where,
           creditCardId: creditCard.id,
           deletedAt: null,
           userId,
+          isPaid: false,
         },
       });
 
-      const currentLimit = operations.reduce((acc, operation) => {
-        if (operation.isPaid) {
-          return acc + operation.value;
-        } else {
-          return acc - operation.value;
-        }
-      }, creditCard.limit);
+      const limitBlocked = operations.reduce(
+        (acc, operation) => acc - operation.value,
+        creditCard.limit,
+      );
 
       results.push({
         limit: creditCard.limit,
-        currentLimit,
+        limitFree: creditCard.limit - limitBlocked,
+        limitBlocked,
         creditCard,
       });
     }

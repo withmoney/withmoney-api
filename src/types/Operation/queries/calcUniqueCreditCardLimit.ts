@@ -6,7 +6,8 @@ export const CreditCardLimit = objectType({
   name: 'CreditCardLimitResult',
   definition(t) {
     t.float('limit');
-    t.float('currentLimit');
+    t.float('limitFree');
+    t.float('limitBlocked');
   },
 });
 
@@ -45,21 +46,17 @@ export const calcUniqueCreditCardLimitQuery = queryField('calcUniqueCreditCardLi
       where: {
         creditCardId: where.id,
         deletedAt: null,
+        isPaid: false,
         userId,
       },
     });
 
-    const currentLimit = results.reduce((acc, operation) => {
-      if (operation.isPaid) {
-        return acc + operation.value;
-      } else {
-        return acc - operation.value;
-      }
-    }, limit);
+    const limitBlocked = results.reduce((acc, operation) => acc - operation.value, limit);
 
     return {
       limit,
-      currentLimit,
+      limitBlocked,
+      limitFree: limit - limitBlocked,
     };
   },
 });
