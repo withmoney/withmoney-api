@@ -13,13 +13,17 @@ export const CalcCreditCardsLimitResults = objectType({
 
 export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit', {
   type: nonNull(list(nonNull('CalcCreditCardsLimitResults'))),
-  resolve: async (_parent, args, ctx) => {
+  args: {
+    where: nonNull(arg({ type: 'CalcCreditCardsLimitWhereInput' })),
+  },
+  resolve: async (_parent, { where }, ctx) => {
     const userId = await getUserId(ctx);
 
     const results = [];
 
     const creditCards = await ctx.prisma.creditCard.findMany({
       where: {
+        ...where,
         userId,
         deletedAt: null,
       },
@@ -32,6 +36,7 @@ export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit'
           value: true,
         },
         where: {
+          ...where,
           creditCardId: creditCard.id,
           deletedAt: null,
           userId,

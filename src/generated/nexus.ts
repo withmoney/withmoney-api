@@ -90,6 +90,9 @@ export interface NexusGenInputs {
   CalcCreditCardWhereUniqueInput: { // input type
     id: string; // String!
   }
+  CalcCreditCardsLimitWhereInput: { // input type
+    accountId: string; // String!
+  }
   CalcPreviousBalancePaidAtInput: { // input type
     lt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -994,6 +997,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    calcManyCreditCardLimit: { // args
+      where: NexusGenInputs['CalcCreditCardsLimitWhereInput']; // CalcCreditCardsLimitWhereInput!
+    }
     calcPreviousBalance: { // args
       where: NexusGenInputs['CalcPreviousBalanceWhereInput']; // CalcPreviousBalanceWhereInput!
     }

@@ -78,6 +78,10 @@ type CalcCreditCardsLimitResults {
   limitFree: Float
 }
 
+input CalcCreditCardsLimitWhereInput {
+  accountId: String!
+}
+
 input CalcCreditCardWhereUniqueInput {
   id: String!
 }
@@ -553,7 +557,7 @@ type Pagination {
 }
 
 type Query {
-  calcManyCreditCardLimit: [CalcCreditCardsLimitResults!]!
+  calcManyCreditCardLimit(where: CalcCreditCardsLimitWhereInput!): [CalcCreditCardsLimitResults!]!
   calcPreviousBalance(where: CalcPreviousBalanceWhereInput!): CalcPreviousBalanceResult!
   calcUniqueCreditCardLimit(where: CalcCreditCardWhereUniqueInput!): CreditCardLimitResult!
   findManyAccount(cursor: AccountWhereUniqueInput, orderBy: [AccountOrderByInput], skip: Int, take: Int, where: AccountWhereInput): [Account!]!
