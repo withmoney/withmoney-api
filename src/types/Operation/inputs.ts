@@ -38,6 +38,7 @@ export const CalcPreviousBalancePaidAtInput = inputObjectType({
 export const CalcPreviousBalanceWhereInput = inputObjectType({
   name: 'CalcPreviousBalanceWhereInput',
   definition(t) {
+    t.nonNull.string('accountId');
     t.field('paidAt', { type: CalcPreviousBalancePaidAtInput });
   },
 });

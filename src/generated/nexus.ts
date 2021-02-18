@@ -97,6 +97,7 @@ export interface NexusGenInputs {
     lt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   CalcPreviousBalanceWhereInput: { // input type
+    accountId: string; // String!
     paidAt?: NexusGenInputs['CalcPreviousBalancePaidAtInput'] | null; // CalcPreviousBalancePaidAtInput
   }
   CategoryCreateInput: { // input type
