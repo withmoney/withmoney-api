@@ -1,4 +1,5 @@
 import { queryField, arg, nonNull, list } from '@nexus/schema';
+import { NexusGenInputs } from '../../../generated/nexus';
 import { getUserId } from '../../../utils';
 
 export const CategoryFindManyQuery = queryField('findManyCategory', {
@@ -13,10 +14,22 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
+    let where: NexusGenInputs['OperationWhereInput'] | null = {};
+
+    if (args.where.name.contains) {
+      where = {
+        ...args.where,
+        name: {
+          contains: args.where.name.contains,
+          mode: 'insensitive',
+        },
+      };
+    }
+
     const data = await ctx.prisma.category.findMany({
       ...args,
       where: {
-        ...args.where,
+        ...where,
         userId,
       },
     });
@@ -24,7 +37,7 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
     const pagination = {
       totalItems: await ctx.prisma.category.count({
         where: {
-          ...args.where,
+          ...where,
           userId,
         },
       }),
