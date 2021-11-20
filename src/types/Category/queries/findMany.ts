@@ -16,7 +16,7 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
 
     let where: NexusGenInputs['OperationWhereInput'] | null = {};
 
-    if (args.where.name.contains) {
+    if (args?.where?.name?.contains) {
       where = {
         ...args.where,
         name: {

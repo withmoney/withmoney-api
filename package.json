@@ -35,7 +35,7 @@
     "url": "https://github.com/withmoney/withmoney-api/issues"
   },
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "homepage": "https://github.com/withmoney/withmoney-api#readme",
   "devDependencies": {
@@ -49,9 +49,9 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "ts-jest": "^25.2.1",
-    "ts-node": "9.0.0",
-    "ts-node-dev": "^1.0.0",
-    "typescript": "4.0.5"
+    "ts-node": "10.4.0",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.5.2"
   },
   "dependencies": {
     "@nexus/schema": "0.20.1",
