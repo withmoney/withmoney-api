@@ -64,7 +64,6 @@ export const categoriesSeed: categoriesSeedType = {
     ['Product', 'Deposit'],
     ['Service', 'Deposit'],
     ['Acquisition of assets', 'CreditCard'],
-    ['Telephone Company', 'FixedExpense'],
     ['Tax', 'FixedExpense'],
     ['Payroll', 'FixedExpense'],
   ],

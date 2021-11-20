@@ -1,32 +1,24 @@
 version: '3.1'
 
 services:
-  db:
+  database:
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: withmoney
+      POSTGRES_DB: withmoney_dev
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: 123
+      POSTGRES_PASSWORD: 123asd
     ports:
       - 5432:5432
-    networks:
-      - postgres-network
     volumes:
       - ./data:/var/lib/postgresql/data
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: 'root@email.com'
-      PGADMIN_DEFAULT_PASSWORD: '1234'
+  pgweb:
+    restart: always
+    image: sosedoff/pgweb
     ports:
-      - '16543:80'
-    depends_on:
-      - db
-    networks:
-      - postgres-network
-
-networks:
-  postgres-network:
-    driver: bridge
+      - '8888:8081'
+    links:
+      - database:database # my database container is called postgres, not db
+    environment:
+      DATABASE_URL: postgres://root:123asd@database:5432/withmoney_dev?sslmode=disable
