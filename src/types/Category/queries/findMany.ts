@@ -29,6 +29,7 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
     const data = await ctx.prisma.category.findMany({
       ...args,
       where: {
+        ...args.where,
         ...where,
         userId,
       },
