@@ -39,7 +39,6 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
     // let where: NexusGenInputs['OperationWhereInput'] | null = {};
     let where = {};
     if (args?.where?.name?.contains) {
-      // @ts-ignore
       where = {
         ...args.where,
         name: {
@@ -48,11 +47,10 @@ export const CategoryFindManyQuery = queryField('findManyCategory', {
         },
       };
     }
-    // @ts-ignore
+
     const data = await ctx.prisma.category.findMany({
-      // @ts-ignore
       ...args,
-      // @ts-ignore
+
       where: {
         ...args.where,
         ...where,

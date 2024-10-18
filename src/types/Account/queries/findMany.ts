@@ -38,11 +38,8 @@ export const AccountFindManyQuery = queryField('findManyAccount', {
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
-    // @ts-ignore
     return ctx.prisma.account.findMany({
-      // @ts-ignore
       ...args,
-      // @ts-ignore
       where: {
         ...args.where,
         userId,

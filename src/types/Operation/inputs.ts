@@ -7,7 +7,6 @@ export const OperationCreateInput = inputObjectType({
     t.nonNull.field('type', { type: 'TransactionType' });
     t.nonNull.float('value');
     t.nonNull.boolean('isPaid');
-    // @ts-ignore
     t.datetime('paidAt');
     t.string('categoryId');
     t.string('creditCardId');
@@ -22,7 +21,6 @@ export const OperationUpdateInput = inputObjectType({
     t.nonNull.field('type', { type: 'TransactionType' });
     t.nonNull.float('value');
     t.nonNull.boolean('isPaid');
-    // @ts-ignore
     t.datetime('paidAt');
     t.string('categoryId');
     t.string('creditCardId');
@@ -33,7 +31,6 @@ export const OperationUpdateInput = inputObjectType({
 export const CalcPreviousBalancePaidAtInput = inputObjectType({
   name: 'CalcPreviousBalancePaidAtInput',
   definition(t) {
-    // @ts-ignore
     t.datetime('lt');
   },
 });

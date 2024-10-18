@@ -45,7 +45,6 @@ export const CreditCardDeleteOneMutation = mutationField('deleteOneCreditCard', 
     });
 
     return ctx.prisma.creditCard.update({
-      // @ts-ignore
       where,
       data: {
         deletedAt: new Date(),

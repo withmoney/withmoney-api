@@ -1,7 +1,7 @@
 import { queryField, arg, nonNull, list } from 'nexus';
 import { getUserId } from '../../../utils';
 
-import {inputObjectType} from 'nexus';
+import { inputObjectType } from 'nexus';
 
 export const OperationWhereInput = inputObjectType({
   name: 'OperationWhereInput',
@@ -16,9 +16,9 @@ export const OperationWhereInput = inputObjectType({
 export const OperationOrderByInput = inputObjectType({
   name: 'OperationOrderByInput',
   definition(t) {
-    t.string('description');
-    t.float('value');
-    t.boolean('isPaid');
+    t.field('description', { type: 'SortOrder' });
+    t.field('value', { type: 'SortOrder' });
+    t.field('isPaid', { type: 'SortOrder' });
   },
 });
 
@@ -34,7 +34,6 @@ export const OperationFindManyQuery = queryField('findManyOperation', {
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
-    // @ts-ignore
     return ctx.prisma.operation.findMany({
       ...args,
       where: {

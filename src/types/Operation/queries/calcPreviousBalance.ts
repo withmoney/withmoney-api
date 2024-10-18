@@ -29,7 +29,6 @@ export const CalcPreviousBalanceQuery = queryField('calcPreviousBalance', {
       },
     });
 
-    // @ts-ignore
     const amount = results.reduce((acc, operation) => {
       if (operation.type === 'Deposit') {
         return acc + operation.value;

@@ -33,7 +33,7 @@ input AccountWhereInput {
 }
 
 input AccountWhereUniqueInput {
-  id: Int!
+  id: ID!
 }
 
 type AuthPayloada {
@@ -46,6 +46,7 @@ input CalcCreditCardWhereUniqueInput {
 }
 
 type CalcCreditCardsLimitResults {
+  creditCard: CreditCard
   limit: Float
   limitBlocked: Float
   limitFree: Float
@@ -103,7 +104,7 @@ input CategoryWhereInput {
 }
 
 input CategoryWhereUniqueInput {
-  id: Int
+  id: ID!
 }
 
 type CreditCard {
@@ -145,10 +146,9 @@ type CreditCardLimitResult {
 }
 
 input CreditCardOrderByInput {
-  cvv: String
-  expirationDate: String
-  name: String
-  number: String
+  expirationDate: SortOrder
+  name: SortOrder
+  number: SortOrder
 }
 
 input CreditCardUpdateInput {
@@ -258,9 +258,9 @@ input OperationCreateInput {
 }
 
 input OperationOrderByInput {
-  description: String
-  isPaid: Boolean
-  value: Float
+  description: SortOrder
+  isPaid: SortOrder
+  value: SortOrder
 }
 
 input OperationUpdateInput {

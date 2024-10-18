@@ -65,7 +65,6 @@ const newUserSeed = async ({
   prisma,
 }: newUserSeedProps) => {
   await Promise.all(
-    // @ts-ignore
     accountsSeed[language].map((name) =>
       prisma.account.create({
         data: {

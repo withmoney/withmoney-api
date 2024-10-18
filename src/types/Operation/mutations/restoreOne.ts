@@ -37,7 +37,6 @@ export const OperationRestoreOneMutation = mutationField('restoreOneOperation', 
     }
 
     return ctx.prisma.operation.update({
-      // @ts-ignore
       where,
       data: {
         deletedAt: null,

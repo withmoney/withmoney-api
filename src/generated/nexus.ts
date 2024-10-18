@@ -46,7 +46,7 @@ export interface NexusGenInputs {
     name?: string | null; // String
   }
   AccountWhereUniqueInput: { // input type
-    id: number; // Int!
+    id: string; // ID!
   }
   CalcCreditCardWhereUniqueInput: { // input type
     id: string; // String!
@@ -76,7 +76,7 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['FilterString'] | null; // FilterString
   }
   CategoryWhereUniqueInput: { // input type
-    id?: number | null; // Int
+    id: string; // ID!
   }
   CreditCardCreateInput: { // input type
     accountId: string; // String!
@@ -85,10 +85,9 @@ export interface NexusGenInputs {
     name: string; // String!
   }
   CreditCardOrderByInput: { // input type
-    cvv?: string | null; // String
-    expirationDate?: string | null; // String
-    name?: string | null; // String
-    number?: string | null; // String
+    expirationDate?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    number?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   CreditCardUpdateInput: { // input type
     accountId: string; // String!
@@ -120,9 +119,9 @@ export interface NexusGenInputs {
     value: number; // Float!
   }
   OperationOrderByInput: { // input type
-    description?: string | null; // String
-    isPaid?: boolean | null; // Boolean
-    value?: number | null; // Float
+    description?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    isPaid?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    value?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   OperationUpdateInput: { // input type
     accountId: string; // String!
@@ -193,6 +192,7 @@ export interface NexusGenObjects {
     user?: NexusGenRootTypes['User'] | null; // User
   }
   CalcCreditCardsLimitResults: { // root type
+    creditCard?: NexusGenRootTypes['CreditCard'] | null; // CreditCard
     limit?: number | null; // Float
     limitBlocked?: number | null; // Float
     limitFree?: number | null; // Float
@@ -289,6 +289,7 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
   }
   CalcCreditCardsLimitResults: { // field return type
+    creditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
     limit: number | null; // Float
     limitBlocked: number | null; // Float
     limitFree: number | null; // Float
@@ -427,6 +428,7 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   CalcCreditCardsLimitResults: { // field return type name
+    creditCard: 'CreditCard'
     limit: 'Float'
     limitBlocked: 'Float'
     limitFree: 'Float'

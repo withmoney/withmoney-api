@@ -7,7 +7,7 @@ import { inputObjectType } from 'nexus';
 export const AccountWhereUniqueInput = inputObjectType({
   name: 'AccountWhereUniqueInput',
   definition(t) {
-    t.nonNull.int('id');
+    t.nonNull.id('id');
   },
 });
 
@@ -24,7 +24,6 @@ export const AccountDeleteOneMutation = mutationField('deleteOneAccount', {
     const userId = await getUserId(ctx);
 
     const account = await ctx.prisma.account.findFirst({
-      //@ts-ignore
       where,
     });
 
@@ -37,7 +36,6 @@ export const AccountDeleteOneMutation = mutationField('deleteOneAccount', {
     }
 
     return ctx.prisma.account.update({
-      // @ts-ignore
       where,
       data: {
         deletedAt: new Date(),

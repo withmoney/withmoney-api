@@ -15,7 +15,6 @@ export const CategoryDeleteOneMutation = mutationField('deleteOneCategory', {
     const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
-      // @ts-ignore
       where,
     });
 
@@ -37,7 +36,6 @@ export const CategoryDeleteOneMutation = mutationField('deleteOneCategory', {
     });
 
     return ctx.prisma.category.update({
-      // @ts-ignore
       where,
       data: {
         deletedAt: new Date(),

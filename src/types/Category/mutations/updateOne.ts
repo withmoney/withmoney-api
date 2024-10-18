@@ -7,7 +7,7 @@ import {inputObjectType, enumType} from 'nexus';
 export const CategoryWhereUniqueInput = inputObjectType({
   name: 'CategoryWhereUniqueInput',
   definition(t) {
-    t.int('id');
+    t.nonNull.id('id');
   },
 });
 
@@ -29,7 +29,6 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
     const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
-      // @ts-ignore
       where,
     });
 
@@ -46,7 +45,6 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
     }
 
     const updated = await ctx.prisma.category.update({
-      // @ts-ignore
       where,
       data,
     });

@@ -17,10 +17,9 @@ export const CreditCardWhereInput = inputObjectType({
 export const CreditCardOrderByInput = inputObjectType({
   name: 'CreditCardOrderByInput',
   definition(t) {
-    t.string('name');
-    t.string('number');
-    t.string('expirationDate');
-    t.string('cvv');
+    t.field('name', { type: 'SortOrder' });
+    t.field('number', { type: 'SortOrder' });
+    t.field('expirationDate', { type: 'SortOrder' });
   },
 });
 
@@ -36,7 +35,7 @@ export const CreditCardFindManyQuery = queryField('findManyCreditCard', {
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
-    // @ts-ignore
+
     const data = await ctx.prisma.creditCard.findMany({
       ...args,
       where: {

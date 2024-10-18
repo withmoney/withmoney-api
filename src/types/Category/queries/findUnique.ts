@@ -13,7 +13,6 @@ export const CategoryFindUniqueQuery = queryField('findUniqueCategory', {
     const userId = await getUserId(ctx);
 
     const entity = await ctx.prisma.category.findUnique({
-      // @ts-ignore
       where,
     });
 

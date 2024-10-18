@@ -51,7 +51,6 @@ export const calcUniqueCreditCardLimitQuery = queryField('calcUniqueCreditCardLi
       },
     });
 
-    // @ts-ignore
     const limitBlocked = results.reduce((acc, operation) => acc - operation.value, limit);
 
     return {
