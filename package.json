@@ -3,24 +3,6 @@
   "version": "2.0.0",
   "description": "withmoney backend project",
   "main": "src/main.ts",
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development env-cmd ts-node-dev --no-notify --respawn --transpile-only src/main.ts",
-    "start": "node dist/src/main",
-    "start:prod": "cross-env NODE_ENV=production npm start",
-    "clean": "rm -rf dist",
-    "build": "npm -s run clean && cp .env.example prisma/.env && tsc",
-    "build:only": "tsc",
-    "build:prod": "env-cmd tsc",
-    "heroku-postbuild": "npm -s run generate && prisma db push --preview-feature --force && npm run build",
-    "test": "jest",
-    "generate": "npm run generate:prisma && npm -s run generate:nexus",
-    "generate:prisma": "prisma generate",
-    "generate:nexus": "ts-node --transpile-only src/schema",
-    "migrate:save": "env-cmd prisma migrate dev --preview-feature",
-    "migrate:up": "env-cmd prisma db push --preview-feature",
-    "migrate:down": "env-cmd prisma migrate down 1 --experimental",
-    "studio": "env-cmd prisma studio --experimental"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/withmoney/withmoney-api.git"
@@ -35,7 +17,18 @@
     "url": "https://github.com/withmoney/withmoney-api/issues"
   },
   "homepage": "https://github.com/withmoney/withmoney-api#readme",
+  "scripts": {
+    "dev": "nodemon",
+    "lint": "eslint --ext .js,.ts,.json --max-warnings 0 .",
+    "lint:fix": "yarn lint:js --fix",
+    "test": "jest",
+    "coverage": "http-server coverage/lcov-report -o"
+  },
   "devDependencies": {
+    "@types/bcrypt": "5.0.2",
+    "@types/jsonwebtoken": "9.0.7",
+    "@types/nodemailer": "6.4.16",
+    "@types/uuid": "10.0.0",
     "@types/bcryptjs": "2.4.6",
     "@types/graphql-iso-date": "3.4.3",
     "@types/jest": "29.5.13",
@@ -54,10 +47,6 @@
   "dependencies": {
     "@nexus/schema": "0.20.1",
     "@prisma/client": "5.21.1",
-    "@types/bcrypt": "5.0.2",
-    "@types/jsonwebtoken": "9.0.7",
-    "@types/nodemailer": "6.4.16",
-    "@types/uuid": "10.0.0",
     "apollo-server": "3.13.0",
     "apollo-server-express": "3.13.0",
     "apollo-server-testing": "2.25.3",

@@ -1,0 +1,6 @@
+{
+  "exec": "env-cmd ts-node -r tsconfig-paths/register src/main.ts",
+  "ext": "ts",
+  "restartable": "rs",
+  "verbose": true
+}
