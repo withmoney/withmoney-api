@@ -15,6 +15,7 @@ export const CategoryRestoreOneMutation = mutationField('restoreOneCategory', {
     const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
+      // @ts-ignore
       where,
     });
 
@@ -27,6 +28,7 @@ export const CategoryRestoreOneMutation = mutationField('restoreOneCategory', {
     }
 
     return ctx.prisma.category.update({
+      // @ts-ignore
       where,
       data: {
         deletedAt: null,

@@ -2,6 +2,16 @@ import { ForbiddenError, ApolloError } from 'apollo-server';
 import { mutationField, arg, nonNull } from 'nexus';
 import { getUserId } from '../../../utils';
 
+import { inputObjectType } from 'nexus';
+
+
+export const OperationWhereUniqueInput = inputObjectType({
+  name: 'OperationWhereUniqueInput',
+  definition(t) {
+    t.nonNull.id('id');
+  },
+});
+
 export const OperationRestoreOneMutation = mutationField('restoreOneOperation', {
   type: 'Operation',
   args: {
@@ -27,6 +37,7 @@ export const OperationRestoreOneMutation = mutationField('restoreOneOperation', 
     }
 
     return ctx.prisma.operation.update({
+      // @ts-ignore
       where,
       data: {
         deletedAt: null,

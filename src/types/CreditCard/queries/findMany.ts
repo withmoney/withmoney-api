@@ -1,5 +1,28 @@
-import { queryField, arg, nonNull, list } from '@nexus/schema';
+import { queryField, arg, nonNull, list } from 'nexus';
 import { getUserId } from '../../../utils';
+
+import { inputObjectType } from 'nexus';
+
+export const CreditCardWhereInput = inputObjectType({
+  name: 'CreditCardWhereInput',
+  definition(t) {
+    t.string('name');
+    t.string('number');
+    t.string('expirationDate');
+    t.string('cvv');
+    t.id('accountId');
+  },
+});
+
+export const CreditCardOrderByInput = inputObjectType({
+  name: 'CreditCardOrderByInput',
+  definition(t) {
+    t.string('name');
+    t.string('number');
+    t.string('expirationDate');
+    t.string('cvv');
+  },
+});
 
 export const CreditCardFindManyQuery = queryField('findManyCreditCard', {
   type: nonNull('CreditCardsResult'),
@@ -13,6 +36,7 @@ export const CreditCardFindManyQuery = queryField('findManyCreditCard', {
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
 
+    // @ts-ignore
     const data = await ctx.prisma.creditCard.findMany({
       ...args,
       where: {

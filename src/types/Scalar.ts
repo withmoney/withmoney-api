@@ -1,11 +1,9 @@
 import { asNexusMethod, enumType, objectType } from 'nexus';
 
-import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
-import { GraphQLUpload } from 'graphql-upload';
+import { GraphQLDate , GraphQLDateTime } from 'graphql-scalars';
 
-export const Upload = GraphQLUpload;
 export const DateTime = GraphQLDate;
-export const GQLDate = asNexusMethod(GraphQLDate, 'date');
+
 export const GQLDateTime = asNexusMethod(GraphQLDateTime, 'datetime');
 
 export const TransactionType = enumType({

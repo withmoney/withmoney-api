@@ -1,22 +1,23 @@
 import { PrismaClient } from '@prisma/client';
 import { PubSub } from 'graphql-subscriptions';
-import { Request } from 'apollo-server';
+import { type IncomingMessage } from 'http';
+
 
 const prisma = new PrismaClient();
 const { SECRET_KEY } = process.env;
 
 export interface Context {
-  request: Request & any;
   prisma: PrismaClient;
   pubsub: PubSub;
   appSecret: string;
+  req: IncomingMessage;
 }
 
 const pubsub = new PubSub();
 
-export function createContext(request: Request): Context {
+export async function createContext({ req }: { req: IncomingMessage }): Promise<Context> {
   return {
-    request,
+    req,
     prisma,
     pubsub,
     appSecret: SECRET_KEY || 'secret',

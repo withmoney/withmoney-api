@@ -1,20 +1,20 @@
 import { objectType } from 'nexus';
+import { CreditCard } from 'nexus-prisma';
 
-export const CreditCard = objectType({
-  name: 'CreditCard',
+export const CreditCardType = objectType({
+  name: CreditCard.$name,
+  description: CreditCard.$description,
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.brand();
-    t.model.limit();
-    t.model.createdAt();
-    t.model.updatedAt();
-    t.model.deletedAt();
-    t.model.user();
-    t.model.userId();
-    t.model.account();
-    t.model.accountId();
-    t.model.operations({ pagination: true, filtering: true, ordering: true });
+    t.field(CreditCard.id);
+    t.field(CreditCard.name);
+    t.field(CreditCard.brand);
+    t.field(CreditCard.limit);
+    t.field(CreditCard.createdAt);
+    t.field(CreditCard.updatedAt);
+    t.field(CreditCard.deletedAt);
+    t.field(CreditCard.user);
+    t.field(CreditCard.account);
+    t.field(CreditCard.operations);
   },
 });
 

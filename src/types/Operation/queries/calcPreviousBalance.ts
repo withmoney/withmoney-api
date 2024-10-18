@@ -1,4 +1,4 @@
-import { queryField, arg, nonNull, list, objectType } from '@nexus/schema';
+import { queryField, arg, nonNull, list, objectType } from 'nexus';
 import { getUserId } from '../../../utils';
 
 export const CalcPreviousBalanceResult = objectType({
@@ -29,6 +29,7 @@ export const CalcPreviousBalanceQuery = queryField('calcPreviousBalance', {
       },
     });
 
+    // @ts-ignore
     const amount = results.reduce((acc, operation) => {
       if (operation.type === 'Deposit') {
         return acc + operation.value;

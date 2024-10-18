@@ -7,7 +7,7 @@
     "plugins": [{ "name": "nexus/typescript-language-service" }],
     "rootDir": ".",
     "strict": true,
-    "target": "esnext",
+    "target": "ES2022",
     "typeRoots": ["node_modules/@types", "types"],
     "strictNullChecks": false
   },

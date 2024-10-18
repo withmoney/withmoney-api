@@ -6,7 +6,7 @@ export const UserUpdateInputType = inputObjectType({
     t.string('email');
     t.string('firstName');
     t.string('lastName');
-    t.date('birthday');
+    t.field('birthDay', { type: 'Date' });
     t.field('language', { type: 'Locale' });
   },
 });

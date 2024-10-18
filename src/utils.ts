@@ -11,7 +11,7 @@ interface Token {
 }
 
 export async function getUserId(context: Context): Promise<string> {
-  const Authorization = context.request.req.get('Authorization');
+  const Authorization = context.req.headers['authorization'];
   if (Authorization) {
     const token = Authorization.replace('Bearer ', '');
     const verifiedToken = verify(token, APP_SECRET) as Token;

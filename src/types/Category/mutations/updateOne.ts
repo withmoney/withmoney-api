@@ -2,6 +2,15 @@ import { ForbiddenError, ApolloError } from 'apollo-server';
 import { mutationField, nonNull, arg } from 'nexus';
 import { getUserId } from '../../../utils';
 
+import {inputObjectType, enumType} from 'nexus';
+
+export const CategoryWhereUniqueInput = inputObjectType({
+  name: 'CategoryWhereUniqueInput',
+  definition(t) {
+    t.int('id');
+  },
+});
+
 export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
   type: nonNull('Category'),
   args: {
@@ -20,6 +29,7 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
     const userId = await getUserId(ctx);
 
     const category = await ctx.prisma.category.findFirst({
+      // @ts-ignore
       where,
     });
 
@@ -36,6 +46,7 @@ export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
     }
 
     const updated = await ctx.prisma.category.update({
+      // @ts-ignore
       where,
       data,
     });

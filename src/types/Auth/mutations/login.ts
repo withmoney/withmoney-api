@@ -1,14 +1,24 @@
 import { compare } from 'bcryptjs';
 import { ApolloError, ValidationError } from 'apollo-server';
-import { mutationField, nonNull, arg, stringArg } from 'nexus';
+import { mutationField, nonNull, arg, stringArg, objectType } from 'nexus';
+import { User } from 'nexus-prisma';
 import { sign } from 'jsonwebtoken';
+
 
 import { USER_SIGNED_IN, USER_UPDATED } from '../../Subscription';
 import { APP_SECRET, getUserId } from '../../../utils';
 import { sendVerifyEmail } from './../../../email';
 
+export const AuthPayload = objectType({
+  name: 'AuthPayloada',
+  definition(t) {
+    t.string('token');
+    t.field('user', { type: 'User' });
+  },
+});
+
 export const Login = mutationField('login', {
-  type: 'AuthPayload',
+  type: AuthPayload,
   args: {
     email: nonNull(stringArg()),
     password: nonNull(stringArg()),

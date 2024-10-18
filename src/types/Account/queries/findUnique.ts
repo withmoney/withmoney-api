@@ -13,6 +13,7 @@ export const AccountFindUniqueQuery = queryField('findUniqueAccount', {
     const userId = await getUserId(ctx);
 
     const entity = await ctx.prisma.account.findUnique({
+      // @ts-ignore
       where,
     });
 

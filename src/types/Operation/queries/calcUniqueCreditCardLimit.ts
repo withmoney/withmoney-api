@@ -1,4 +1,4 @@
-import { queryField, arg, nonNull, objectType, inputObjectType } from '@nexus/schema';
+import { queryField, arg, nonNull, objectType, inputObjectType } from 'nexus';
 import { ForbiddenError, ApolloError } from 'apollo-server';
 import { getUserId } from '../../../utils';
 
@@ -51,6 +51,7 @@ export const calcUniqueCreditCardLimitQuery = queryField('calcUniqueCreditCardLi
       },
     });
 
+    // @ts-ignore
     const limitBlocked = results.reduce((acc, operation) => acc - operation.value, limit);
 
     return {

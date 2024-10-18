@@ -1,16 +1,18 @@
 import { objectType } from 'nexus';
+import { Category } from 'nexus-prisma';
 
-export const Category = objectType({
-  name: 'Category',
+export const CategoryType = objectType({
+  name: Category.$name,
+  description: Category.$description,
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.type();
-    t.model.createdAt();
-    t.model.updatedAt();
-    t.model.deletedAt();
-    t.model.user();
-    t.model.operations({ pagination: true, filtering: true, ordering: true });
+    t.field(Category.id);
+    t.field(Category.name);
+    t.field(Category.type);
+    t.field(Category.createdAt);
+    t.field(Category.updatedAt);
+    t.field(Category.deletedAt);
+    t.field(Category.user);
+    t.field(Category.operations);
   },
 });
 

@@ -13,6 +13,7 @@ export const CreditCardFindUniqueQuery = queryField('findUniqueCreditCard', {
     const userId = await getUserId(ctx);
 
     const entity = await ctx.prisma.creditCard.findUnique({
+      // @ts-ignore
       where,
     });
 

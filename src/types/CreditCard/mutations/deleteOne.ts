@@ -2,6 +2,15 @@ import { ForbiddenError, ApolloError } from 'apollo-server';
 import { mutationField, arg, nonNull } from 'nexus';
 import { getUserId } from '../../../utils';
 
+import { inputObjectType } from 'nexus';
+
+export const CreditCardWhereUniqueInput = inputObjectType({
+  name: 'CreditCardWhereUniqueInput',
+  definition(t) {
+    t.nonNull.id('id');
+  },
+});
+
 export const CreditCardDeleteOneMutation = mutationField('deleteOneCreditCard', {
   type: 'CreditCard',
   args: {
@@ -36,6 +45,7 @@ export const CreditCardDeleteOneMutation = mutationField('deleteOneCreditCard', 
     });
 
     return ctx.prisma.creditCard.update({
+      // @ts-ignore
       where,
       data: {
         deletedAt: new Date(),

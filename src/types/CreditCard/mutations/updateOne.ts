@@ -40,6 +40,7 @@ export const CreditCardUpdateOneMutation = mutationField('updateOneCreditCard', 
     }
 
     const updated = await ctx.prisma.creditCard.update({
+      // @ts-ignore
       where,
       data: {
         ...data,

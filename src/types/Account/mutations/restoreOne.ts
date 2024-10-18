@@ -15,6 +15,7 @@ export const AccountRestoreOneMutation = mutationField('restoreOneAccount', {
     const userId = await getUserId(ctx);
 
     const account = await ctx.prisma.account.findFirst({
+      // @ts-ignore
       where,
     });
 
@@ -27,6 +28,7 @@ export const AccountRestoreOneMutation = mutationField('restoreOneAccount', {
     }
 
     return ctx.prisma.account.update({
+      // @ts-ignore
       where,
       data: {
         deletedAt: null,

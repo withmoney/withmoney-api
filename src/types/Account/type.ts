@@ -1,21 +1,24 @@
 import { objectType } from 'nexus';
+import {Account} from "nexus-prisma";
 
-export const Account = objectType({
+export const AccountType = objectType({
   nonNullDefaults: {
     output: true,
     input: false,
   },
-  name: 'Account',
+  name: Account.$name,
+  description: Account.$description,
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.currency();
-    t.model.userId();
-    t.model.createdAt();
-    t.model.updatedAt();
-    t.model.deletedAt();
-    t.model.user();
-    t.model.operations({ pagination: true, filtering: true, ordering: true });
+    t.field(Account.id);
+    t.field(Account.name);
+    t.field(Account.currency);
+    t.field(Account.userId);
+    t.field(Account.createdAt);
+    t.field(Account.updatedAt);
+    t.field(Account.deletedAt);
+    // t.field(Account.user);
+    // t.field(Account.operations);
+
     //   t.field('user', {
     //     type: 'User',
     //     resolve(root: any) {

@@ -1,5 +1,6 @@
-import { queryField, arg, nonNull, list, objectType } from '@nexus/schema';
+import { queryField, arg, nonNull, list, objectType } from 'nexus';
 import { getUserId } from '../../../utils';
+import { inputObjectType } from 'nexus';
 
 export const CalcCreditCardsLimitResults = objectType({
   name: 'CalcCreditCardsLimitResults',
@@ -7,7 +8,7 @@ export const CalcCreditCardsLimitResults = objectType({
     t.float('limit');
     t.float('limitFree');
     t.float('limitBlocked');
-    t.field('creditCard', { type: 'CreditCard' });
+    // t.field('creditCard', { type: 'CreditCard' });
   },
 });
 
@@ -45,6 +46,7 @@ export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit'
       });
 
       const limitBlocked = operations.reduce(
+        // @ts-ignore
         (acc, operation) => acc - operation.value,
         creditCard.limit,
       );

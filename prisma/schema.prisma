@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nexusPrisma {
+  provider = "nexus-prisma"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -18,7 +22,7 @@ model Account {
 
   user         User         @relation(fields: [userId], references: [id])
   operations   Operation[]
-  credit_cards CreditCard[]
+  creditCards CreditCard[]
 
   @@map("accounts")
 }
@@ -73,7 +77,7 @@ model Operation {
 
   account     Account     @relation(fields: [accountId], references: [id])
   category    Category?   @relation(fields: [categoryId], references: [id])
-  credit_card CreditCard? @relation(fields: [creditCardId], references: [id])
+  creditCard CreditCard? @relation(fields: [creditCardId], references: [id])
   user        User        @relation(fields: [userId], references: [id])
 
   @@map("operations")
@@ -96,7 +100,7 @@ model User {
 
   accounts     Account[]
   categories   Category[]
-  credit_cards CreditCard[]
+  creditCards CreditCard[]
   operations   Operation[]
 
   @@map("users")

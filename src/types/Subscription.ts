@@ -1,6 +1,6 @@
 import { stringArg, subscriptionField, nonNull } from 'nexus';
 
-import { withFilter } from 'apollo-server';
+import { withFilter } from 'graphql-subscriptions';
 
 export const USER_SIGNED_IN = 'USER_SIGNED_IN';
 export const USER_UPDATED = 'USER_UPDATED';

@@ -55,6 +55,7 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
     }
 
     return ctx.prisma.operation.update({
+      //@ts-ignore
       where,
       data: {
         name,

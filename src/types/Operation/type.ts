@@ -1,24 +1,25 @@
 import { objectType } from 'nexus';
+import { Operation } from 'nexus-prisma';
 
-export const Operation = objectType({
-  name: 'Operation',
+export const OperationType = objectType({
+  name: Operation.$name,
+  description: Operation.$description,
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.value();
-    t.model.type();
-    t.model.isPaid();
-    t.model.paidAt();
-    t.model.createdAt();
-    t.model.updatedAt();
-    t.model.deletedAt();
-    t.model.account();
-    t.model.accountId();
-    t.model.user();
-    t.model.userId();
-    t.model.creditCard();
-    t.model.creditCardId();
-    t.model.category();
-    t.model.categoryId();
+    t.field(Operation.id);
+    t.field(Operation.name);
+    t.field(Operation.value);
+    t.field(Operation.type);
+    t.field(Operation.isPaid);
+    t.field(Operation.paidAt);
+    t.field(Operation.createdAt);
+    t.field(Operation.updatedAt);
+    t.field(Operation.deletedAt);
+    t.field(Operation.account);
+    t.field(Operation.user);
+    t.field(Operation.creditCard);
+    t.field(Operation.category);
+    t.field(Operation.accountId);
+    t.field(Operation.userId);
+    t.field(Operation.creditCardId);
   },
 });

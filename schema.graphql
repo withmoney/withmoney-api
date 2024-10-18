@@ -6,11 +6,9 @@ type Account {
   createdAt: DateTime!
   currency: Currency!
   deletedAt: DateTime
-  id: String!
+  id: ID!
   name: String!
-  operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
   updatedAt: DateTime!
-  user: User!
   userId: String!
 }
 
@@ -19,21 +17,9 @@ input AccountCreateInput {
   name: String!
 }
 
-input AccountListRelationFilter {
-  every: AccountWhereInput
-  none: AccountWhereInput
-  some: AccountWhereInput
-}
-
 input AccountOrderByInput {
-  createdAt: SortOrder
   currency: SortOrder
-  deletedAt: SortOrder
-  id: SortOrder
   name: SortOrder
-  updatedAt: SortOrder
-  user: UserOrderByInput
-  userId: SortOrder
 }
 
 input AccountUpdateInput {
@@ -42,37 +28,24 @@ input AccountUpdateInput {
 }
 
 input AccountWhereInput {
-  AND: [AccountWhereInput!]
-  createdAt: DateTimeFilter
-  creditCards: CreditCardListRelationFilter
-  currency: EnumCurrencyFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  name: StringFilter
-  NOT: [AccountWhereInput!]
-  operations: OperationListRelationFilter
-  OR: [AccountWhereInput!]
-  updatedAt: DateTimeFilter
-  user: UserWhereInput
-  userId: StringFilter
+  currency: Currency
+  name: String
 }
 
 input AccountWhereUniqueInput {
-  id: String
+  id: Int!
 }
 
-type AuthPayload {
+type AuthPayloada {
   token: String
   user: User
 }
 
-input BoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
+input CalcCreditCardWhereUniqueInput {
+  id: String!
 }
 
 type CalcCreditCardsLimitResults {
-  creditCard: CreditCard
   limit: Float
   limitBlocked: Float
   limitFree: Float
@@ -80,10 +53,6 @@ type CalcCreditCardsLimitResults {
 
 input CalcCreditCardsLimitWhereInput {
   accountId: String!
-}
-
-input CalcCreditCardWhereUniqueInput {
-  id: String!
 }
 
 input CalcPreviousBalancePaidAtInput {
@@ -107,9 +76,9 @@ type CategoriesResult {
 type Category {
   createdAt: DateTime!
   deletedAt: DateTime
-  id: String!
+  id: ID!
   name: String!
-  operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
+  operations: [Operation!]!
   type: TransactionType!
   updatedAt: DateTime!
   user: User!
@@ -120,21 +89,8 @@ input CategoryCreateInput {
   type: TransactionType!
 }
 
-input CategoryListRelationFilter {
-  every: CategoryWhereInput
-  none: CategoryWhereInput
-  some: CategoryWhereInput
-}
-
 input CategoryOrderByInput {
-  createdAt: SortOrder
-  deletedAt: SortOrder
-  id: SortOrder
   name: SortOrder
-  type: SortOrder
-  updatedAt: SortOrder
-  user: UserOrderByInput
-  userId: SortOrder
 }
 
 input CategoryUpdateInput {
@@ -143,37 +99,24 @@ input CategoryUpdateInput {
 }
 
 input CategoryWhereInput {
-  AND: [CategoryWhereInput!]
-  createdAt: DateTimeFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  name: StringFilter
-  NOT: [CategoryWhereInput!]
-  operations: OperationListRelationFilter
-  OR: [CategoryWhereInput!]
-  type: EnumTransactionTypeFilter
-  updatedAt: DateTimeFilter
-  user: UserWhereInput
-  userId: StringFilter
+  name: FilterString
 }
 
 input CategoryWhereUniqueInput {
-  id: String
+  id: Int
 }
 
 type CreditCard {
   account: Account!
-  accountId: String!
   brand: CreditCardBrand!
   createdAt: DateTime!
   deletedAt: DateTime
-  id: String!
+  id: ID!
   limit: Float!
   name: String!
-  operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
+  operations: [Operation!]!
   updatedAt: DateTime!
   user: User!
-  userId: String!
 }
 
 enum CreditCardBrand {
@@ -201,29 +144,11 @@ type CreditCardLimitResult {
   limitFree: Float
 }
 
-input CreditCardListRelationFilter {
-  every: CreditCardWhereInput
-  none: CreditCardWhereInput
-  some: CreditCardWhereInput
-}
-
 input CreditCardOrderByInput {
-  account: AccountOrderByInput
-  accountId: SortOrder
-  brand: SortOrder
-  createdAt: SortOrder
-  deletedAt: SortOrder
-  id: SortOrder
-  limit: SortOrder
-  name: SortOrder
-  updatedAt: SortOrder
-  user: UserOrderByInput
-  userId: SortOrder
-}
-
-type CreditCardsResult {
-  data: [CreditCard]
-  pagination: Pagination
+  cvv: String
+  expirationDate: String
+  name: String
+  number: String
 }
 
 input CreditCardUpdateInput {
@@ -234,25 +159,20 @@ input CreditCardUpdateInput {
 }
 
 input CreditCardWhereInput {
-  account: AccountWhereInput
-  accountId: StringFilter
-  AND: [CreditCardWhereInput!]
-  brand: EnumCreditCardBrandFilter
-  createdAt: DateTimeFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  limit: FloatFilter
-  name: StringFilter
-  NOT: [CreditCardWhereInput!]
-  operations: OperationListRelationFilter
-  OR: [CreditCardWhereInput!]
-  updatedAt: DateTimeFilter
-  user: UserWhereInput
-  userId: StringFilter
+  accountId: ID
+  cvv: String
+  expirationDate: String
+  name: String
+  number: String
 }
 
 input CreditCardWhereUniqueInput {
-  id: String
+  id: ID!
+}
+
+type CreditCardsResult {
+  data: [CreditCard]
+  pagination: Pagination
 }
 
 enum Currency {
@@ -272,65 +192,8 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
-input DateTimeFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeFilter
-  notIn: [DateTime!]
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
-}
-
-input EnumCreditCardBrandFilter {
-  equals: CreditCardBrand
-  in: [CreditCardBrand!]
-  not: NestedEnumCreditCardBrandFilter
-  notIn: [CreditCardBrand!]
-}
-
-input EnumCurrencyFilter {
-  equals: Currency
-  in: [Currency!]
-  not: NestedEnumCurrencyFilter
-  notIn: [Currency!]
-}
-
-input EnumLocaleFilter {
-  equals: Locale
-  in: [Locale!]
-  not: NestedEnumLocaleFilter
-  notIn: [Locale!]
-}
-
-input EnumTransactionTypeFilter {
-  equals: TransactionType
-  in: [TransactionType!]
-  not: NestedEnumTransactionTypeFilter
-  notIn: [TransactionType!]
-}
-
-input FloatFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatFilter
-  notIn: [Float!]
+input FilterString {
+  contains: String
 }
 
 enum Locale {
@@ -350,7 +213,7 @@ type Mutation {
   deleteOneCategory(where: CategoryWhereUniqueInput!): Category
   deleteOneCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteOneOperation(where: OperationWhereUniqueInput!): Operation
-  login(email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayloada
   register(user: RegisterInput!): String
   requestChangePassword(email: String!): String
   restoreOneAccount(where: AccountWhereUniqueInput!): Account
@@ -364,110 +227,15 @@ type Mutation {
   updateOneUser(data: UserUpdateInput!): User!
 }
 
-input NestedBoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
-}
-
-input NestedDateTimeFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeFilter
-  notIn: [DateTime!]
-}
-
-input NestedDateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
-}
-
-input NestedEnumCreditCardBrandFilter {
-  equals: CreditCardBrand
-  in: [CreditCardBrand!]
-  not: NestedEnumCreditCardBrandFilter
-  notIn: [CreditCardBrand!]
-}
-
-input NestedEnumCurrencyFilter {
-  equals: Currency
-  in: [Currency!]
-  not: NestedEnumCurrencyFilter
-  notIn: [Currency!]
-}
-
-input NestedEnumLocaleFilter {
-  equals: Locale
-  in: [Locale!]
-  not: NestedEnumLocaleFilter
-  notIn: [Locale!]
-}
-
-input NestedEnumTransactionTypeFilter {
-  equals: TransactionType
-  in: [TransactionType!]
-  not: NestedEnumTransactionTypeFilter
-  notIn: [TransactionType!]
-}
-
-input NestedFloatFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatFilter
-  notIn: [Float!]
-}
-
-input NestedStringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
-}
-
-input NestedStringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
-}
-
 type Operation {
   account: Account!
   accountId: String!
   category: Category
-  categoryId: String
   createdAt: DateTime!
   creditCard: CreditCard
   creditCardId: String
   deletedAt: DateTime
-  id: String!
+  id: ID!
   isPaid: Boolean!
   name: String!
   paidAt: DateTime
@@ -489,30 +257,10 @@ input OperationCreateInput {
   value: Float!
 }
 
-input OperationListRelationFilter {
-  every: OperationWhereInput
-  none: OperationWhereInput
-  some: OperationWhereInput
-}
-
 input OperationOrderByInput {
-  account: AccountOrderByInput
-  accountId: SortOrder
-  category: CategoryOrderByInput
-  categoryId: SortOrder
-  createdAt: SortOrder
-  creditCard: CreditCardOrderByInput
-  creditCardId: SortOrder
-  deletedAt: SortOrder
-  id: SortOrder
-  isPaid: SortOrder
-  name: SortOrder
-  paidAt: SortOrder
-  type: SortOrder
-  updatedAt: SortOrder
-  user: UserOrderByInput
-  userId: SortOrder
-  value: SortOrder
+  description: String
+  isPaid: Boolean
+  value: Float
 }
 
 input OperationUpdateInput {
@@ -527,30 +275,14 @@ input OperationUpdateInput {
 }
 
 input OperationWhereInput {
-  account: AccountWhereInput
-  accountId: StringFilter
-  AND: [OperationWhereInput!]
-  category: CategoryWhereInput
-  categoryId: StringNullableFilter
-  createdAt: DateTimeFilter
-  creditCard: CreditCardWhereInput
-  creditCardId: StringNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  isPaid: BoolFilter
-  name: StringFilter
-  NOT: [OperationWhereInput!]
-  OR: [OperationWhereInput!]
-  paidAt: DateTimeNullableFilter
-  type: EnumTransactionTypeFilter
-  updatedAt: DateTimeFilter
-  user: UserWhereInput
-  userId: StringFilter
-  value: FloatFilter
+  creditCardId: ID
+  description: String
+  isPaid: Boolean
+  value: Float
 }
 
 input OperationWhereUniqueInput {
-  id: String
+  id: ID!
 }
 
 type Pagination {
@@ -571,13 +303,7 @@ type Query {
   me: User
 }
 
-enum QueryMode {
-  default
-  insensitive
-}
-
 input RegisterInput {
-  birthday: Date
   currency: Currency
   email: String!
   firstName: String!
@@ -589,36 +315,6 @@ input RegisterInput {
 enum SortOrder {
   asc
   desc
-}
-
-input StringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
-}
-
-input StringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
 }
 
 type Subscription {
@@ -633,69 +329,27 @@ enum TransactionType {
   VariableExpense
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
-
 type User {
-  accounts(after: AccountWhereUniqueInput, before: AccountWhereUniqueInput, first: Int, last: Int, orderBy: [AccountOrderByInput!], where: AccountWhereInput): [Account!]!
+  accounts: [Account!]!
   birthDay: DateTime
-  categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int, orderBy: [CategoryOrderByInput!], where: CategoryWhereInput): [Category!]!
+  categories: [Category!]!
   createdAt: DateTime!
-  creditCards(after: CreditCardWhereUniqueInput, before: CreditCardWhereUniqueInput, first: Int, last: Int, orderBy: [CreditCardOrderByInput!], where: CreditCardWhereInput): [CreditCard!]!
+  creditCards: [CreditCard!]!
   deletedAt: DateTime
   email: String!
   firstName: String!
   hasVerifiedEmail: Boolean!
-  id: String!
+  id: ID!
   language: Locale!
   lastName: String!
-  operations(after: OperationWhereUniqueInput, before: OperationWhereUniqueInput, first: Int, last: Int, orderBy: [OperationOrderByInput!], where: OperationWhereInput): [Operation!]!
+  operations: [Operation!]!
   updatedAt: DateTime!
 }
 
-input UserOrderByInput {
-  birthDay: SortOrder
-  createdAt: SortOrder
-  deletedAt: SortOrder
-  email: SortOrder
-  firstName: SortOrder
-  hashToChangePassword: SortOrder
-  hashToVerifyEmail: SortOrder
-  hasVerifiedEmail: SortOrder
-  id: SortOrder
-  language: SortOrder
-  lastName: SortOrder
-  password: SortOrder
-  updatedAt: SortOrder
-}
-
 input UserUpdateInput {
-  birthday: Date
+  birthDay: Date
   email: String
   firstName: String
   language: Locale
   lastName: String
-}
-
-input UserWhereInput {
-  accounts: AccountListRelationFilter
-  AND: [UserWhereInput!]
-  birthDay: DateTimeNullableFilter
-  categories: CategoryListRelationFilter
-  createdAt: DateTimeFilter
-  creditCards: CreditCardListRelationFilter
-  deletedAt: DateTimeNullableFilter
-  email: StringFilter
-  firstName: StringFilter
-  hashToChangePassword: StringNullableFilter
-  hashToVerifyEmail: StringNullableFilter
-  hasVerifiedEmail: BoolFilter
-  id: StringFilter
-  language: EnumLocaleFilter
-  lastName: StringFilter
-  NOT: [UserWhereInput!]
-  operations: OperationListRelationFilter
-  OR: [UserWhereInput!]
-  password: StringFilter
-  updatedAt: DateTimeFilter
 }
