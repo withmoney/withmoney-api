@@ -3,18 +3,17 @@ import { getUserId } from '../../../utils';
 
 import { inputObjectType, enumType } from 'nexus';
 
-
 export const SortOrder = enumType({
   name: 'SortOrder',
   members: ['asc', 'desc'],
 });
-
 
 export const AccountWhereInput = inputObjectType({
   name: 'AccountWhereInput',
   definition(t) {
     t.string('name');
     t.field('currency', { type: 'Currency' });
+    t.field('deletedAt', { type: 'DateTimeFilter' });
   },
 });
 

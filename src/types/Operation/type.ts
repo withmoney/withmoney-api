@@ -21,5 +21,6 @@ export const OperationType = objectType({
     t.field(Operation.accountId);
     t.field(Operation.userId);
     t.field(Operation.creditCardId);
+    t.field(Operation.categoryId);
   },
 });

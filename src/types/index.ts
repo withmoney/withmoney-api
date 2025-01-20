@@ -8,4 +8,5 @@ export * from './User';
 
 export * from './Subscription';
 
+export * from './Filters';
 export * from './Scalar';

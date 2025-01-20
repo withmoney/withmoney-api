@@ -4,7 +4,6 @@ import { mutationField, nonNull, arg, stringArg, objectType } from 'nexus';
 import { User } from 'nexus-prisma';
 import { sign } from 'jsonwebtoken';
 
-
 import { USER_SIGNED_IN, USER_UPDATED } from '../../Subscription';
 import { APP_SECRET, getUserId } from '../../../utils';
 import { sendVerifyEmail } from './../../../email';
@@ -42,6 +41,16 @@ export const Login = mutationField('login', {
     }
 
     if (!user.hasVerifiedEmail) {
+      try {
+        await sendVerifyEmail({
+          firstName: user.firstName,
+          email,
+          hash: user.hashToVerifyEmail,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
       throw new ValidationError('Email has not been confirmed');
     }
 

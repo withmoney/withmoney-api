@@ -43,6 +43,7 @@ export interface NexusGenInputs {
   }
   AccountWhereInput: { // input type
     currency?: NexusGenEnums['Currency'] | null; // Currency
+    deletedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     name?: string | null; // String
   }
   AccountWhereUniqueInput: { // input type
@@ -73,7 +74,9 @@ export interface NexusGenInputs {
     type: NexusGenEnums['TransactionType']; // TransactionType!
   }
   CategoryWhereInput: { // input type
-    name?: NexusGenInputs['FilterString'] | null; // FilterString
+    deletedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    type?: NexusGenInputs['TransactionTypeFilter'] | null; // TransactionTypeFilter
   }
   CategoryWhereUniqueInput: { // input type
     id: string; // ID!
@@ -105,6 +108,13 @@ export interface NexusGenInputs {
   CreditCardWhereUniqueInput: { // input type
     id: string; // ID!
   }
+  DateTimeFilter: { // input type
+    equals?: NexusGenScalars['DateTime'] | null; // DateTime
+    gt?: NexusGenScalars['DateTime'] | null; // DateTime
+    gte?: NexusGenScalars['DateTime'] | null; // DateTime
+    lt?: NexusGenScalars['DateTime'] | null; // DateTime
+    lte?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   FilterString: { // input type
     contains?: string | null; // String
   }
@@ -119,8 +129,10 @@ export interface NexusGenInputs {
     value: number; // Float!
   }
   OperationOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     description?: NexusGenEnums['SortOrder'] | null; // SortOrder
     isPaid?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    paidAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     value?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   OperationUpdateInput: { // input type
@@ -134,9 +146,12 @@ export interface NexusGenInputs {
     value: number; // Float!
   }
   OperationWhereInput: { // input type
+    accountId?: NexusGenInputs['StringFilter'] | null; // StringFilter
     creditCardId?: string | null; // ID
+    deletedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     description?: string | null; // String
     isPaid?: boolean | null; // Boolean
+    paidAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     value?: number | null; // Float
   }
   OperationWhereUniqueInput: { // input type
@@ -149,6 +164,18 @@ export interface NexusGenInputs {
     language?: NexusGenEnums['Locale'] | null; // Locale
     lastName: string; // String!
     password: string; // String!
+  }
+  StringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    startsWith?: string | null; // String
+  }
+  TransactionTypeFilter: { // input type
+    equals?: NexusGenEnums['TransactionType'] | null; // TransactionType
+    in?: Array<NexusGenEnums['TransactionType'] | null> | null; // [TransactionType]
+    not?: NexusGenEnums['TransactionType'] | null; // TransactionType
+    notIn?: Array<NexusGenEnums['TransactionType'] | null> | null; // [TransactionType]
   }
   UserUpdateInput: { // input type
     birthDay?: NexusGenScalars['Date'] | null; // Date
@@ -233,6 +260,7 @@ export interface NexusGenObjects {
   Mutation: {};
   Operation: { // root type
     accountId: string; // String!
+    categoryId?: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     creditCardId?: string | null; // String
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -361,6 +389,7 @@ export interface NexusGenFieldTypes {
     account: NexusGenRootTypes['Account']; // Account!
     accountId: string; // String!
     category: NexusGenRootTypes['Category'] | null; // Category
+    categoryId: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     creditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
     creditCardId: string | null; // String
@@ -500,6 +529,7 @@ export interface NexusGenFieldTypeNames {
     account: 'Account'
     accountId: 'String'
     category: 'Category'
+    categoryId: 'String'
     createdAt: 'DateTime'
     creditCard: 'CreditCard'
     creditCardId: 'String'

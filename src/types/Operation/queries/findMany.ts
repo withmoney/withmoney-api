@@ -10,6 +10,9 @@ export const OperationWhereInput = inputObjectType({
     t.float('value');
     t.boolean('isPaid');
     t.id('creditCardId');
+    t.field('paidAt', { type: 'DateTimeFilter' });
+    t.field('deletedAt', { type: 'DateTimeFilter' });
+    t.field('accountId', { type: 'StringFilter' });
   },
 });
 
@@ -19,6 +22,8 @@ export const OperationOrderByInput = inputObjectType({
     t.field('description', { type: 'SortOrder' });
     t.field('value', { type: 'SortOrder' });
     t.field('isPaid', { type: 'SortOrder' });
+    t.field('paidAt', { type: 'SortOrder' });
+    t.field('createdAt', { type: 'SortOrder' });
   },
 });
 

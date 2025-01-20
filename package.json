@@ -68,7 +68,7 @@
     "jsonwebtoken": "9.0.2",
     "nexus": "^1.3.0",
     "nexus-prisma": "^2.0.5",
-    "nodemailer": "6.9.15",
+    "nodemailer": "6.9.16",
     "prisma": "5.21.1",
     "uuid": "10.0.0",
     "ws": "^7.5.10"

@@ -29,6 +29,7 @@ input AccountUpdateInput {
 
 input AccountWhereInput {
   currency: Currency
+  deletedAt: DateTimeFilter
   name: String
 }
 
@@ -100,7 +101,9 @@ input CategoryUpdateInput {
 }
 
 input CategoryWhereInput {
-  name: FilterString
+  deletedAt: DateTimeFilter
+  name: StringFilter
+  type: TransactionTypeFilter
 }
 
 input CategoryWhereUniqueInput {
@@ -192,6 +195,14 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+}
+
 input FilterString {
   contains: String
 }
@@ -231,6 +242,7 @@ type Operation {
   account: Account!
   accountId: String!
   category: Category
+  categoryId: String
   createdAt: DateTime!
   creditCard: CreditCard
   creditCardId: String
@@ -258,8 +270,10 @@ input OperationCreateInput {
 }
 
 input OperationOrderByInput {
+  createdAt: SortOrder
   description: SortOrder
   isPaid: SortOrder
+  paidAt: SortOrder
   value: SortOrder
 }
 
@@ -275,9 +289,12 @@ input OperationUpdateInput {
 }
 
 input OperationWhereInput {
+  accountId: StringFilter
   creditCardId: ID
+  deletedAt: DateTimeFilter
   description: String
   isPaid: Boolean
+  paidAt: DateTimeFilter
   value: Float
 }
 
@@ -317,6 +334,13 @@ enum SortOrder {
   desc
 }
 
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  startsWith: String
+}
+
 type Subscription {
   userSignedIn(userId: String!): User
   userUpdated(userId: String!): User
@@ -327,6 +351,13 @@ enum TransactionType {
   Deposit
   FixedExpense
   VariableExpense
+}
+
+input TransactionTypeFilter {
+  equals: TransactionType
+  in: [TransactionType]
+  not: TransactionType
+  notIn: [TransactionType]
 }
 
 type User {
