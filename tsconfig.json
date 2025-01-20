@@ -6,9 +6,9 @@
     "outDir": "./dist",
     "plugins": [{ "name": "nexus/typescript-language-service" }],
     "rootDir": ".",
-    "strict": true,
     "target": "ES2022",
     "typeRoots": ["node_modules/@types", "types"],
+    "strict": true,
     "strictNullChecks": false
   },
   "include": ["**/*.ts", "**/*.tsx", ".", "types.d.ts"],

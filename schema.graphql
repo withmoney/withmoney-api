@@ -54,7 +54,7 @@ type CalcCreditCardsLimitResults {
 }
 
 input CalcCreditCardsLimitWhereInput {
-  accountId: String!
+  accountId: ID!
 }
 
 input CalcPreviousBalancePaidAtInput {
@@ -149,6 +149,7 @@ type CreditCardLimitResult {
 }
 
 input CreditCardOrderByInput {
+  createdAt: SortOrder
   expirationDate: SortOrder
   name: SortOrder
   number: SortOrder
@@ -162,10 +163,11 @@ input CreditCardUpdateInput {
 }
 
 input CreditCardWhereInput {
-  accountId: ID
+  accountId: IdFilter
   cvv: String
+  deletedAt: DateTimeFilter
   expirationDate: String
-  name: String
+  name: StringFilter
   number: String
 }
 
@@ -205,6 +207,10 @@ input DateTimeFilter {
 
 input FilterString {
   contains: String
+}
+
+input IdFilter {
+  equals: ID
 }
 
 enum Locale {

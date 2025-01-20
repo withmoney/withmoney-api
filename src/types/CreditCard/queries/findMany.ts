@@ -6,11 +6,12 @@ import { inputObjectType } from 'nexus';
 export const CreditCardWhereInput = inputObjectType({
   name: 'CreditCardWhereInput',
   definition(t) {
-    t.string('name');
+    t.field('name', { type: 'StringFilter' });
     t.string('number');
     t.string('expirationDate');
     t.string('cvv');
-    t.id('accountId');
+    t.field('accountId', { type: 'IdFilter' });
+    t.field('deletedAt', { type: 'DateTimeFilter' });
   },
 });
 
@@ -20,6 +21,7 @@ export const CreditCardOrderByInput = inputObjectType({
     t.field('name', { type: 'SortOrder' });
     t.field('number', { type: 'SortOrder' });
     t.field('expirationDate', { type: 'SortOrder' });
+    t.field('createdAt', { type: 'SortOrder' });
   },
 });
 
@@ -34,7 +36,6 @@ export const CreditCardFindManyQuery = queryField('findManyCreditCard', {
   },
   resolve: async (_parent, args, ctx) => {
     const userId = await getUserId(ctx);
-
 
     const data = await ctx.prisma.creditCard.findMany({
       ...args,

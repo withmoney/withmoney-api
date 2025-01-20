@@ -20,3 +20,10 @@ export const StringFilter = inputObjectType({
     t.string('endsWith');
   },
 });
+
+export const IdFilter = inputObjectType({
+  name: 'IdFilter',
+  definition(t) {
+    t.id('equals');
+  },
+});

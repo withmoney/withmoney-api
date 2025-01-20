@@ -1,4 +1,4 @@
-import { inputObjectType, objectType } from 'nexus';
+import { inputObjectType } from 'nexus';
 
 export const OperationCreateInput = inputObjectType({
   name: 'OperationCreateInput',
@@ -46,6 +46,6 @@ export const CalcPreviousBalanceWhereInput = inputObjectType({
 export const CalcCreditCardsLimitWhereInput = inputObjectType({
   name: 'CalcCreditCardsLimitWhereInput',
   definition(t) {
-    t.nonNull.string('accountId');
+    t.nonNull.field('accountId', { type: 'ID' });
   },
 });

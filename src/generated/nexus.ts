@@ -53,7 +53,7 @@ export interface NexusGenInputs {
     id: string; // String!
   }
   CalcCreditCardsLimitWhereInput: { // input type
-    accountId: string; // String!
+    accountId: string; // ID!
   }
   CalcPreviousBalancePaidAtInput: { // input type
     lt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -88,6 +88,7 @@ export interface NexusGenInputs {
     name: string; // String!
   }
   CreditCardOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     expirationDate?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     number?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -99,10 +100,11 @@ export interface NexusGenInputs {
     name: string; // String!
   }
   CreditCardWhereInput: { // input type
-    accountId?: string | null; // ID
+    accountId?: NexusGenInputs['IdFilter'] | null; // IdFilter
     cvv?: string | null; // String
+    deletedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     expirationDate?: string | null; // String
-    name?: string | null; // String
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     number?: string | null; // String
   }
   CreditCardWhereUniqueInput: { // input type
@@ -117,6 +119,9 @@ export interface NexusGenInputs {
   }
   FilterString: { // input type
     contains?: string | null; // String
+  }
+  IdFilter: { // input type
+    equals?: string | null; // ID
   }
   OperationCreateInput: { // input type
     accountId: string; // String!
