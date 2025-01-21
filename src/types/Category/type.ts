@@ -1,5 +1,6 @@
-import { objectType } from 'nexus';
+import { nonNull, objectType } from 'nexus';
 import { Category } from 'nexus-prisma';
+import { OperationTypeEnum } from '../Scalar';
 
 export const CategoryType = objectType({
   name: Category.$name,
@@ -8,6 +9,7 @@ export const CategoryType = objectType({
     t.field(Category.id);
     t.field(Category.name);
     t.field(Category.type);
+    t.field('operationType', { type: OperationTypeEnum });
     t.field(Category.createdAt);
     t.field(Category.updatedAt);
     t.field(Category.deletedAt);
@@ -19,7 +21,7 @@ export const CategoryType = objectType({
 export const CategoriesResult = objectType({
   name: 'CategoriesResult',
   definition(t) {
-    t.list.field('data', { type: 'Category' });
+    t.nonNull.list.field('data', { type: nonNull('Category') });
     t.field('pagination', { type: 'Pagination' });
   },
 });

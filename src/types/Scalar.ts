@@ -1,6 +1,6 @@
 import { asNexusMethod, enumType, objectType } from 'nexus';
 
-import { GraphQLDate , GraphQLDateTime } from 'graphql-scalars';
+import { GraphQLDate, GraphQLDateTime } from 'graphql-scalars';
 
 export const DateTime = GraphQLDate;
 
@@ -9,6 +9,11 @@ export const GQLDateTime = asNexusMethod(GraphQLDateTime, 'datetime');
 export const TransactionType = enumType({
   name: 'TransactionType',
   members: ['CreditCard', 'Deposit', 'FixedExpense', 'VariableExpense'],
+});
+
+export const OperationTypeEnum = enumType({
+  name: 'OperationTypeEnum',
+  members: ['Income', 'Expense'],
 });
 
 export const CreditCardBrand = enumType({

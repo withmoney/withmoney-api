@@ -5,6 +5,7 @@ export const CategoryCreateInput = inputObjectType({
   definition(t) {
     t.nonNull.string('name');
     t.nonNull.field('type', { type: 'TransactionType' });
+    t.nonNull.field('operationType', { type: 'OperationTypeEnum' });
   },
 });
 
@@ -13,5 +14,6 @@ export const CategoryUpdateInput = inputObjectType({
   definition(t) {
     t.nonNull.string('name');
     t.nonNull.field('type', { type: 'TransactionType' });
+    t.nonNull.field('operationType', { type: 'OperationTypeEnum' });
   },
 });

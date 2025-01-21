@@ -64,6 +64,7 @@ export interface NexusGenInputs {
   }
   CategoryCreateInput: { // input type
     name: string; // String!
+    operationType: NexusGenEnums['OperationTypeEnum']; // OperationTypeEnum!
     type: NexusGenEnums['TransactionType']; // TransactionType!
   }
   CategoryOrderByInput: { // input type
@@ -71,6 +72,7 @@ export interface NexusGenInputs {
   }
   CategoryUpdateInput: { // input type
     name: string; // String!
+    operationType: NexusGenEnums['OperationTypeEnum']; // OperationTypeEnum!
     type: NexusGenEnums['TransactionType']; // TransactionType!
   }
   CategoryWhereInput: { // input type
@@ -195,6 +197,7 @@ export interface NexusGenEnums {
   CreditCardBrand: "AmericanExpress" | "BNDES" | "Dinners" | "ELO" | "HiperCard" | "MasterCard" | "Other" | "SoroCard" | "Visa"
   Currency: "BRL" | "EUR" | "GBP" | "USD"
   Locale: "enUS" | "ptBR"
+  OperationTypeEnum: "Expense" | "Income"
   SortOrder: "asc" | "desc"
   TransactionType: "CreditCard" | "Deposit" | "FixedExpense" | "VariableExpense"
 }
@@ -233,7 +236,7 @@ export interface NexusGenObjects {
     amount?: number | null; // Float
   }
   CategoriesResult: { // root type
-    data?: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    data: NexusGenRootTypes['Category'][]; // [Category!]!
     pagination?: NexusGenRootTypes['Pagination'] | null; // Pagination
   }
   Category: { // root type
@@ -241,6 +244,7 @@ export interface NexusGenObjects {
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // ID!
     name: string; // String!
+    operationType?: NexusGenEnums['OperationTypeEnum'] | null; // OperationTypeEnum
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -272,6 +276,7 @@ export interface NexusGenObjects {
     id: string; // ID!
     isPaid: boolean; // Boolean!
     name: string; // String!
+    operationType?: NexusGenEnums['OperationTypeEnum'] | null; // OperationTypeEnum
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -331,7 +336,7 @@ export interface NexusGenFieldTypes {
     amount: number | null; // Float
   }
   CategoriesResult: { // field return type
-    data: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
+    data: NexusGenRootTypes['Category'][]; // [Category!]!
     pagination: NexusGenRootTypes['Pagination'] | null; // Pagination
   }
   Category: { // field return type
@@ -339,6 +344,7 @@ export interface NexusGenFieldTypes {
     deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: string; // ID!
     name: string; // String!
+    operationType: NexusGenEnums['OperationTypeEnum'] | null; // OperationTypeEnum
     operations: NexusGenRootTypes['Operation'][]; // [Operation!]!
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -402,6 +408,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     isPaid: boolean; // Boolean!
     name: string; // String!
+    operationType: NexusGenEnums['OperationTypeEnum'] | null; // OperationTypeEnum
     paidAt: NexusGenScalars['DateTime'] | null; // DateTime
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -479,6 +486,7 @@ export interface NexusGenFieldTypeNames {
     deletedAt: 'DateTime'
     id: 'ID'
     name: 'String'
+    operationType: 'OperationTypeEnum'
     operations: 'Operation'
     type: 'TransactionType'
     updatedAt: 'DateTime'
@@ -542,6 +550,7 @@ export interface NexusGenFieldTypeNames {
     id: 'ID'
     isPaid: 'Boolean'
     name: 'String'
+    operationType: 'OperationTypeEnum'
     paidAt: 'DateTime'
     type: 'TransactionType'
     updatedAt: 'DateTime'

@@ -1,5 +1,7 @@
 import { objectType } from 'nexus';
 import { Operation } from 'nexus-prisma';
+import { OperationTypeEnum } from '../Scalar';
+// import { OperationTypeEnum } from '../enums/OperationTypeEnum';
 
 export const OperationType = objectType({
   name: Operation.$name,
@@ -9,6 +11,8 @@ export const OperationType = objectType({
     t.field(Operation.name);
     t.field(Operation.value);
     t.field(Operation.type);
+    t.field('operationType', { type: OperationTypeEnum });
+    // t.field('operationType', { type: 'OperationTypeEnum' });
     t.field(Operation.isPaid);
     t.field(Operation.paidAt);
     t.field(Operation.createdAt);
