@@ -49,3 +49,27 @@ export const CalcCreditCardsLimitWhereInput = inputObjectType({
     t.nonNull.field('accountId', { type: 'ID' });
   },
 });
+
+export const OperationWhereInput = inputObjectType({
+  name: 'OperationWhereInput',
+  definition(t) {
+    t.string('description');
+    t.float('value');
+    t.boolean('isPaid');
+    t.id('creditCardId');
+    t.field('paidAt', { type: 'DateTimeFilter' });
+    t.field('deletedAt', { type: 'DateTimeFilter' });
+    t.field('accountId', { type: 'StringFilter' });
+  },
+});
+
+export const OperationOrderByInput = inputObjectType({
+  name: 'OperationOrderByInput',
+  definition(t) {
+    t.field('description', { type: 'SortOrder' });
+    t.field('value', { type: 'SortOrder' });
+    t.field('isPaid', { type: 'SortOrder' });
+    t.field('paidAt', { type: 'SortOrder' });
+    t.field('createdAt', { type: 'SortOrder' });
+  },
+});

@@ -1,7 +1,5 @@
 import { objectType } from 'nexus';
 import { Operation } from 'nexus-prisma';
-import { OperationTypeEnum } from '../Scalar';
-// import { OperationTypeEnum } from '../enums/OperationTypeEnum';
 
 export const OperationType = objectType({
   name: Operation.$name,
@@ -11,8 +9,6 @@ export const OperationType = objectType({
     t.field(Operation.name);
     t.field(Operation.value);
     t.field(Operation.type);
-    t.field('operationType', { type: OperationTypeEnum });
-    // t.field('operationType', { type: 'OperationTypeEnum' });
     t.field(Operation.isPaid);
     t.field(Operation.paidAt);
     t.field(Operation.createdAt);
@@ -26,5 +22,31 @@ export const OperationType = objectType({
     t.field(Operation.userId);
     t.field(Operation.creditCardId);
     t.field(Operation.categoryId);
+  },
+});
+
+export const CalcCreditCardsLimitResults = objectType({
+  name: 'CalcCreditCardsLimitResults',
+  definition(t) {
+    t.float('limit');
+    t.float('limitFree');
+    t.float('limitBlocked');
+    t.field('creditCard', { type: 'CreditCard' });
+  },
+});
+
+export const CalcPreviousBalanceResult = objectType({
+  name: 'CalcPreviousBalanceResult',
+  definition(t) {
+    t.float('amount');
+  },
+});
+
+export const CreditCardLimit = objectType({
+  name: 'CreditCardLimitResult',
+  definition(t) {
+    t.float('limit');
+    t.float('limitFree');
+    t.float('limitBlocked');
   },
 });

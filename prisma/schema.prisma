@@ -27,16 +27,15 @@ model Account {
 }
 
 model Category {
-  id            String          @id @default(uuid())
-  userId        String          @map("user_id")
-  name          String
-  type          TransactionType
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
-  deletedAt     DateTime?       @map("deleted_at")
-  operationType OperationType   @default(Expense) @map("operation_type")
-  user          User            @relation(fields: [userId], references: [id])
-  operations    Operation[]
+  id         String          @id @default(uuid())
+  userId     String          @map("user_id")
+  name       String
+  type       TransactionType @default(Expense)
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @default(now()) @updatedAt @map("updated_at")
+  deletedAt  DateTime?       @map("deleted_at")
+  user       User            @relation(fields: [userId], references: [id])
+  operations Operation[]
 
   @@map("categories")
 }
@@ -59,24 +58,23 @@ model CreditCard {
 }
 
 model Operation {
-  id            String          @id @default(uuid())
-  accountId     String          @map("account_id")
-  categoryId    String?         @map("category_id")
-  userId        String          @map("user_id")
-  creditCardId  String?         @map("credit_card_id")
-  name          String
-  value         Float
-  isPaid        Boolean         @default(false) @map("is_paid")
-  type          TransactionType
-  paidAt        DateTime?       @default(now()) @map("paid_at")
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
-  deletedAt     DateTime?       @map("deleted_at")
-  operationType OperationType   @default(Expense) @map("operation_type")
-  account       Account         @relation(fields: [accountId], references: [id])
-  category      Category?       @relation(fields: [categoryId], references: [id])
-  creditCard    CreditCard?     @relation(fields: [creditCardId], references: [id])
-  user          User            @relation(fields: [userId], references: [id])
+  id           String          @id @default(uuid())
+  accountId    String          @map("account_id")
+  categoryId   String?         @map("category_id")
+  userId       String          @map("user_id")
+  creditCardId String?         @map("credit_card_id")
+  name         String
+  value        Float
+  isPaid       Boolean         @default(false) @map("is_paid")
+  type         TransactionType @default(Expense)
+  paidAt       DateTime?       @default(now()) @map("paid_at")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @default(now()) @updatedAt @map("updated_at")
+  deletedAt    DateTime?       @map("deleted_at")
+  account      Account         @relation(fields: [accountId], references: [id])
+  category     Category?       @relation(fields: [categoryId], references: [id])
+  creditCard   CreditCard?     @relation(fields: [creditCardId], references: [id])
+  user         User            @relation(fields: [userId], references: [id])
 
   @@map("operations")
 }
@@ -123,13 +121,6 @@ enum CreditCardBrand {
 }
 
 enum TransactionType {
-  CreditCard
-  Deposit
-  FixedExpense
-  VariableExpense
-}
-
-enum OperationType {
   Income
   Expense
 }

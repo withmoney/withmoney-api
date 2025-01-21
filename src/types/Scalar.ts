@@ -8,11 +8,6 @@ export const GQLDateTime = asNexusMethod(GraphQLDateTime, 'datetime');
 
 export const TransactionType = enumType({
   name: 'TransactionType',
-  members: ['CreditCard', 'Deposit', 'FixedExpense', 'VariableExpense'],
-});
-
-export const OperationTypeEnum = enumType({
-  name: 'OperationTypeEnum',
   members: ['Income', 'Expense'],
 });
 

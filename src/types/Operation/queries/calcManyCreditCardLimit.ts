@@ -2,16 +2,6 @@ import { queryField, arg, nonNull, list, objectType } from 'nexus';
 import { getUserId } from '../../../utils';
 import { inputObjectType } from 'nexus';
 
-export const CalcCreditCardsLimitResults = objectType({
-  name: 'CalcCreditCardsLimitResults',
-  definition(t) {
-    t.float('limit');
-    t.float('limitFree');
-    t.float('limitBlocked');
-    t.field('creditCard', { type: 'CreditCard' });
-  },
-});
-
 export const calcManyCreditCardLimitQuery = queryField('calcManyCreditCardLimit', {
   type: nonNull(list(nonNull('CalcCreditCardsLimitResults'))),
   args: {

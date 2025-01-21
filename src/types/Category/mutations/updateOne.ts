@@ -2,15 +2,6 @@ import { ForbiddenError, ApolloError } from 'apollo-server';
 import { mutationField, nonNull, arg } from 'nexus';
 import { getUserId } from '../../../utils';
 
-import {inputObjectType, enumType} from 'nexus';
-
-export const CategoryWhereUniqueInput = inputObjectType({
-  name: 'CategoryWhereUniqueInput',
-  definition(t) {
-    t.nonNull.id('id');
-  },
-});
-
 export const CategoryUpdateOneMutation = mutationField('updateOneCategory', {
   type: nonNull('Category'),
   args: {

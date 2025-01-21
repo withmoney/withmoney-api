@@ -2,15 +2,6 @@ import { queryField, arg, nonNull, objectType, inputObjectType } from 'nexus';
 import { ForbiddenError, ApolloError } from 'apollo-server';
 import { getUserId } from '../../../utils';
 
-export const CreditCardLimit = objectType({
-  name: 'CreditCardLimitResult',
-  definition(t) {
-    t.float('limit');
-    t.float('limitFree');
-    t.float('limitBlocked');
-  },
-});
-
 export const CalcCreditCardWhereUniqueInput = inputObjectType({
   name: 'CalcCreditCardWhereUniqueInput',
   definition(t) {

@@ -3,39 +3,6 @@ import { getUserId } from '../../../utils';
 
 import { inputObjectType, enumType } from 'nexus';
 
-export const CategoryTypeFilter = inputObjectType({
-  name: 'TransactionTypeFilter',
-  definition(t) {
-    t.field('equals', { type: 'TransactionType' });
-    t.field('in', { type: list('TransactionType') });
-    t.field('notIn', { type: list('TransactionType') });
-    t.field('not', { type: 'TransactionType' });
-  },
-});
-
-export const FilterString = inputObjectType({
-  name: 'FilterString',
-  definition(t) {
-    t.string('contains');
-  },
-});
-
-export const CategoryWhereInput = inputObjectType({
-  name: 'CategoryWhereInput',
-  definition(t) {
-    t.field('name', { type: 'StringFilter' });
-    t.field('type', { type: 'TransactionTypeFilter' });
-    t.field('deletedAt', { type: 'DateTimeFilter' });
-  },
-});
-
-export const CategoryOrderByInput = inputObjectType({
-  name: 'CategoryOrderByInput',
-  definition(t) {
-    t.field('name', { type: 'SortOrder' });
-  },
-});
-
 export const CategoryFindManyQuery = queryField('findManyCategory', {
   type: nonNull('CategoriesResult'),
   args: {

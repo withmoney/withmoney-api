@@ -80,7 +80,6 @@ type Category {
   deletedAt: DateTime
   id: ID!
   name: String!
-  operationType: OperationTypeEnum
   operations: [Operation!]!
   type: TransactionType!
   updatedAt: DateTime!
@@ -89,7 +88,6 @@ type Category {
 
 input CategoryCreateInput {
   name: String!
-  operationType: OperationTypeEnum!
   type: TransactionType!
 }
 
@@ -99,7 +97,6 @@ input CategoryOrderByInput {
 
 input CategoryUpdateInput {
   name: String!
-  operationType: OperationTypeEnum!
   type: TransactionType!
 }
 
@@ -259,7 +256,6 @@ type Operation {
   id: ID!
   isPaid: Boolean!
   name: String!
-  operationType: OperationTypeEnum
   paidAt: DateTime
   type: TransactionType!
   updatedAt: DateTime!
@@ -285,11 +281,6 @@ input OperationOrderByInput {
   isPaid: SortOrder
   paidAt: SortOrder
   value: SortOrder
-}
-
-enum OperationTypeEnum {
-  Expense
-  Income
 }
 
 input OperationUpdateInput {
@@ -362,10 +353,8 @@ type Subscription {
 }
 
 enum TransactionType {
-  CreditCard
-  Deposit
-  FixedExpense
-  VariableExpense
+  Expense
+  Income
 }
 
 input TransactionTypeFilter {

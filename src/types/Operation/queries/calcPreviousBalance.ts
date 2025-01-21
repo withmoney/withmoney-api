@@ -1,13 +1,6 @@
 import { queryField, arg, nonNull, list, objectType } from 'nexus';
 import { getUserId } from '../../../utils';
 
-export const CalcPreviousBalanceResult = objectType({
-  name: 'CalcPreviousBalanceResult',
-  definition(t) {
-    t.float('amount');
-  },
-});
-
 export const CalcPreviousBalanceQuery = queryField('calcPreviousBalance', {
   type: nonNull('CalcPreviousBalanceResult'),
   args: {
@@ -30,7 +23,7 @@ export const CalcPreviousBalanceQuery = queryField('calcPreviousBalance', {
     });
 
     const amount = results.reduce((acc, operation) => {
-      if (operation.type === 'Deposit') {
+      if (operation.type === 'Income') {
         return acc + operation.value;
       } else {
         return acc - operation.value;
