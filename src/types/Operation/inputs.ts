@@ -11,6 +11,7 @@ export const OperationCreateInput = inputObjectType({
     t.string('categoryId');
     t.string('creditCardId');
     t.nonNull.string('accountId');
+    t.string('paymentMethodId');
   },
 });
 
@@ -25,6 +26,7 @@ export const OperationUpdateInput = inputObjectType({
     t.string('categoryId');
     t.string('creditCardId');
     t.nonNull.string('accountId');
+    t.string('paymentMethodId');
   },
 });
 
@@ -47,6 +49,13 @@ export const CalcCreditCardsLimitWhereInput = inputObjectType({
   name: 'CalcCreditCardsLimitWhereInput',
   definition(t) {
     t.nonNull.field('accountId', { type: 'ID' });
+  },
+});
+
+export const OperationWhereUniqueInput = inputObjectType({
+  name: 'OperationWhereUniqueInput',
+  definition(t) {
+    t.nonNull.id('id');
   },
 });
 

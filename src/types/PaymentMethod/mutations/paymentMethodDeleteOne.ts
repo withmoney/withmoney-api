@@ -2,37 +2,37 @@ import { ForbiddenError, ApolloError } from 'apollo-server';
 import { mutationField, arg, nonNull } from 'nexus';
 import { getUserId } from '../../../utils';
 
-import { inputObjectType } from 'nexus';
-
-export const OperationRestoreOneMutation = mutationField('restoreOneOperation', {
-  type: 'Operation',
+export const paymentMethodDeleteOneMutation = mutationField('paymentMethodDeleteOne', {
+  type: 'PaymentMethodSingleResult',
   args: {
     where: nonNull(
       arg({
-        type: 'OperationWhereUniqueInput',
+        type: 'PaymentMethodWhereUniqueInput',
       }),
     ),
   },
   resolve: async (_parent, { where }, ctx) => {
     const userId = await getUserId(ctx);
 
-    const operation = await ctx.prisma.operation.findFirst({
+    const paymentMethod = await ctx.prisma.paymentMethod.findFirst({
       where,
     });
 
-    if (!operation) {
+    if (!paymentMethod) {
       throw new ApolloError('entity not found');
     }
 
-    if (operation.userId !== userId) {
+    if (paymentMethod.userId !== userId) {
       throw new ForbiddenError('action no allowed');
     }
 
-    return ctx.prisma.operation.update({
+    const data = await ctx.prisma.paymentMethod.update({
       where,
       data: {
-        deletedAt: null,
+        deletedAt: new Date(),
       },
     });
+
+    return { data };
   },
 });

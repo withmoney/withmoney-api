@@ -22,6 +22,23 @@ export const OperationType = objectType({
     t.field(Operation.userId);
     t.field(Operation.creditCardId);
     t.field(Operation.categoryId);
+    t.field(Operation.paymentMethodId);
+    t.field('paymentMethod', {
+      type: 'PaymentMethodSingleResult',
+      resolve: async (parent, _, ctx) => {
+        if (!parent.paymentMethodId) {
+          return { data: null };
+        }
+
+        const data = await ctx.prisma.paymentMethod.findUnique({
+          where: { id: parent.paymentMethodId },
+        });
+
+        return {
+          data,
+        };
+      },
+    });
   },
 });
 

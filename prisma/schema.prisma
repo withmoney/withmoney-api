@@ -12,16 +12,17 @@ datasource db {
 }
 
 model Account {
-  id          String       @id @default(uuid())
-  name        String
-  userId      String       @map("user_id")
-  currency    Currency     @default(USD) @map("currency")
-  createdAt   DateTime     @default(now()) @map("created_at")
-  updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at")
-  deletedAt   DateTime?    @map("deleted_at")
-  user        User         @relation(fields: [userId], references: [id])
-  creditCards CreditCard[]
-  operations  Operation[]
+  id            String          @id @default(uuid())
+  name          String
+  userId        String          @map("user_id")
+  currency      Currency        @default(USD) @map("currency")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
+  deletedAt     DateTime?       @map("deleted_at")
+  user          User            @relation(fields: [userId], references: [id])
+  creditCards   CreditCard[]
+  operations    Operation[]
+  paymentMethod PaymentMethod[]
 
   @@map("accounts")
 }
@@ -58,45 +59,63 @@ model CreditCard {
 }
 
 model Operation {
-  id           String          @id @default(uuid())
-  accountId    String          @map("account_id")
-  categoryId   String?         @map("category_id")
-  userId       String          @map("user_id")
-  creditCardId String?         @map("credit_card_id")
-  name         String
-  value        Float
-  isPaid       Boolean         @default(false) @map("is_paid")
-  type         TransactionType @default(Expense)
-  paidAt       DateTime?       @default(now()) @map("paid_at")
-  createdAt    DateTime        @default(now()) @map("created_at")
-  updatedAt    DateTime        @default(now()) @updatedAt @map("updated_at")
-  deletedAt    DateTime?       @map("deleted_at")
-  account      Account         @relation(fields: [accountId], references: [id])
-  category     Category?       @relation(fields: [categoryId], references: [id])
-  creditCard   CreditCard?     @relation(fields: [creditCardId], references: [id])
-  user         User            @relation(fields: [userId], references: [id])
+  id              String          @id @default(uuid())
+  accountId       String          @map("account_id")
+  categoryId      String?         @map("category_id")
+  userId          String          @map("user_id")
+  creditCardId    String?         @map("credit_card_id")
+  paymentMethodId String?         @map("payment_method_id")
+  name            String
+  value           Float
+  isPaid          Boolean         @default(false) @map("is_paid")
+  type            TransactionType @default(Expense)
+  paidAt          DateTime?       @default(now()) @map("paid_at")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @default(now()) @updatedAt @map("updated_at")
+  deletedAt       DateTime?       @map("deleted_at")
+  account         Account         @relation(fields: [accountId], references: [id])
+  category        Category?       @relation(fields: [categoryId], references: [id])
+  creditCard      CreditCard?     @relation(fields: [creditCardId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+  paymentMethod   PaymentMethod?  @relation(fields: [paymentMethodId], references: [id])
 
   @@map("operations")
 }
 
+model PaymentMethod {
+  id        String      @id @default(uuid())
+  userId    String      @map("user_id")
+  accountId String      @map("account_id")
+  name      String
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime?   @map("deleted_at")
+  operation Operation[]
+  user      User        @relation(fields: [userId], references: [id])
+  account   Account     @relation(fields: [accountId], references: [id])
+
+  @@map("payment_methods")
+}
+
 model User {
-  id                   String       @id @default(uuid())
-  email                String       @unique
+  id                   String          @id @default(uuid())
+  email                String          @unique
   password             String
-  firstName            String       @map("first_name")
-  lastName             String       @map("last_name")
-  language             Locale       @default(enUS) @map("language")
-  hasVerifiedEmail     Boolean      @default(false) @map("has_verified_email")
-  hashToVerifyEmail    String?      @unique @map("hash_to_verify_email")
-  hashToChangePassword String?      @unique @map("hash_to_change_password")
-  birthDay             DateTime?    @map("birth_day")
-  createdAt            DateTime     @default(now()) @map("created_at")
-  updatedAt            DateTime     @default(now()) @updatedAt @map("updated_at")
-  deletedAt            DateTime?    @map("deleted_at")
+  firstName            String          @map("first_name")
+  lastName             String          @map("last_name")
+  language             Locale          @default(enUS) @map("language")
+  hasVerifiedEmail     Boolean         @default(false) @map("has_verified_email")
+  hashToVerifyEmail    String?         @unique @map("hash_to_verify_email")
+  hashToChangePassword String?         @unique @map("hash_to_change_password")
+  birthDay             DateTime?       @map("birth_day")
+  createdAt            DateTime        @default(now()) @map("created_at")
+  updatedAt            DateTime        @default(now()) @updatedAt @map("updated_at")
+  deletedAt            DateTime?       @map("deleted_at")
   accounts             Account[]
   categories           Category[]
   creditCards          CreditCard[]
   operations           Operation[]
+  paymentMethod        PaymentMethod[]
 
   @@map("users")
 }

@@ -116,6 +116,7 @@ export interface NexusGenInputs {
     gte?: NexusGenScalars['DateTime'] | null; // DateTime
     lt?: NexusGenScalars['DateTime'] | null; // DateTime
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
+    not?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   FilterString: { // input type
     contains?: string | null; // String
@@ -130,6 +131,7 @@ export interface NexusGenInputs {
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    paymentMethodId?: string | null; // String
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
   }
@@ -147,6 +149,7 @@ export interface NexusGenInputs {
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    paymentMethodId?: string | null; // String
     type: NexusGenEnums['TransactionType']; // TransactionType!
     value: number; // Float!
   }
@@ -162,6 +165,28 @@ export interface NexusGenInputs {
   OperationWhereUniqueInput: { // input type
     id: string; // ID!
   }
+  PaymentMethodCreateInput: { // input type
+    accountId: string; // String!
+    name: string; // String!
+  }
+  PaymentMethodOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  PaymentMethodUpdateInput: { // input type
+    accountId: string; // String!
+    name: string; // String!
+  }
+  PaymentMethodWhereInput: { // input type
+    accountId?: NexusGenInputs['IdFilter'] | null; // IdFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  PaymentMethodWhereUniqueInput: { // input type
+    id: string; // String!
+  }
   RegisterInput: { // input type
     currency?: NexusGenEnums['Currency'] | null; // Currency
     email: string; // String!
@@ -174,6 +199,7 @@ export interface NexusGenInputs {
     contains?: string | null; // String
     endsWith?: string | null; // String
     equals?: string | null; // String
+    not?: string | null; // String
     startsWith?: string | null; // String
   }
   TransactionTypeFilter: { // input type
@@ -273,6 +299,7 @@ export interface NexusGenObjects {
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    paymentMethodId?: string | null; // String
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     userId: string; // String!
@@ -280,6 +307,22 @@ export interface NexusGenObjects {
   }
   Pagination: { // root type
     totalItems?: number | null; // Int
+  }
+  PaymentMethod: { // root type
+    accountId: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string; // ID!
+    name: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    userId: string; // String!
+  }
+  PaymentMethodListResult: { // root type
+    data: NexusGenRootTypes['PaymentMethod'][]; // [PaymentMethod!]!
+    pagination?: NexusGenRootTypes['Pagination'] | null; // Pagination
+  }
+  PaymentMethodSingleResult: { // root type
+    data?: NexusGenRootTypes['PaymentMethod'] | null; // PaymentMethod
   }
   Query: {};
   Subscription: {};
@@ -378,6 +421,10 @@ export interface NexusGenFieldTypes {
     deleteOneCreditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
     deleteOneOperation: NexusGenRootTypes['Operation'] | null; // Operation
     login: NexusGenRootTypes['AuthPayloada'] | null; // AuthPayloada
+    paymentMethodCreateOne: NexusGenRootTypes['PaymentMethodSingleResult']; // PaymentMethodSingleResult!
+    paymentMethodDeleteOne: NexusGenRootTypes['PaymentMethodSingleResult'] | null; // PaymentMethodSingleResult
+    paymentMethodRestoreOne: NexusGenRootTypes['PaymentMethodSingleResult'] | null; // PaymentMethodSingleResult
+    paymentMethodUpdateOne: NexusGenRootTypes['PaymentMethodSingleResult']; // PaymentMethodSingleResult!
     register: string | null; // String
     requestChangePassword: string | null; // String
     restoreOneAccount: NexusGenRootTypes['Account'] | null; // Account
@@ -403,6 +450,8 @@ export interface NexusGenFieldTypes {
     isPaid: boolean; // Boolean!
     name: string; // String!
     paidAt: NexusGenScalars['DateTime'] | null; // DateTime
+    paymentMethod: NexusGenRootTypes['PaymentMethodSingleResult'] | null; // PaymentMethodSingleResult
+    paymentMethodId: string | null; // String
     type: NexusGenEnums['TransactionType']; // TransactionType!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
@@ -411,6 +460,22 @@ export interface NexusGenFieldTypes {
   }
   Pagination: { // field return type
     totalItems: number | null; // Int
+  }
+  PaymentMethod: { // field return type
+    accountId: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string; // ID!
+    name: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    userId: string; // String!
+  }
+  PaymentMethodListResult: { // field return type
+    data: NexusGenRootTypes['PaymentMethod'][]; // [PaymentMethod!]!
+    pagination: NexusGenRootTypes['Pagination'] | null; // Pagination
+  }
+  PaymentMethodSingleResult: { // field return type
+    data: NexusGenRootTypes['PaymentMethod'] | null; // PaymentMethod
   }
   Query: { // field return type
     calcManyCreditCardLimit: NexusGenRootTypes['CalcCreditCardsLimitResults'][]; // [CalcCreditCardsLimitResults!]!
@@ -424,6 +489,8 @@ export interface NexusGenFieldTypes {
     findUniqueCategory: NexusGenRootTypes['Category'] | null; // Category
     findUniqueCreditCard: NexusGenRootTypes['CreditCard'] | null; // CreditCard
     me: NexusGenRootTypes['User'] | null; // User
+    paymentMethod: NexusGenRootTypes['PaymentMethodSingleResult'] | null; // PaymentMethodSingleResult
+    paymentMethods: NexusGenRootTypes['PaymentMethodListResult'] | null; // PaymentMethodListResult
   }
   Subscription: { // field return type
     userSignedIn: NexusGenRootTypes['User'] | null; // User
@@ -518,6 +585,10 @@ export interface NexusGenFieldTypeNames {
     deleteOneCreditCard: 'CreditCard'
     deleteOneOperation: 'Operation'
     login: 'AuthPayloada'
+    paymentMethodCreateOne: 'PaymentMethodSingleResult'
+    paymentMethodDeleteOne: 'PaymentMethodSingleResult'
+    paymentMethodRestoreOne: 'PaymentMethodSingleResult'
+    paymentMethodUpdateOne: 'PaymentMethodSingleResult'
     register: 'String'
     requestChangePassword: 'String'
     restoreOneAccount: 'Account'
@@ -543,6 +614,8 @@ export interface NexusGenFieldTypeNames {
     isPaid: 'Boolean'
     name: 'String'
     paidAt: 'DateTime'
+    paymentMethod: 'PaymentMethodSingleResult'
+    paymentMethodId: 'String'
     type: 'TransactionType'
     updatedAt: 'DateTime'
     user: 'User'
@@ -551,6 +624,22 @@ export interface NexusGenFieldTypeNames {
   }
   Pagination: { // field return type name
     totalItems: 'Int'
+  }
+  PaymentMethod: { // field return type name
+    accountId: 'String'
+    createdAt: 'DateTime'
+    deletedAt: 'DateTime'
+    id: 'ID'
+    name: 'String'
+    updatedAt: 'DateTime'
+    userId: 'String'
+  }
+  PaymentMethodListResult: { // field return type name
+    data: 'PaymentMethod'
+    pagination: 'Pagination'
+  }
+  PaymentMethodSingleResult: { // field return type name
+    data: 'PaymentMethod'
   }
   Query: { // field return type name
     calcManyCreditCardLimit: 'CalcCreditCardsLimitResults'
@@ -564,6 +653,8 @@ export interface NexusGenFieldTypeNames {
     findUniqueCategory: 'Category'
     findUniqueCreditCard: 'CreditCard'
     me: 'User'
+    paymentMethod: 'PaymentMethodSingleResult'
+    paymentMethods: 'PaymentMethodListResult'
   }
   Subscription: { // field return type name
     userSignedIn: 'User'
@@ -627,6 +718,19 @@ export interface NexusGenArgTypes {
     login: { // args
       email: string; // String!
       password: string; // String!
+    }
+    paymentMethodCreateOne: { // args
+      input: NexusGenInputs['PaymentMethodCreateInput']; // PaymentMethodCreateInput!
+    }
+    paymentMethodDeleteOne: { // args
+      where: NexusGenInputs['PaymentMethodWhereUniqueInput']; // PaymentMethodWhereUniqueInput!
+    }
+    paymentMethodRestoreOne: { // args
+      where: NexusGenInputs['PaymentMethodWhereUniqueInput']; // PaymentMethodWhereUniqueInput!
+    }
+    paymentMethodUpdateOne: { // args
+      id: string; // String!
+      input: NexusGenInputs['PaymentMethodUpdateInput']; // PaymentMethodUpdateInput!
     }
     register: { // args
       user: NexusGenInputs['RegisterInput']; // RegisterInput!
@@ -712,6 +816,16 @@ export interface NexusGenArgTypes {
     }
     findUniqueCreditCard: { // args
       where?: NexusGenInputs['CreditCardWhereUniqueInput'] | null; // CreditCardWhereUniqueInput
+    }
+    paymentMethod: { // args
+      where?: NexusGenInputs['PaymentMethodWhereUniqueInput'] | null; // PaymentMethodWhereUniqueInput
+    }
+    paymentMethods: { // args
+      cursor?: NexusGenInputs['PaymentMethodWhereUniqueInput'] | null; // PaymentMethodWhereUniqueInput
+      orderBy?: Array<NexusGenInputs['PaymentMethodOrderByInput'] | null> | null; // [PaymentMethodOrderByInput]
+      skip?: number | null; // Int
+      take?: number | null; // Int
+      where?: NexusGenInputs['PaymentMethodWhereInput'] | null; // PaymentMethodWhereInput
     }
   }
   Subscription: {

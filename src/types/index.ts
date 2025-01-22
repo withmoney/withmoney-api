@@ -4,6 +4,7 @@ export * from './Account';
 export * from './Category';
 export * from './CreditCard';
 export * from './Operation';
+export * from './PaymentMethod';
 export * from './User';
 
 export * from './Subscription';

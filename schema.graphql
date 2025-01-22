@@ -203,6 +203,7 @@ input DateTimeFilter {
   gte: DateTime
   lt: DateTime
   lte: DateTime
+  not: DateTime
 }
 
 input FilterString {
@@ -231,6 +232,10 @@ type Mutation {
   deleteOneCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteOneOperation(where: OperationWhereUniqueInput!): Operation
   login(email: String!, password: String!): AuthPayloada
+  paymentMethodCreateOne(input: PaymentMethodCreateInput!): PaymentMethodSingleResult!
+  paymentMethodDeleteOne(where: PaymentMethodWhereUniqueInput!): PaymentMethodSingleResult
+  paymentMethodRestoreOne(where: PaymentMethodWhereUniqueInput!): PaymentMethodSingleResult
+  paymentMethodUpdateOne(id: String!, input: PaymentMethodUpdateInput!): PaymentMethodSingleResult!
   register(user: RegisterInput!): String
   requestChangePassword(email: String!): String
   restoreOneAccount(where: AccountWhereUniqueInput!): Account
@@ -257,6 +262,8 @@ type Operation {
   isPaid: Boolean!
   name: String!
   paidAt: DateTime
+  paymentMethod: PaymentMethodSingleResult
+  paymentMethodId: String
   type: TransactionType!
   updatedAt: DateTime!
   user: User!
@@ -271,6 +278,7 @@ input OperationCreateInput {
   isPaid: Boolean!
   name: String!
   paidAt: DateTime
+  paymentMethodId: String
   type: TransactionType!
   value: Float!
 }
@@ -290,6 +298,7 @@ input OperationUpdateInput {
   isPaid: Boolean!
   name: String!
   paidAt: DateTime
+  paymentMethodId: String
   type: TransactionType!
   value: Float!
 }
@@ -312,6 +321,52 @@ type Pagination {
   totalItems: Int
 }
 
+type PaymentMethod {
+  accountId: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  userId: String!
+}
+
+input PaymentMethodCreateInput {
+  accountId: String!
+  name: String!
+}
+
+type PaymentMethodListResult {
+  data: [PaymentMethod!]!
+  pagination: Pagination
+}
+
+input PaymentMethodOrderByInput {
+  createdAt: SortOrder
+  name: SortOrder
+}
+
+type PaymentMethodSingleResult {
+  data: PaymentMethod
+}
+
+input PaymentMethodUpdateInput {
+  accountId: String!
+  name: String!
+}
+
+input PaymentMethodWhereInput {
+  accountId: IdFilter
+  createdAt: DateTimeFilter
+  deletedAt: DateTimeFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input PaymentMethodWhereUniqueInput {
+  id: String!
+}
+
 type Query {
   calcManyCreditCardLimit(where: CalcCreditCardsLimitWhereInput!): [CalcCreditCardsLimitResults!]!
   calcPreviousBalance(where: CalcPreviousBalanceWhereInput!): CalcPreviousBalanceResult!
@@ -324,6 +379,8 @@ type Query {
   findUniqueCategory(where: CategoryWhereUniqueInput): Category
   findUniqueCreditCard(where: CreditCardWhereUniqueInput): CreditCard
   me: User
+  paymentMethod(where: PaymentMethodWhereUniqueInput): PaymentMethodSingleResult
+  paymentMethods(cursor: PaymentMethodWhereUniqueInput, orderBy: [PaymentMethodOrderByInput], skip: Int, take: Int, where: PaymentMethodWhereInput): PaymentMethodListResult
 }
 
 input RegisterInput {
@@ -344,6 +401,7 @@ input StringFilter {
   contains: String
   endsWith: String
   equals: String
+  not: String
   startsWith: String
 }
 

@@ -18,7 +18,20 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
   },
   resolve: async (
     parent,
-    { data: { accountId, name, value, type, isPaid, paidAt, categoryId, creditCardId }, where },
+    {
+      data: {
+        accountId,
+        name,
+        value,
+        type,
+        isPaid,
+        paidAt,
+        categoryId,
+        creditCardId,
+        paymentMethodId,
+      },
+      where,
+    },
     ctx,
   ) => {
     const userId = await getUserId(ctx);
@@ -54,6 +67,13 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
       throw new ValidationError('creditCardId not found');
     }
 
+    if (
+      paymentMethodId &&
+      !(await ctx.prisma.paymentMethod.findUnique({ where: { id: paymentMethodId, userId } }))
+    ) {
+      throw new ValidationError('paymentMethodId not found');
+    }
+
     return ctx.prisma.operation.update({
       where,
       data: {
@@ -69,6 +89,9 @@ export const OperationUpdateOneMutation = mutationField('updateOneOperation', {
         }),
         ...(!!creditCardId && {
           creditCard: { connect: { id: creditCardId } },
+        }),
+        ...(!!paymentMethodId && {
+          paymentMethod: { connect: { id: paymentMethodId } },
         }),
       },
     });

@@ -8,6 +8,7 @@ export const DateTimeFilter = inputObjectType({
     t.field('gte', { type: 'DateTime' });
     t.field('lt', { type: 'DateTime' });
     t.field('lte', { type: 'DateTime' });
+    t.field('not', { type: 'DateTime' });
   },
 });
 
@@ -15,6 +16,7 @@ export const StringFilter = inputObjectType({
   name: 'StringFilter',
   definition(t) {
     t.string('equals');
+    t.string('not');
     t.string('contains');
     t.string('startsWith');
     t.string('endsWith');
