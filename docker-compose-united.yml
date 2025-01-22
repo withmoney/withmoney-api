@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '5500:5500'
+    command: >
+      sh -c "pnpm install && \
+             pnpm env-cmd -f .env.docker pnpm prisma generate && \
+             pnpm env-cmd -f .env.docker pnpm prisma migrate dev && \
+             pnpm env-cmd -f .env.docker pnpm start:docker"
+    depends_on:
+      - database
+      - smtp
+
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: withmoney_dev
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123asd
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  smtp:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - '7777:1025'
+      - '8025:8025'
+
+  pgweb:
+    image: sosedoff/pgweb
+    restart: always
+    ports:
+      - '8889:8081'
+    environment:
+      DATABASE_URL: postgres://root:123asd@database:5432/withmoney_dev?sslmode=disable
+    depends_on:
+      - database
+
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile.prisma-studio
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '5555:5555'
+    command: >
+      sh -c "pnpm install && pnpm env-cmd -f .env.docker pnpm prisma studio"
+    depends_on:
+      - database

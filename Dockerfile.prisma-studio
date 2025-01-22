@@ -1,0 +1,10 @@
+FROM node:18
+
+# Enable Corepack for pnpm
+RUN corepack enable
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Install pnpm globally
+RUN corepack prepare pnpm@latest --activate

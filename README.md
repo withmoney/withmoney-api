@@ -1,41 +1,27 @@
 # withmoney - api
 
-## Requirements
+# using the docker-compose-united
 
-1. `yarn`
-2. `node@12`
-3. `docker`
-4. `docker-compose`
+```
+pnpm install
+```
 
-## Installation
+```
+docker-compose -f docker-compose-united.yml up --build
+```
 
-1. `yarn`
-2. `cp .env.example .env`
+### backend
 
-## Using for development
+- http://localhost:5500/graphql
 
-`yarn dev`
+### mail
 
-## Using docker-compose
+- http://localhost:8025/
 
-`docker-compose up -d`
+### pgweb
 
-## Using email
+- http://localhost:8889/
 
-If you got this error `Email envs are not defined` that's mean that you need to use some smtp
-server, we suggest use the https://mailtrap.io
+### prisma studio
 
-## database migration
-
-## generating new migration
-
-yarn migrate:save
-yarn migrate:up // to apply
-
-### first time
-
-1. `yarn migrate:up`
-
-## Using the queries
-
-https://www.notion.so/withmoney-server-4141ff4995d94d5ebb6f1350be727723
+- http://localhost:5555/

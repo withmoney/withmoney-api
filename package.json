@@ -19,6 +19,7 @@
   "homepage": "https://github.com/withmoney/withmoney-api#readme",
   "scripts": {
     "dev": "nodemon",
+    "start:docker": "env-cmd -f .env.docker ts-node -r tsconfig-paths/register src/main.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --ext .js,.ts,.json --max-warnings 0 .",
     "lint:fix": "yarn lint:js --fix",
@@ -72,5 +73,6 @@
     "nodemailer": "6.9.16",
     "uuid": "10.0.0",
     "ws": "^7.5.10"
-  }
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
