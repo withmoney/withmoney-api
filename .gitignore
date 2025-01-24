@@ -4,3 +4,4 @@ coverage
 data
 .vscode
 .env
+.pnpm-store
