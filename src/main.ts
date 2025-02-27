@@ -42,7 +42,6 @@ const server = new ApolloServer<Context>({
   ],
 });
 
-
 async function startServer() {
   await server.start();
 
@@ -55,13 +54,9 @@ async function startServer() {
     }),
   );
 
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port: PORT }, resolve),
-  );
+  await new Promise<void>((resolve) => httpServer.listen({ port: PORT, host: `0.0.0.0` }, resolve));
 
   console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
 }
 
 startServer();
-
-
